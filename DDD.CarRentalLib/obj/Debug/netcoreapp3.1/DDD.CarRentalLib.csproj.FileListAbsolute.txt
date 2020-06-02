@@ -1,0 +1,11 @@
+C:\Users\mikol\source\repos\DDD.CarRental\DDD.CarRentalLib\bin\Debug\netcoreapp3.1\DDD.Base.dll
+C:\Users\mikol\source\repos\DDD.CarRental\DDD.CarRentalLib\obj\Debug\netcoreapp3.1\DDD.CarRentalLib.csprojAssemblyReference.cache
+C:\Users\mikol\source\repos\DDD.CarRental\DDD.CarRentalLib\obj\Debug\netcoreapp3.1\DDD.CarRentalLib.AssemblyInfoInputs.cache
+C:\Users\mikol\source\repos\DDD.CarRental\DDD.CarRentalLib\obj\Debug\netcoreapp3.1\DDD.CarRentalLib.AssemblyInfo.cs
+C:\Users\mikol\source\repos\DDD.CarRental\DDD.CarRentalLib\bin\Debug\netcoreapp3.1\DDD.CarRentalLib.deps.json
+C:\Users\mikol\source\repos\DDD.CarRental\DDD.CarRentalLib\bin\Debug\netcoreapp3.1\DDD.CarRentalLib.dll
+C:\Users\mikol\source\repos\DDD.CarRental\DDD.CarRentalLib\bin\Debug\netcoreapp3.1\DDD.CarRentalLib.pdb
+C:\Users\mikol\source\repos\DDD.CarRental\DDD.CarRentalLib\bin\Debug\netcoreapp3.1\DDD.Base.pdb
+C:\Users\mikol\source\repos\DDD.CarRental\DDD.CarRentalLib\obj\Debug\netcoreapp3.1\DDD.CarRentalLib.csproj.CopyComplete
+C:\Users\mikol\source\repos\DDD.CarRental\DDD.CarRentalLib\obj\Debug\netcoreapp3.1\DDD.CarRentalLib.dll
+C:\Users\mikol\source\repos\DDD.CarRental\DDD.CarRentalLib\obj\Debug\netcoreapp3.1\DDD.CarRentalLib.pdb

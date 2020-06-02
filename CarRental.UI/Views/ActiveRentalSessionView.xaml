@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="CarRental.UI.Views.ActiveRentalSessionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CarRental.UI.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <StackPanel DataContext="{Binding ActiveRentalSessionViewModel, Source={StaticResource Locator}}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Button  Grid.Row="0" Command="{Binding CloseActiveRentalSessionViewCommand}" Foreground="White" Height="75" Width="75" Padding="10" HorizontalAlignment="Left" Content="{materialDesign:PackIcon Home, Size=50}"
+                 ToolTip="Icon"/>
+            <Label Grid.Row="1" Content="Car Info:" FontSize="30" ></Label>
+            <TextBox Grid.Row="1" Text="{Binding CarInfo}" FontSize="30" Margin="125,0,0,49" Grid.RowSpan="2"></TextBox>
+            <Label Grid.Row="2" Content="Price per minute:" FontSize="30"></Label>
+            <TextBox Grid.Row="1" Text="{Binding PricePerMinute}" FontSize="30" Margin="240,48,0,75" Grid.RowSpan="3"></TextBox>
+            <TextBox Grid.Row="3" Text="{Binding TimerText}" FontSize="50"  HorizontalAlignment="Center"></TextBox>
+            <Button Grid.Row="4" Command="{Binding StopRentalCommand}" Content="Stop Rental" FontSize="30" Height="100" Width="400" Padding="10" HorizontalAlignment="Center"/>
+        </Grid>
+    </StackPanel>
+
+</UserControl>

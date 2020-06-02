@@ -1,0 +1,9 @@
+D:\Student\Wzorce projektowe\EscapeRoom\Base.DDD\bin\Debug\netcoreapp3.1\Base.DDD.deps.json
+D:\Student\Wzorce projektowe\EscapeRoom\Base.DDD\bin\Debug\netcoreapp3.1\Base.DDD.dll
+D:\Student\Wzorce projektowe\EscapeRoom\Base.DDD\bin\Debug\netcoreapp3.1\Base.DDD.pdb
+D:\Student\Wzorce projektowe\EscapeRoom\Base.DDD\obj\Debug\netcoreapp3.1\Base.DDD.csprojAssemblyReference.cache
+D:\Student\Wzorce projektowe\EscapeRoom\Base.DDD\obj\Debug\netcoreapp3.1\Base.DDD.csproj.CoreCompileInputs.cache
+D:\Student\Wzorce projektowe\EscapeRoom\Base.DDD\obj\Debug\netcoreapp3.1\Base.DDD.AssemblyInfoInputs.cache
+D:\Student\Wzorce projektowe\EscapeRoom\Base.DDD\obj\Debug\netcoreapp3.1\Base.DDD.AssemblyInfo.cs
+D:\Student\Wzorce projektowe\EscapeRoom\Base.DDD\obj\Debug\netcoreapp3.1\Base.DDD.dll
+D:\Student\Wzorce projektowe\EscapeRoom\Base.DDD\obj\Debug\netcoreapp3.1\Base.DDD.pdb

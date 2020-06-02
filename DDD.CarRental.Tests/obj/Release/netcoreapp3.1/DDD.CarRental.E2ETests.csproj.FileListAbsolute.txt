@@ -1,0 +1,13 @@
+C:\Users\mikol\source\repos\DDD.CarRental\DDD.CarRental.Tests\bin\Release\netcoreapp3.1\DDD.CarRental.E2ETests.deps.json
+C:\Users\mikol\source\repos\DDD.CarRental\DDD.CarRental.Tests\bin\Release\netcoreapp3.1\DDD.CarRental.E2ETests.dll
+C:\Users\mikol\source\repos\DDD.CarRental\DDD.CarRental.Tests\bin\Release\netcoreapp3.1\DDD.CarRental.E2ETests.pdb
+C:\Users\mikol\source\repos\DDD.CarRental\DDD.CarRental.Tests\bin\Release\netcoreapp3.1\DDD.Base.dll
+C:\Users\mikol\source\repos\DDD.CarRental\DDD.CarRental.Tests\bin\Release\netcoreapp3.1\DDD.CarRentalLib.dll
+C:\Users\mikol\source\repos\DDD.CarRental\DDD.CarRental.Tests\bin\Release\netcoreapp3.1\DDD.Base.pdb
+C:\Users\mikol\source\repos\DDD.CarRental\DDD.CarRental.Tests\bin\Release\netcoreapp3.1\DDD.CarRentalLib.pdb
+C:\Users\mikol\source\repos\DDD.CarRental\DDD.CarRental.Tests\obj\Release\netcoreapp3.1\DDD.CarRental.E2ETests.csprojAssemblyReference.cache
+C:\Users\mikol\source\repos\DDD.CarRental\DDD.CarRental.Tests\obj\Release\netcoreapp3.1\DDD.CarRental.E2ETests.AssemblyInfoInputs.cache
+C:\Users\mikol\source\repos\DDD.CarRental\DDD.CarRental.Tests\obj\Release\netcoreapp3.1\DDD.CarRental.E2ETests.AssemblyInfo.cs
+C:\Users\mikol\source\repos\DDD.CarRental\DDD.CarRental.Tests\obj\Release\netcoreapp3.1\DDD.CarRental.E2ETests.csproj.CopyComplete
+C:\Users\mikol\source\repos\DDD.CarRental\DDD.CarRental.Tests\obj\Release\netcoreapp3.1\DDD.CarRental.E2ETests.dll
+C:\Users\mikol\source\repos\DDD.CarRental\DDD.CarRental.Tests\obj\Release\netcoreapp3.1\DDD.CarRental.E2ETests.pdb

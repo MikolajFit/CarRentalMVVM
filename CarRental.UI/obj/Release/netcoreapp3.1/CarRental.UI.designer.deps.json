@@ -1,0 +1,91 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "Dragablz.NetCore/0.3.3": {
+        "runtime": {
+          "lib/netcoreapp3.1/Dragablz.dll": {
+            "assemblyVersion": "0.3.3.0",
+            "fileVersion": "0.3.3.0"
+          }
+        }
+      },
+      "GeoCoordinate.NetCore/1.0.0.1": {
+        "runtime": {
+          "lib/netstandard1.6/GeoCoordinate.NetCore.dll": {
+            "assemblyVersion": "1.0.0.1",
+            "fileVersion": "1.0.0.1"
+          }
+        }
+      },
+      "MaterialDesignColors/1.2.5": {
+        "runtime": {
+          "lib/netcoreapp3.1/MaterialDesignColors.dll": {
+            "assemblyVersion": "1.2.5.1465",
+            "fileVersion": "1.2.5.1465"
+          }
+        }
+      },
+      "MaterialDesignThemes/3.1.2": {
+        "dependencies": {
+          "MaterialDesignColors": "1.2.5"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/MaterialDesignThemes.Wpf.dll": {
+            "assemblyVersion": "3.1.2.1465",
+            "fileVersion": "3.1.2.1465"
+          }
+        }
+      },
+      "MvvmLightLibsStd10/5.4.1.1": {
+        "runtime": {
+          "lib/netstandard1.0/GalaSoft.MvvmLight.dll": {
+            "assemblyVersion": "5.4.1.0",
+            "fileVersion": "5.4.1.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Dragablz.NetCore/0.3.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-eC+L8Gbu3tJHexlVDLKlHPHIyt/oYCDl6ixLVqJA3Zzvn9agkV/nGJaufujPO0ZaW2G+l4xnScP142w8NvCp/Q==",
+      "path": "dragablz.netcore/0.3.3",
+      "hashPath": "dragablz.netcore.0.3.3.nupkg.sha512"
+    },
+    "GeoCoordinate.NetCore/1.0.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-VrR5MLkh0u2qka79JcQ/GUrgHwGidayCA7nKy2430qYX/JHdrHLgwp1MuBTSsygWs0s2V6GQ0Hp8HUMatHiWFw==",
+      "path": "geocoordinate.netcore/1.0.0.1",
+      "hashPath": "geocoordinate.netcore.1.0.0.1.nupkg.sha512"
+    },
+    "MaterialDesignColors/1.2.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-RrgpDKLrU3j++fIeKc3wnYZUbIvgVjVQEttIyCvIV4/UyOnnDvRXGw2FjMJFvHIArRI6gBYS3hcZBP3mjVuOng==",
+      "path": "materialdesigncolors/1.2.5",
+      "hashPath": "materialdesigncolors.1.2.5.nupkg.sha512"
+    },
+    "MaterialDesignThemes/3.1.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-A0r3ZTwUq9zLdtdLOM02gU9ecCwuDJARS4uA98PTQQn1ngf94vI8zWshieoXK2VUD5V4HauJpJF/WAFfzvdwpg==",
+      "path": "materialdesignthemes/3.1.2",
+      "hashPath": "materialdesignthemes.3.1.2.nupkg.sha512"
+    },
+    "MvvmLightLibsStd10/5.4.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-zU9KXgq8dfnzxxOvvAVtasbhaQGoDlTr8Pw2AjZ1NB905GQljrxqkgh3jo5/47Vux5duw3/faUgcZjdfomGvFw==",
+      "path": "mvvmlightlibsstd10/5.4.1.1",
+      "hashPath": "mvvmlightlibsstd10.5.4.1.1.nupkg.sha512"
+    }
+  }
+}
