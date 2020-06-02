@@ -1,9 +1,0 @@
-C:\Users\mikol\source\repos\DDD.CarRental\DDD.Base\bin\Release\netcoreapp3.1\DDD.Base.deps.json
-C:\Users\mikol\source\repos\DDD.CarRental\DDD.Base\bin\Release\netcoreapp3.1\DDD.Base.dll
-C:\Users\mikol\source\repos\DDD.CarRental\DDD.Base\bin\Release\netcoreapp3.1\DDD.Base.pdb
-C:\Users\mikol\source\repos\DDD.CarRental\DDD.Base\obj\Release\netcoreapp3.1\DDD.Base.csprojAssemblyReference.cache
-C:\Users\mikol\source\repos\DDD.CarRental\DDD.Base\obj\Release\netcoreapp3.1\DDD.Base.csproj.CoreCompileInputs.cache
-C:\Users\mikol\source\repos\DDD.CarRental\DDD.Base\obj\Release\netcoreapp3.1\DDD.Base.AssemblyInfoInputs.cache
-C:\Users\mikol\source\repos\DDD.CarRental\DDD.Base\obj\Release\netcoreapp3.1\DDD.Base.AssemblyInfo.cs
-C:\Users\mikol\source\repos\DDD.CarRental\DDD.Base\obj\Release\netcoreapp3.1\DDD.Base.dll
-C:\Users\mikol\source\repos\DDD.CarRental\DDD.Base\obj\Release\netcoreapp3.1\DDD.Base.pdb
