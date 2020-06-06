@@ -19,14 +19,14 @@ namespace DDD.CarRentalLib.DomainModelLayer.Models
             LicenseNumber = licenseNumber;
             FirstName = firstName;
             LastName = lastName;
-            if (FirstName.EndsWith('a')) RegisterPolicy(new StandardFreeMinutesPolicy());
+            if (FirstName.EndsWith("a")) RegisterPolicy(new StandardFreeMinutesPolicy());
             else RegisterPolicy(new VipFreeMinutesPolicy());
         }
 
         public string LicenseNumber
         {
             get => _licenseNumber;
-            protected set
+            set
             {
                 if (string.IsNullOrEmpty(value)) throw new Exception("License number is null or empty");
                 _licenseNumber = value;
@@ -35,8 +35,8 @@ namespace DDD.CarRentalLib.DomainModelLayer.Models
 
         public string FirstName
         {
-            get => _firstName;
-            protected set
+            get => _firstName; 
+            set
             {
                 if (string.IsNullOrEmpty(value)) throw new Exception("First name is null or empty");
                 _firstName = value;

@@ -1,0 +1,41 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CarRental.UI.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="CarRental.UI.Views.RentCarView"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="660">
+    <DockPanel  DataContext="{Binding RentCarViewModel, Source={StaticResource Locator}}" Background="White">
+        <Grid Background="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="400" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.ColumnSpan="2" Content="Available cars to rent" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="30" Background="#FF4CAF50" Foreground="White" FontWeight="Medium"/>
+            <ListView Style="{DynamicResource MaterialDesignListView}" Grid.Column="0" HorizontalContentAlignment="Center " Grid.Row="1" SelectionMode="Single" ItemsSource="{Binding AvailableCars}" SelectedItem="{Binding SelectedCar}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Registration Number" DisplayMemberBinding="{Binding RegistrationNumber}" />
+                        <GridViewColumn Header="Lat." DisplayMemberBinding="{Binding CurrentLatitude}"/>
+                        <GridViewColumn Header="Long." DisplayMemberBinding="{Binding CurrentLongitude}"/>
+                        <GridViewColumn Header="Price per minute" DisplayMemberBinding="{Binding PricePerMinute}">
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Label Grid.Row="1" Grid.Column="1"  Content="{Binding SelectedCar.RegistrationNumber}" Height="50" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="30" Background="White" Foreground="#FF4CAF50" FontWeight="Medium" Margin="0,50,0,0"/>
+            <Label Grid.Column="1"  Content="Selected car" Height="50" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="30" Background="White" Foreground="#FF4CAF50" FontWeight="Medium" Grid.Row="1"/>
+
+            <Button  Grid.Row="1" Grid.Column="1" Command="{Binding RentCarCommand}" Content="Rent" FontSize="15" Height="50"
+                     Margin="10" Background="#FF4CAF50" Foreground="White" FontWeight="Normal" />
+
+        </Grid>
+
+    </DockPanel>
+</UserControl>

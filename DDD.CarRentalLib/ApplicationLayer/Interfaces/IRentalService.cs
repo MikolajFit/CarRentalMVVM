@@ -10,6 +10,7 @@ namespace DDD.CarRentalLib.ApplicationLayer.Interfaces
     {
         void TakeCar(Guid rentalId, Guid carId, Guid driverId, DateTime startDateTime);
         void ReturnCar(Guid rentalId, DateTime stopDateTime);
+        RentalDTO GetRental(Guid rentalId);
         List<RentalDTO> GetAllRentals();
         List<RentalDTO> GetRentalsForDriver(Guid driverId);
     }

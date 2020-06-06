@@ -22,15 +22,23 @@ namespace CarRental.UI.Views
         public LoginView()
         {
             InitializeComponent();
-            Closing += (s, e) => ViewModelLocator.Cleanup();
 
             Messenger.Default.Register<NotificationMessage>(this, (message) =>
             {
                 switch (message.Notification)
                 {
-                    case "CloseLoginWindow":
-                        var otherWindow = new DriverMainView();
-                        otherWindow.Show();
+                    case "GoToDriverMainWindow":
+                        ViewModelLocator.Cleanup();
+                        var driverMainView = new DriverMainView();
+                        driverMainView.Show();
+                        Messenger.Default.Unregister<NotificationMessage>(this);
+                        this.Close();
+                        break;
+                    case "GoToRegisterWindow":
+                        ViewModelLocator.Cleanup();
+                        var registerView = new RegisterDriverView();
+                        registerView.Show();
+                        Messenger.Default.Unregister<NotificationMessage>(this);
                         this.Close();
                         break;
                 }

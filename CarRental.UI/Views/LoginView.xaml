@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="LoginView" Height="600" Width="300">
 
-    <StackPanel DataContext="{Binding LoginViewModel, Source={StaticResource Locator}}">
+    <DockPanel DataContext="{Binding LoginViewModel, Source={StaticResource Locator}}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -19,17 +19,17 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Button  Grid.Row="0" Command="{Binding SubmitButtonCommand}" Content="Admin" FontSize="15" Height="50"
-                    Margin="10" Padding="10" Background="#FF76B542" Foreground="White" FontWeight="Normal" />
+            <Button  Grid.Row="0" Command="{Binding LoginCommand}" Content="Admin" FontSize="15" Height="50"
+                    Margin="10" Padding="10" Background="#FF4CAF50" Foreground="White" FontWeight="Normal" />
             <Image Height="250" Width="250" Grid.Row="1" Source="/Views/electric_car_.png" />
             <ComboBox Grid.Row="2" FontSize="20" Height="50" Margin="10" Padding="10" ItemsSource="{Binding Drivers}"
                       SelectedItem="{Binding SelectedDriver}" DisplayMemberPath="FirstName" />
-            <Button Grid.Row="3" Command="{Binding SubmitButtonCommand}" Content="Login" FontSize="15" Height="50"
+            <Button Grid.Row="3" Command="{Binding LoginCommand}" Content="Login" FontSize="15" Height="50"
                     Margin="10" Padding="10" />
-            <Button Grid.Row="4" Command="{Binding SubmitButtonCommand}" Content="Register" FontSize="15" Height="50"
+            <Button Grid.Row="4" Command="{Binding RegisterCommand}" Content="Register" FontSize="15" Height="50"
                     Margin="10" Padding="10" />
 
         </Grid>
-    </StackPanel>
+    </DockPanel>
 
 </Window>

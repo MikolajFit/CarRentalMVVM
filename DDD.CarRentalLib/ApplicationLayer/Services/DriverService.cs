@@ -34,6 +34,18 @@ namespace DDD.CarRentalLib.ApplicationLayer.Services
             _unitOfWork.Commit();
         }
 
+        public void UpdateDriver(DriverDTO driverDto)
+        {
+            var driver = _unitOfWork.DriverRepository.Find(d => d.Id == driverDto.Id)
+                .FirstOrDefault();
+            if (driver == null)
+                throw new Exception($"Driver with {driverDto.Id} was not found");
+            driver.FirstName = driverDto.FirstName;
+            driver.LastName = driverDto.LastName;
+            driver.LicenseNumber = driverDto.LicenseNumber;
+            _unitOfWork.Commit();
+        }
+
         public List<DriverDTO> GetAllDrivers()
         {
             var drivers = _unitOfWork.DriverRepository.GetAll();

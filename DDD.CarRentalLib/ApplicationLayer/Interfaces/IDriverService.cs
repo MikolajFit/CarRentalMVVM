@@ -9,6 +9,7 @@ namespace DDD.CarRentalLib.ApplicationLayer.Interfaces
     public interface IDriverService:IApplicationService
     {
         void CreateDriver(DriverDTO driverDto);
+        void UpdateDriver(DriverDTO driverDto);
         List<DriverDTO> GetAllDrivers();
     }
 }

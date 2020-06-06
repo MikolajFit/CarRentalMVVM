@@ -29,13 +29,13 @@ namespace DDD.CarRentalLib.ApplicationLayer.Services
 
         public void TakeCar(Guid rentalId, Guid carId, Guid driverId, DateTime startDateTime)
         {
-
             var car = _unitOfWork.CarRepository.Get(carId) ??
                       throw new Exception($"Could not find car '{carId}'.");
             var rentalArea = _unitOfWork.RentalAreaRepository.Find(r => r.Id == car.RentalAreaId).FirstOrDefault();
             if (rentalArea == null)
                 throw new Exception($"There is no rental area with {car.RentalAreaId} id.");
-            if (!rentalArea.IsInArea(car.CurrentPosition)) throw new Exception("Starting position of car cannot be outside of bonds!");
+            if (!rentalArea.IsInArea(car.CurrentPosition))
+                throw new Exception("Starting position of car cannot be outside of bonds!");
             var driver = _unitOfWork.DriverRepository.Get(driverId) ??
                          throw new Exception($"Could not find driver '{driverId}'.");
             var rental = _rentalFactory.Create(rentalId, startDateTime, car, driver.Id);
@@ -54,15 +54,26 @@ namespace DDD.CarRentalLib.ApplicationLayer.Services
             var driver = _unitOfWork.DriverRepository.Get(rental.DriverId) ??
                          throw new Exception($"Could not find driver '{rental.DriverId}'.");
             var rentalArea = _unitOfWork.RentalAreaRepository.Get(car.RentalAreaId) ??
-                         throw new Exception($"Could not find Rental Area '{car.RentalAreaId}'.");
+                             throw new Exception($"Could not find Rental Area '{car.RentalAreaId}'.");
 
             car.ExitCar();
             _positionService.UpdateCarPosition(car.Id);
             var outOfBondsPenalty = rentalArea.CalculateTotalPenalty(car);
             var totalMinutes = CalculateTotalMinutes(rental.StartDateTime, stopDateTime);
             var freeMinutes = driver.CalculateFreeMinutes(totalMinutes);
-            rental.StopRental(stopDateTime, car.PricePerMinute, totalMinutes, freeMinutes,outOfBondsPenalty);
+            rental.StopRental(stopDateTime, car.PricePerMinute, totalMinutes, freeMinutes, outOfBondsPenalty);
             _unitOfWork.Commit();
+        }
+
+        public RentalDTO GetRental(Guid rentalId)
+        {
+            var rental = _unitOfWork.RentalRepository.Find(r => r.Id == rentalId).FirstOrDefault();
+            var result = _rentalMapper.Map(rental);
+            var driver = _unitOfWork.DriverRepository.Get(result.DriverId);
+            var car = _unitOfWork.CarRepository.Get(result.CarId);
+            result.DriverName = driver.FirstName + " " + driver.LastName;
+            result.RegistrationNumber = car.RegistrationNumber;
+            return result;
         }
 
         public List<RentalDTO> GetAllRentals()
