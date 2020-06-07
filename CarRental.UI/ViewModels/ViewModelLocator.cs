@@ -2,6 +2,7 @@
 using CarRental.UI.Services;
 using CarRental.UI.Utils;
 using CarRental.UI.Utils.Interfaces;
+using CarRental.UI.ViewModels.AdminViewModels;
 using CarRental.UI.ViewModels.DriverViewModels;
 using DDD.Base.DomainModelLayer.Events;
 using DDD.CarRentalLib.ApplicationLayer.Interfaces;
@@ -37,10 +38,14 @@ namespace CarRental.UI.ViewModels
         public DriverRentalsViewModel DriverRentalsViewModel => SimpleIoc.Default.GetInstance<DriverRentalsViewModel>();
         public RentCarViewModel RentCarViewModel => SimpleIoc.Default.GetInstance<RentCarViewModel>();
         public DriverAccountViewModel DriverAccountViewModel => SimpleIoc.Default.GetInstance<DriverAccountViewModel>();
-        public RegisterDriverViewModel RegisterDriverViewModel => SimpleIoc.Default.GetInstance<RegisterDriverViewModel>();
+
+        public RegisterDriverViewModel RegisterDriverViewModel =>
+            SimpleIoc.Default.GetInstance<RegisterDriverViewModel>();
+
+        public AdminMainViewModel AdminMainViewModel => SimpleIoc.Default.GetInstance<AdminMainViewModel>();
 
         public static void RegisterViewModels()
-        { 
+        {
             SimpleIoc.Default.Register<DriverRentalsViewModel>();
             SimpleIoc.Default.Register<DriverMainViewModel>();
             SimpleIoc.Default.Register<LoginViewModel>();
@@ -48,6 +53,7 @@ namespace CarRental.UI.ViewModels
             SimpleIoc.Default.Register<ActiveRentalSessionViewModel>();
             SimpleIoc.Default.Register<DriverAccountViewModel>();
             SimpleIoc.Default.Register<RegisterDriverViewModel>();
+            SimpleIoc.Default.Register<AdminMainViewModel>();
         }
 
         public static void RegisterServices()
@@ -90,6 +96,7 @@ namespace CarRental.UI.ViewModels
 
         private static void UnregisterViewModels()
         {
+            SimpleIoc.Default.Unregister<AdminMainViewModel>();
             SimpleIoc.Default.Unregister<DriverRentalsViewModel>();
             SimpleIoc.Default.Unregister<DriverMainViewModel>();
             SimpleIoc.Default.Unregister<LoginViewModel>();

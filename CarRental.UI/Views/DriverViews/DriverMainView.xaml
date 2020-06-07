@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="MainWindow" Height="490" Width="860"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -13,7 +14,6 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}">
-
     <DockPanel DataContext="{Binding DriverMainViewModel, Source={StaticResource Locator}}">
         <TabControl  Height="490" Background="White" TabStripPlacement="Left" BorderThickness="0">
             <TabControl.ItemContainerStyle>
@@ -25,7 +25,10 @@
                     <Setter Property="BorderThickness" Value="10"/>
                 </Style>
             </TabControl.ItemContainerStyle>
-            <TabItem Header="Account"  >
+            <TabItem  >
+                <TabItem.Header>
+                    <materialDesign:PackIcon Style="{DynamicResource TabHeaderIcon}" Kind="Account" Height="70" Width="70"/>
+                </TabItem.Header>
                 <ContentControl Content="{Binding DriverAccountViewModel, Source={StaticResource Locator}}"></ContentControl>
             </TabItem>
             <TabItem Header="Rentals">

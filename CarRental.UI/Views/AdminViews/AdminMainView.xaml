@@ -5,8 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CarRental.UI.Views"
         mc:Ignorable="d"
-        Title="AdminMainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="AdminMainWindow" Height="480" Width="800"  
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto">
+
+    <DockPanel DataContext="{Binding AdminMainViewModel, Source={StaticResource Locator}}">
+        <TabControl  Height="450" Background="White" TabStripPlacement="Left" BorderThickness="0">
+            <TabControl.ItemContainerStyle>
+                <Style TargetType="{x:Type TabItem}">
+                    <Setter Property="Width" Value="150" />
+                    <Setter Property="Height" Value="150" />
+                    <Setter Property="FontSize" Value="15" />
+                    <Setter Property="Background" Value="#FF4CAF50" />
+                </Style>
+            </TabControl.ItemContainerStyle>
+            <TabItem Header="Drivers Management"  >
+                <ContentControl Content="{Binding DriversManagementViewModel, Source={StaticResource Locator}}"></ContentControl>
+            </TabItem>
+            <TabItem Header="Cars Management">
+                <ContentControl Content="{Binding CarsManagementViewModel,Source={StaticResource Locator}}" />
+            </TabItem>
+            <TabItem Header="Rentals Management">
+                <ContentControl Content="{Binding RentalsManagementViewModel}" />
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+
 </Window>

@@ -6,9 +6,12 @@
              xmlns:viewModels="clr-namespace:CarRental.UI.ViewModels"
              xmlns:views="clr-namespace:CarRental.UI.Views"
              xmlns:driverViewModels="clr-namespace:CarRental.UI.ViewModels.DriverViewModels"
+             xmlns:adminViewModels="clr-namespace:CarRental.UI.ViewModels.AdminViewModels"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              StartupUri="Views/LoginView.xaml">
     <Application.Resources>
         <ResourceDictionary>
+           
             <ResourceDictionary.MergedDictionaries>
                 <!-- primary color -->
                 <ResourceDictionary>
@@ -73,7 +76,23 @@
             <DataTemplate DataType="{x:Type viewModels:RegisterDriverViewModel}">
                 <views:RegisterDriverView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type adminViewModels:AdminMainViewModel}">
+                <views:AdminMainView />
+            </DataTemplate>
+            <Style x:Key="TabHeaderIcon" TargetType="{x:Type materialDesign:PackIcon}">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=TabItem}}" Value="True">
+                        <Setter Property="Foreground" Value="#FF4CAF50"/>
+                        <Setter Property="Background" Value="White"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=TabItem}}" Value="False">
+                        <Setter Property="Background" Value="#FF4CAF50"/>
+                        <Setter Property="Foreground" Value="White"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
         </ResourceDictionary>
+
     </Application.Resources>
 
 </Application>

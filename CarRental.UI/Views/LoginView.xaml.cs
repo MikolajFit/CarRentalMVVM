@@ -41,6 +41,13 @@ namespace CarRental.UI.Views
                         Messenger.Default.Unregister<NotificationMessage>(this);
                         this.Close();
                         break;
+                    case "GoToAdminMainView":
+                        ViewModelLocator.Cleanup();
+                        var adminView = new AdminMainView();
+                        adminView.Show();
+                        Messenger.Default.Unregister<NotificationMessage>(this);
+                        this.Close();
+                        break;
                 }
             });
         }

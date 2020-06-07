@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using DDD.CarRentalLib.ApplicationLayer.DTOs;
 using DDD.CarRentalLib.ApplicationLayer.Interfaces;
-using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 
@@ -18,11 +17,7 @@ namespace CarRental.UI.ViewModels
             LoginCommand = new RelayCommand(
                 NavigateToDriverMainView);
             RegisterCommand = new RelayCommand(NavigateToRegisterView);
-        }
-
-        private void NavigateToRegisterView()
-        {
-            Messenger.Default.Send(new NotificationMessage("GoToRegisterWindow"));
+            AdminLoginCommand = new RelayCommand(NavigateToAdminMainView);
         }
 
 
@@ -30,11 +25,22 @@ namespace CarRental.UI.ViewModels
 
         public RelayCommand LoginCommand { get; }
         public RelayCommand RegisterCommand { get; }
+        public RelayCommand AdminLoginCommand { get; }
 
         public DriverDTO SelectedDriver
         {
             get => _selectedDriver;
             set { Set(() => SelectedDriver, ref _selectedDriver, value); }
+        }
+
+        private void NavigateToAdminMainView()
+        {
+            Messenger.Default.Send(new NotificationMessage("GoToAdminMainView"));
+        }
+
+        private void NavigateToRegisterView()
+        {
+            Messenger.Default.Send(new NotificationMessage("GoToRegisterWindow"));
         }
 
         private void NavigateToDriverMainView()
