@@ -19,7 +19,12 @@ namespace DDD.CarRentalLib.ApplicationLayer.Mappers
                 Id = r.Id,
                 Name = r.Name,
                 OutOfBondsPenaltyPerDistanceUnit = r.OutOfBondsPenaltyPerDistanceUnit.Amount,
-                Area = new List<PositionDTO>()
+                Area = new List<PositionDTO>(),
+                CarStartingPositionDTO = new PositionDTO
+                {
+                    Latitude = r.CarStartingPosition.Latitude,
+                    Longitude = r.CarStartingPosition.Longitude
+                }
             };
             foreach (var point in r.Area.Polygon)
                 rental.Area.Add(new PositionDTO
@@ -27,7 +32,6 @@ namespace DDD.CarRentalLib.ApplicationLayer.Mappers
                     Latitude = point.Latitude,
                     Longitude = point.Longitude
                 });
-
             return rental;
         }
     }

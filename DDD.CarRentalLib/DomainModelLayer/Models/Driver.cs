@@ -11,7 +11,6 @@ namespace DDD.CarRentalLib.DomainModelLayer.Models
         private string _firstName;
         private string _lastName;
         private string _licenseNumber;
-        private IFreeMinutesPolicy _policy;
 
         public Driver(Guid id, IDomainEventPublisher domainEventPublisher, string licenseNumber, string firstName,
             string lastName) : base(id, domainEventPublisher)
@@ -19,10 +18,12 @@ namespace DDD.CarRentalLib.DomainModelLayer.Models
             LicenseNumber = licenseNumber;
             FirstName = firstName;
             LastName = lastName;
+            DriverStatus = DriverStatus.Active;
             if (FirstName.EndsWith("a")) RegisterPolicy(new StandardFreeMinutesPolicy());
             else RegisterPolicy(new VipFreeMinutesPolicy());
         }
-
+        public IFreeMinutesPolicy FreeMinutesPolicy { get; protected set; }
+        public DriverStatus DriverStatus { get; set; }
         public string LicenseNumber
         {
             get => _licenseNumber;
@@ -53,11 +54,11 @@ namespace DDD.CarRentalLib.DomainModelLayer.Models
             }
         }
 
-        public double CalculateFreeMinutes(double total) => _policy?.CalculateFreeMinutes(total) ?? 0;
+        public double CalculateFreeMinutes(double total) => FreeMinutesPolicy?.CalculateFreeMinutes(total) ?? 0;
 
         public void RegisterPolicy(IFreeMinutesPolicy policy)
         {
-            _policy = policy;
+            FreeMinutesPolicy = policy;
         }
     }
 }

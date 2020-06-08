@@ -7,6 +7,7 @@ using DDD.CarRentalLib.ApplicationLayer.Interfaces;
 using DDD.CarRentalLib.ApplicationLayer.Mappers;
 using DDD.CarRentalLib.DomainModelLayer.Factories;
 using DDD.CarRentalLib.DomainModelLayer.Interfaces;
+using DDD.CarRentalLib.DomainModelLayer.Models;
 
 namespace DDD.CarRentalLib.ApplicationLayer.Services
 {
@@ -30,6 +31,9 @@ namespace DDD.CarRentalLib.ApplicationLayer.Services
                 throw new Exception($"Rental Area with {rentalArea.Id} Id already exists.");
             rentalArea = _rentalAreaFactory.Create(rentalAreaDto.Id, rentalAreaDto.OutOfBondsPenaltyPerDistanceUnit,
                 rentalAreaDto.Area.ToList(), rentalAreaDto.Name);
+            if (rentalAreaDto.CarStartingPositionDTO != null)
+                rentalArea.CarStartingPosition = new Position(rentalAreaDto.CarStartingPositionDTO.Latitude,rentalAreaDto.CarStartingPositionDTO.Longitude);
+
             _unitOfWork.RentalAreaRepository.Insert(rentalArea);
             _unitOfWork.Commit();
         }
@@ -38,6 +42,13 @@ namespace DDD.CarRentalLib.ApplicationLayer.Services
         {
             var rentalAreas = _unitOfWork.RentalAreaRepository.GetAll();
             var result = _rentalAreaMapper.Map(rentalAreas);
+            return result;
+        }
+
+        public RentalAreaDTO GetRentalArea(Guid id)
+        {
+            var rentalArea = _unitOfWork.RentalAreaRepository.Get(id);
+            var result = _rentalAreaMapper.Map(rentalArea);
             return result;
         }
     }

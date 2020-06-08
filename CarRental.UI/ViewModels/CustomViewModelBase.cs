@@ -1,12 +1,12 @@
-﻿using CarRental.UI.Models;
+﻿using CarRental.UI.Messages;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 
 namespace CarRental.UI.ViewModels
 {
-    public class CustomViewModelBase : ViewModelBase
+    public abstract class CustomViewModelBase : ViewModelBase
     {
-        public CustomViewModelBase()
+        protected CustomViewModelBase()
         {
             Messenger.Default.Register<CleanupMessage>(this, CleanViewModel);
         }

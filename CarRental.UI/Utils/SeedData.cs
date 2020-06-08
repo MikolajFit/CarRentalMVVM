@@ -63,8 +63,13 @@ namespace CarRental.UI.Utils
                     new PositionDTO()
                     {
                         Latitude = 50.094973,
-                        Longitude =19.870131
+                        Longitude = 19.870131
                     }
+                },
+                CarStartingPositionDTO = new PositionDTO()
+                {
+                    Latitude = 50.057236,
+                    Longitude = 19.945147,
                 }
             };
 

@@ -8,10 +8,11 @@
              xmlns:driverViewModels="clr-namespace:CarRental.UI.ViewModels.DriverViewModels"
              xmlns:adminViewModels="clr-namespace:CarRental.UI.ViewModels.AdminViewModels"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:driverViews="clr-namespace:CarRental.UI.Views.DriverViews"
+             xmlns:adminViews="clr-namespace:CarRental.UI.Views.AdminViews"
              StartupUri="Views/LoginView.xaml">
     <Application.Resources>
         <ResourceDictionary>
-           
             <ResourceDictionary.MergedDictionaries>
                 <!-- primary color -->
                 <ResourceDictionary>
@@ -55,38 +56,46 @@
                     <SolidColorBrush x:Key="SecondaryAccentForegroundBrush"
                                      Color="{StaticResource Accent200Foreground}" />
                 </ResourceDictionary>
-
-               
+                
 
             </ResourceDictionary.MergedDictionaries>
-
             <viewModels:ViewModelLocator x:Key="Locator" />
             <DataTemplate DataType="{x:Type driverViewModels:DriverRentalsViewModel}">
-                <views:DriverRentalsView />
+                <driverViews:DriverRentalsView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type driverViewModels:RentCarViewModel}">
-                <views:RentCarView />
+                <driverViews:RentCarView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type driverViewModels:ActiveRentalSessionViewModel}">
-                <views:ActiveRentalSessionView />
+                <driverViews:ActiveRentalSessionView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type driverViewModels:DriverAccountViewModel}">
-                <views:DriverAccountView />
+                <driverViews:DriverAccountView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewModels:RegisterDriverViewModel}">
                 <views:RegisterDriverView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type adminViewModels:AdminMainViewModel}">
-                <views:AdminMainView />
+                <adminViews:AdminMainView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type adminViewModels:CarsManagementViewModel}">
+                <adminViews:CarsManagementView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type adminViewModels:DriversManagementViewModel}">
+                <adminViews:DriversManagementView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type adminViewModels:RentalsManagementViewModel}">
+                <adminViews:RentalsManagementView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type adminViewModels:RentalAreaManagementViewModel}">
+                <adminViews:RentalsManagementView />
             </DataTemplate>
             <Style x:Key="TabHeaderIcon" TargetType="{x:Type materialDesign:PackIcon}">
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=TabItem}}" Value="True">
                         <Setter Property="Foreground" Value="#FF4CAF50"/>
-                        <Setter Property="Background" Value="White"/>
                     </DataTrigger>
                     <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=TabItem}}" Value="False">
-                        <Setter Property="Background" Value="#FF4CAF50"/>
                         <Setter Property="Foreground" Value="White"/>
                     </DataTrigger>
                 </Style.Triggers>

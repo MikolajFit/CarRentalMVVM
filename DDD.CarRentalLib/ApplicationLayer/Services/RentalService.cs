@@ -6,6 +6,7 @@ using DDD.CarRentalLib.ApplicationLayer.Interfaces;
 using DDD.CarRentalLib.ApplicationLayer.Mappers;
 using DDD.CarRentalLib.DomainModelLayer.Factories;
 using DDD.CarRentalLib.DomainModelLayer.Interfaces;
+using DDD.CarRentalLib.DomainModelLayer.Models;
 using DDD.CarRentalLib.DomainModelLayer.Services;
 
 namespace DDD.CarRentalLib.ApplicationLayer.Services
@@ -38,6 +39,7 @@ namespace DDD.CarRentalLib.ApplicationLayer.Services
                 throw new Exception("Starting position of car cannot be outside of bonds!");
             var driver = _unitOfWork.DriverRepository.Get(driverId) ??
                          throw new Exception($"Could not find driver '{driverId}'.");
+            if(driver.DriverStatus==DriverStatus.Banned) throw new Exception($"Driver is banned!");
             var rental = _rentalFactory.Create(rentalId, startDateTime, car, driver.Id);
 
             car.TakeCar();

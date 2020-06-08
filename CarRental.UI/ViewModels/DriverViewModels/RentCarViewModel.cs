@@ -1,66 +1,56 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using CarRental.UI.Models;
-using DDD.CarRentalLib.ApplicationLayer.DTOs;
+using System.Linq;
+using CarRental.UI.Mappers;
+using CarRental.UI.ViewModels.ObservableObjects;
 using DDD.CarRentalLib.ApplicationLayer.Interfaces;
-using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 
 namespace CarRental.UI.ViewModels.DriverViewModels
 {
-    public class RentCarViewModel : CustomViewModelBase
+    public class RentCarViewModel : AssignedDriverViewModelBase
 
     {
         private readonly ICarService _carService;
+        private readonly ICarViewModelMapper _carViewModelMapper;
         private readonly IRentalService _rentalService;
-        private DriverDTO _currentDriver;
-        private CarDTO _selectedCar;
+        private CarViewModel _selectedCar;
 
 
-        public RentCarViewModel(ICarService carService, IRentalService rentalService)
+        public RentCarViewModel(ICarService carService, IRentalService rentalService,
+            ICarViewModelMapper carViewModelMapper)
         {
-            Messenger.Default.Register<DriverDTO>(this, AssignLoggedInDriver);
             _carService = carService;
             _rentalService = rentalService;
-            AvailableCars = new ObservableCollection<CarDTO>(_carService.GetFreeCars());
+            _carViewModelMapper = carViewModelMapper;
+            PopulateAvailableCarListView();
+
             RentCarCommand = new RelayCommand(RentSelectedCar, CanExecuteRentCar);
         }
 
-        private DriverDTO CurrentDriver
-        {
-            get => _currentDriver;
-            set { Set(() => CurrentDriver, ref _currentDriver, value); }
-        }
-
-        public CarDTO SelectedCar
+        public CarViewModel SelectedCar
         {
             get => _selectedCar;
-            set
-            {
-                Set(() => SelectedCar, ref _selectedCar, value);
-            }
+            set { Set(() => SelectedCar, ref _selectedCar, value); }
         }
 
-
-        public ObservableCollection<CarDTO> AvailableCars { get; set; }
+        public ObservableCollection<CarViewModel> AvailableCars { get; set; } =
+            new ObservableCollection<CarViewModel>();
 
         public RelayCommand RentCarCommand { get; }
+
+        private void PopulateAvailableCarListView()
+        {
+            var cars = _carService.GetFreeCars();
+            AvailableCars.Clear();
+            foreach (var carViewModel in cars.Select(car => _carViewModelMapper.Map(car)))
+                AvailableCars.Add(carViewModel);
+        }
 
         private bool CanExecuteRentCar()
         {
             return SelectedCar != null;
-        }
-
-        private void AssignLoggedInDriver(DriverDTO driver)
-        {
-            CurrentDriver = driver;
-        }
-
-        public override void Cleanup()
-        {
-            ViewModelLocator.Cleanup();
-            base.Cleanup();
         }
 
         private void RentSelectedCar()
@@ -69,11 +59,11 @@ namespace CarRental.UI.ViewModels.DriverViewModels
             {
                 var rentalGuid = Guid.NewGuid();
                 _rentalService.TakeCar(rentalGuid, SelectedCar.Id, CurrentDriver.Id, DateTime.Now);
-                var rentalInfo = new RentalInfo
+                var rentalInfo = new RentalInfoViewModel
                 {
                     RentalId = rentalGuid,
                     SelectedCar = SelectedCar.RegistrationNumber,
-                    PricePerMinute = SelectedCar.PricePerMinute
+                    PricePerMinute = decimal.Parse(SelectedCar.PricePerMinute)
                 };
                 Messenger.Default.Send(rentalInfo);
                 Messenger.Default.Send(new NotificationMessage("Start Car Rental"));

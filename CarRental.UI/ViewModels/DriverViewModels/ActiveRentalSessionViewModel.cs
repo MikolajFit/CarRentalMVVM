@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Globalization;
-using CarRental.UI.Models;
+using CarRental.UI.Messages;
 using CarRental.UI.Services;
 using CarRental.UI.Utils.Interfaces;
+using CarRental.UI.ViewModels.ObservableObjects;
 using DDD.CarRentalLib.ApplicationLayer.Interfaces;
-using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 
@@ -20,14 +20,14 @@ namespace CarRental.UI.ViewModels.DriverViewModels
         private string _estimatedCost;
         private bool _isRentalStopped;
         private decimal _pricePerMinute;
-        private RentalInfo _rentalInfo;
+        private RentalInfoViewModel _rentalInfo;
         private string _timerText;
         private int _totalSeconds;
 
         public ActiveRentalSessionViewModel(ITimerFactory timerFactory, IRentalService rentalService,
             IMessengerService messengerService)
         {
-            Messenger.Default.Register<RentalInfo>(this, StartRental);
+            Messenger.Default.Register<RentalInfoViewModel>(this, StartRental);
             _rentalService = rentalService;
             _messengerService = messengerService;
             _elapsedTimer = timerFactory.CreateTimer();
@@ -39,7 +39,7 @@ namespace CarRental.UI.ViewModels.DriverViewModels
             StopRentalCommand = new RelayCommand(StopRental, () => !IsRentalStopped);
             CloseActiveRentalSessionViewCommand = new RelayCommand(CloseActiveRentalSessionView, () => IsRentalStopped);
         }
-        
+
         public bool IsRentalStopped
         {
             get => _isRentalStopped;
@@ -111,7 +111,7 @@ namespace CarRental.UI.ViewModels.DriverViewModels
                 "Rental Summary");
         }
 
-        private void StartRental(RentalInfo rentalInfo)
+        private void StartRental(RentalInfoViewModel rentalInfo)
         {
             Messenger.Default.Send(new RefreshRentalsMessage("Rental Started!"));
             _rentalInfo = rentalInfo;

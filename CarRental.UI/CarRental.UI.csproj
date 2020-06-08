@@ -4,20 +4,20 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net461</TargetFramework>
     <UseWPF>true</UseWPF>
-    <Platforms>AnyCPU;x64;x86</Platforms>
   </PropertyGroup>
+
 
   <ItemGroup>
     <None Remove="Views\electric_car_.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DDD.CarRentalLib\DDD.CarRentalLib.csproj" />
+    <PackageReference Include="MaterialDesignColors" Version="1.2.6" />
+    <PackageReference Include="MaterialDesignThemes" Version="3.1.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MaterialDesignColors" Version="1.2.5" />
-    <PackageReference Include="MaterialDesignThemes" Version="3.1.2" />
+    <ProjectReference Include="..\DDD.CarRentalLib\DDD.CarRentalLib.csproj" />
   </ItemGroup>
 
   <ItemGroup>

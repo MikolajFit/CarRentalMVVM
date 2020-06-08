@@ -1,8 +1,7 @@
 ﻿using System;
-using CarRental.UI.Models;
-using DDD.CarRentalLib.ApplicationLayer.DTOs;
+using CarRental.UI.Mappers;
+using CarRental.UI.ViewModels.ObservableObjects;
 using DDD.CarRentalLib.ApplicationLayer.Interfaces;
-using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 
@@ -11,36 +10,36 @@ namespace CarRental.UI.ViewModels
     public class RegisterDriverViewModel : CustomViewModelBase
     {
         private readonly IDriverService _driverService;
+        private readonly IDriverViewModelMapper _driverViewModelMapper;
 
-        public RegisterDriverViewModel(IDriverService driverService)
+        private DriverViewModel _currentDriver;
+
+        public RegisterDriverViewModel(IDriverService driverService, IDriverViewModelMapper driverViewModelMapper)
         {
             _driverService = driverService;
-            CurrentDriver = new DriverModel();
-            RegisterDriverCommand = new RelayCommand(RegisterDriver,CanRegister);
-        }
-
-        private void RegisterDriver()
-        {
-            _driverService.CreateDriver(new DriverDTO()
+            _driverViewModelMapper = driverViewModelMapper;
+            CurrentDriver = new DriverViewModel
             {
-                FirstName = CurrentDriver.FirstName,
-                Id = Guid.NewGuid(),
-                LastName = CurrentDriver.LastName,
-                LicenseNumber = CurrentDriver.LicenseNumber
-            });
-            Messenger.Default.Send(new NotificationMessage("Close Register Window"));
+                Id = Guid.NewGuid()
+            };
+            RegisterDriverCommand = new RelayCommand(RegisterDriver, CanRegister);
         }
 
-        private DriverModel _currentDriver;
-
-        public DriverModel CurrentDriver
+        public DriverViewModel CurrentDriver
         {
             get => _currentDriver;
             set { Set(() => CurrentDriver, ref _currentDriver, value); }
         }
 
         public RelayCommand RegisterDriverCommand { get; }
-        
+
+        private void RegisterDriver()
+        {
+            var driverDto = _driverViewModelMapper.Map(CurrentDriver);
+            _driverService.CreateDriver(driverDto);
+            Messenger.Default.Send(new NotificationMessage("Close Register Window"));
+        }
+
 
         public bool CanRegister()
         {
@@ -48,4 +47,3 @@ namespace CarRental.UI.ViewModels
         }
     }
 }
-

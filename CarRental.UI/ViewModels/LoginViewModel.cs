@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
-using DDD.CarRentalLib.ApplicationLayer.DTOs;
+using CarRental.UI.Mappers;
+using CarRental.UI.ViewModels.ObservableObjects;
 using DDD.CarRentalLib.ApplicationLayer.Interfaces;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
@@ -8,12 +9,16 @@ namespace CarRental.UI.ViewModels
 {
     public class LoginViewModel : CustomViewModelBase
     {
-        private DriverDTO _selectedDriver;
+        private readonly IDriverService _driverService;
+        private readonly IDriverViewModelMapper _driverViewModelMapper;
+        private DriverViewModel _selectedDriver;
 
-        public LoginViewModel(IDriverService driverService)
+        public LoginViewModel(IDriverService driverService, IDriverViewModelMapper driverViewModelMapper)
         {
-            Drivers = new ObservableCollection<DriverDTO>(driverService.GetAllDrivers());
-            SelectedDriver = Drivers[0];
+            _driverService = driverService;
+            _driverViewModelMapper = driverViewModelMapper;
+            PopulateDriversListView();
+
             LoginCommand = new RelayCommand(
                 NavigateToDriverMainView);
             RegisterCommand = new RelayCommand(NavigateToRegisterView);
@@ -21,24 +26,32 @@ namespace CarRental.UI.ViewModels
         }
 
 
-        public ObservableCollection<DriverDTO> Drivers { get; set; }
+        public ObservableCollection<DriverViewModel> Drivers { get; set; } =
+            new ObservableCollection<DriverViewModel>();
 
         public RelayCommand LoginCommand { get; }
         public RelayCommand RegisterCommand { get; }
         public RelayCommand AdminLoginCommand { get; }
 
-        public DriverDTO SelectedDriver
+        public DriverViewModel SelectedDriver
         {
             get => _selectedDriver;
             set { Set(() => SelectedDriver, ref _selectedDriver, value); }
         }
 
-        private void NavigateToAdminMainView()
+        private void PopulateDriversListView()
+        {
+            var drivers = _driverService.GetAllDrivers();
+            Drivers.Clear();
+            foreach (var driver in drivers) Drivers.Add(_driverViewModelMapper.Map(driver));
+        }
+
+        private static void NavigateToAdminMainView()
         {
             Messenger.Default.Send(new NotificationMessage("GoToAdminMainView"));
         }
 
-        private void NavigateToRegisterView()
+        private static void NavigateToRegisterView()
         {
             Messenger.Default.Send(new NotificationMessage("GoToRegisterWindow"));
         }

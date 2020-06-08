@@ -1,4 +1,4 @@
-<UserControl x:Class="CarRental.UI.Views.DriverAccountView"
+<UserControl x:Class="CarRental.UI.Views.DriverViews.DriverAccountView"
 	  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -21,6 +21,8 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Button  Grid.Row="0" Grid.Column="2" Command="{Binding LogoutCommand}" Foreground="White" Height="50" Width="50" Margin="10" HorizontalAlignment="Right" Content="{materialDesign:PackIcon Logout, Size=25}"
                      ToolTip="Icon"/>
@@ -30,9 +32,13 @@
             <TextBox Grid.Row="1" Grid.Column="1" Margin="10" MinWidth="100" Text ="{Binding CurrentDriver.LastName,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditable}" BorderBrush="White" BorderThickness="1" FontSize="30" />
             <Label Grid.Row="2" Grid.Column="0"  Margin="10" Content="License Number:" FontSize="30"/>
             <TextBox Grid.Row="2" Grid.Column="1" Margin="10" MinWidth="100" Text ="{Binding CurrentDriver.LicenseNumber,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditable}" BorderBrush="White" BorderThickness="1" FontSize="30"/>
-            <Button Grid.Row="3" Grid.Column="0" Command="{Binding ChangeToEditModeCommand}" Content="Edit" FontSize="15" Height="50"
+            <Label Grid.Row="3" Grid.Column="0"  Margin="10" Content="Policy:" FontSize="30"/>
+            <Label Grid.Row="3" Grid.Column="1" Margin="10" MinWidth="100" Content ="{Binding CurrentDriver.FreeMinutesPolicy}" BorderBrush="White" BorderThickness="1" FontSize="30"/>
+            <Label Grid.Row="4" Grid.Column="0"  Margin="10" Content="Status:" FontSize="30"/>
+            <Label Grid.Row="4" Grid.Column="1" Margin="10" MinWidth="100" Content ="{Binding CurrentDriver.DriverStatus}" BorderBrush="White" BorderThickness="1" FontSize="30"/>
+            <Button Grid.Row="5" Grid.Column="0" Command="{Binding ChangeToEditModeCommand}" Content="Edit" FontSize="15" Height="50"
                     Margin="10" Padding="10" />
-            <Button Grid.Row="4" Grid.Column="0" Command="{Binding SaveChangesCommand}" Content="Save" FontSize="15" Height="50"
+            <Button Grid.Row="6" Grid.Column="0" Command="{Binding SaveChangesCommand}" Content="Save" FontSize="15" Height="50"
                     Margin="10" Padding="10" />
         </Grid>
     </DockPanel>

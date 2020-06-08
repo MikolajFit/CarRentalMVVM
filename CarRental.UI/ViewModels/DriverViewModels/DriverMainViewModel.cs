@@ -37,11 +37,5 @@ namespace CarRental.UI.ViewModels.DriverViewModels
                     break;
             }
         }
-
-        public override void Cleanup()
-        {
-            ViewModelLocator.Cleanup();
-            base.Cleanup();
-        }
     }
 }

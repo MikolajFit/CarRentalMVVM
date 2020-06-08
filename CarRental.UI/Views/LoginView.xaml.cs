@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using CarRental.UI.ViewModels;
+using CarRental.UI.Views.AdminViews;
 using GalaSoft.MvvmLight.Messaging;
 
 namespace CarRental.UI.Views
@@ -29,7 +30,7 @@ namespace CarRental.UI.Views
                 {
                     case "GoToDriverMainWindow":
                         ViewModelLocator.Cleanup();
-                        var driverMainView = new DriverMainView();
+                        var driverMainView = new DriverViews.DriverMainView();
                         driverMainView.Show();
                         Messenger.Default.Unregister<NotificationMessage>(this);
                         this.Close();

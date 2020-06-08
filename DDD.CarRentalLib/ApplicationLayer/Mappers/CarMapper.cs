@@ -26,7 +26,8 @@ namespace DDD.CarRentalLib.ApplicationLayer.Mappers
                 Status = c.Status,
                 RegistrationNumber = c.RegistrationNumber,
                 PricePerMinute = c.PricePerMinute.Amount,
-                RentalAreaId = c.RentalAreaId
+                RentalAreaId = c.RentalAreaId,
+
             };
         }
     }

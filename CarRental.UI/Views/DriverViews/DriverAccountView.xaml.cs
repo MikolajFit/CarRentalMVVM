@@ -1,4 +1,4 @@
-namespace CarRental.UI.Views
+namespace CarRental.UI.Views.DriverViews
 {
     public partial class DriverAccountView
     {

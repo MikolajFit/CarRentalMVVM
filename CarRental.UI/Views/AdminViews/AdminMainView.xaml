@@ -1,18 +1,19 @@
-﻿<Window x:Class="CarRental.UI.Views.AdminMainView"
+﻿<Window x:Class="CarRental.UI.Views.AdminViews.AdminMainView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CarRental.UI.Views"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="AdminMainWindow" Height="480" Width="800"  
+        Title="AdminMainWindow" Height="630" Width="1150"  
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto">
 
     <DockPanel DataContext="{Binding AdminMainViewModel, Source={StaticResource Locator}}">
-        <TabControl  Height="450" Background="White" TabStripPlacement="Left" BorderThickness="0">
+        <TabControl  Background="White" TabStripPlacement="Left" BorderThickness="0">
             <TabControl.ItemContainerStyle>
                 <Style TargetType="{x:Type TabItem}">
                     <Setter Property="Width" Value="150" />
@@ -21,14 +22,29 @@
                     <Setter Property="Background" Value="#FF4CAF50" />
                 </Style>
             </TabControl.ItemContainerStyle>
-            <TabItem Header="Drivers Management"  >
+            <TabItem>
+                <TabItem.Header>
+                    <materialDesign:PackIcon Style="{DynamicResource TabHeaderIcon}" Kind="UserSupervisor" Height="70" Width="70"/>
+                </TabItem.Header>
                 <ContentControl Content="{Binding DriversManagementViewModel, Source={StaticResource Locator}}"></ContentControl>
             </TabItem>
-            <TabItem Header="Cars Management">
+            <TabItem >
+                <TabItem.Header>
+                    <materialDesign:PackIcon Style="{DynamicResource TabHeaderIcon}" Kind="CarMultiple" Height="70" Width="70"/>
+                </TabItem.Header>
                 <ContentControl Content="{Binding CarsManagementViewModel,Source={StaticResource Locator}}" />
             </TabItem>
-            <TabItem Header="Rentals Management">
-                <ContentControl Content="{Binding RentalsManagementViewModel}" />
+            <TabItem>
+                <TabItem.Header>
+                    <materialDesign:PackIcon Style="{DynamicResource TabHeaderIcon}" Kind="MapClock" Height="70" Width="70"/>
+                </TabItem.Header>
+                <ContentControl Content="{Binding RentalsManagementViewModel, Source={StaticResource Locator}}" />
+            </TabItem>
+             <TabItem >
+                <TabItem.Header>
+                    <materialDesign:PackIcon Style="{DynamicResource TabHeaderIcon}" Kind="Map" Height="70" Width="70"/>
+                </TabItem.Header>
+                <ContentControl Content="{Binding RentalAreaManagementViewModel,Source={StaticResource Locator}}" />
             </TabItem>
         </TabControl>
     </DockPanel>

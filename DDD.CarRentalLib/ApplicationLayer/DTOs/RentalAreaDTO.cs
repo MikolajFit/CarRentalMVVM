@@ -9,5 +9,10 @@ namespace DDD.CarRentalLib.ApplicationLayer.DTOs
         public string Name { get; set; }
         public ICollection<PositionDTO> Area { get; set; }
         public decimal OutOfBondsPenaltyPerDistanceUnit { get; set; }
+        public PositionDTO CarStartingPositionDTO { get; set; }
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

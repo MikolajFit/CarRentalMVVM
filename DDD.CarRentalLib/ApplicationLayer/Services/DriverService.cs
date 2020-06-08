@@ -6,6 +6,8 @@ using DDD.CarRentalLib.ApplicationLayer.Interfaces;
 using DDD.CarRentalLib.ApplicationLayer.Mappers;
 using DDD.CarRentalLib.DomainModelLayer.Factories;
 using DDD.CarRentalLib.DomainModelLayer.Interfaces;
+using DDD.CarRentalLib.DomainModelLayer.Models;
+using DDD.CarRentalLib.DomainModelLayer.Policies;
 
 namespace DDD.CarRentalLib.ApplicationLayer.Services
 {
@@ -40,9 +42,7 @@ namespace DDD.CarRentalLib.ApplicationLayer.Services
                 .FirstOrDefault();
             if (driver == null)
                 throw new Exception($"Driver with {driverDto.Id} was not found");
-            driver.FirstName = driverDto.FirstName;
-            driver.LastName = driverDto.LastName;
-            driver.LicenseNumber = driverDto.LicenseNumber;
+            MapDtoToDriver(driverDto, driver);
             _unitOfWork.Commit();
         }
 
@@ -51,6 +51,24 @@ namespace DDD.CarRentalLib.ApplicationLayer.Services
             var drivers = _unitOfWork.DriverRepository.GetAll();
             var result = _driverMapper.Map(drivers);
             return result;
+        }
+
+        private static void MapDtoToDriver(DriverDTO driverDto, Driver driver)
+        {
+            driver.FirstName = driverDto.FirstName;
+            driver.LastName = driverDto.LastName;
+            driver.LicenseNumber = driverDto.LicenseNumber;
+            driver.DriverStatus = driverDto.DriverStatus;
+            if (driverDto.FreeMinutesPolicy == PoliciesEnum.Standard &&
+                driver.FreeMinutesPolicy.PolicyType != PoliciesEnum.Standard)
+            {
+                driver.RegisterPolicy(new StandardFreeMinutesPolicy());
+            }
+            else if (driverDto.FreeMinutesPolicy == PoliciesEnum.Vip &&
+                     driver.FreeMinutesPolicy.PolicyType != PoliciesEnum.Vip)
+            {
+                driver.RegisterPolicy(new VipFreeMinutesPolicy());
+            }
         }
     }
 }

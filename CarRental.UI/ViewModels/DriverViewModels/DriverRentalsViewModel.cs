@@ -2,20 +2,19 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Data;
-using CarRental.UI.Models;
+using CarRental.UI.Messages;
+using CarRental.UI.ViewModels.ObservableObjects;
 using DDD.CarRentalLib.ApplicationLayer.DTOs;
 using DDD.CarRentalLib.ApplicationLayer.Interfaces;
-using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 
 namespace CarRental.UI.ViewModels.DriverViewModels
 {
-    public class DriverRentalsViewModel : CustomViewModelBase
+    public class DriverRentalsViewModel : AssignedDriverViewModelBase
     {
-        private readonly IRentalService _rentalService;
-        private DriverDTO _currentDriver;
-        private ObservableCollection<RentalDTO> _driverRentals;
         private readonly CollectionViewSource _driverRentalsCollection;
+        private readonly IRentalService _rentalService;
+        private ObservableCollection<RentalDTO> _driverRentals;
         private DateTime? _selectedStartDateFrom;
         private DateTime? _selectedStartDateTo;
         private DateTime? _selectedStopDateFrom;
@@ -24,7 +23,6 @@ namespace CarRental.UI.ViewModels.DriverViewModels
         public DriverRentalsViewModel(IRentalService rentalService)
         {
             _rentalService = rentalService;
-            Messenger.Default.Register<DriverDTO>(this, AssignLoggedInDriver);
             Messenger.Default.Register<RefreshRentalsMessage>(this, NewRentalAdded);
             DriverRentals = new ObservableCollection<RentalDTO>();
             _driverRentalsCollection = new CollectionViewSource {Source = DriverRentals};
@@ -33,13 +31,6 @@ namespace CarRental.UI.ViewModels.DriverViewModels
             _driverRentalsCollection.Filter += FilterByStopDateTimeFrom;
             _driverRentalsCollection.Filter += FilterByStopDateTimeTo;
         }
-
-        public DriverDTO CurrentDriver
-        {
-            get => _currentDriver;
-            set { Set(() => CurrentDriver, ref _currentDriver, value); }
-        }
-
 
         public ObservableCollection<RentalDTO> DriverRentals
         {
@@ -89,9 +80,9 @@ namespace CarRental.UI.ViewModels.DriverViewModels
             }
         }
 
-        private void AssignLoggedInDriver(DriverDTO driver)
+        public override void AssignLoggedInDriver(DriverViewModel driver)
         {
-            CurrentDriver = driver;
+            base.AssignLoggedInDriver(driver);
             RefreshRentalList();
         }
 

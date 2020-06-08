@@ -1,19 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using DDD.CarRentalLib.DomainModelLayer.Interfaces;
+﻿using DDD.CarRentalLib.DomainModelLayer.Interfaces;
 
 namespace DDD.CarRentalLib.DomainModelLayer.Policies
 {
-    public class StandardFreeMinutesPolicy:IFreeMinutesPolicy
+    public class StandardFreeMinutesPolicy : IFreeMinutesPolicy
     {
         private const double FreeMinutesPercent = 0.1;
-        public string Name { get; protected set; }
 
         public StandardFreeMinutesPolicy()
         {
-            this.Name = "Standard Free Minutes Policy";
+            Name = "Standard Free Minutes Policy";
         }
+
+        public string Name { get; protected set; }
+        public PoliciesEnum PolicyType { get; protected set; } = PoliciesEnum.Standard;
+
         public double CalculateFreeMinutes(double numOfMinutes)
         {
             return FreeMinutesPercent * numOfMinutes;

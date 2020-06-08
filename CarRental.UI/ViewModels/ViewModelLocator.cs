@@ -1,4 +1,5 @@
-﻿using CarRental.UI.Models;
+﻿using CarRental.UI.Mappers;
+using CarRental.UI.Messages;
 using CarRental.UI.Services;
 using CarRental.UI.Utils;
 using CarRental.UI.Utils.Interfaces;
@@ -24,7 +25,7 @@ namespace CarRental.UI.ViewModels
         /// </summary>
         public ViewModelLocator()
         {
-            RegisterViewModels();
+            RegisterBaseViewModels();
             RegisterServices();
             SeedInitialData();
         }
@@ -43,21 +44,41 @@ namespace CarRental.UI.ViewModels
             SimpleIoc.Default.GetInstance<RegisterDriverViewModel>();
 
         public AdminMainViewModel AdminMainViewModel => SimpleIoc.Default.GetInstance<AdminMainViewModel>();
+        public CarsManagementViewModel CarsManagementViewModel => SimpleIoc.Default.GetInstance<CarsManagementViewModel>();
+        public DriversManagementViewModel DriversManagementViewModel => SimpleIoc.Default.GetInstance<DriversManagementViewModel>();
+        public RentalsManagementViewModel RentalsManagementViewModel => SimpleIoc.Default.GetInstance<RentalsManagementViewModel>();
 
-        public static void RegisterViewModels()
+        public RentalAreaManagementViewModel RentalAreaManagementViewModel =>
+            SimpleIoc.Default.GetInstance<RentalAreaManagementViewModel>();
+       
+
+        public static void RegisterDriverViewModels()
         {
             SimpleIoc.Default.Register<DriverRentalsViewModel>();
             SimpleIoc.Default.Register<DriverMainViewModel>();
-            SimpleIoc.Default.Register<LoginViewModel>();
             SimpleIoc.Default.Register<RentCarViewModel>();
             SimpleIoc.Default.Register<ActiveRentalSessionViewModel>();
             SimpleIoc.Default.Register<DriverAccountViewModel>();
+        }
+
+        public static void RegisterBaseViewModels()
+        {
+            SimpleIoc.Default.Register<LoginViewModel>();
             SimpleIoc.Default.Register<RegisterDriverViewModel>();
+        }
+
+        public static void RegisterAdminViewModels()
+        {
             SimpleIoc.Default.Register<AdminMainViewModel>();
+            SimpleIoc.Default.Register<CarsManagementViewModel>();
+            SimpleIoc.Default.Register<DriversManagementViewModel>();
+            SimpleIoc.Default.Register<RentalsManagementViewModel>();
         }
 
         public static void RegisterServices()
         {
+            SimpleIoc.Default.Register<ICarViewModelMapper, CarViewModelMapper>();
+            SimpleIoc.Default.Register<IDriverViewModelMapper,DriverViewModelMapper>();
             SimpleIoc.Default.Register<ITimerFactory, TimerFactory>();
             SimpleIoc.Default.Register<IDomainEventPublisher, SimpleEventPublisher>();
             SimpleIoc.Default.Register<ICarRentalUnitOfWork, MemoryCarRentalUnitOfWork>();
@@ -88,13 +109,17 @@ namespace CarRental.UI.ViewModels
 
 
         public static void Cleanup()
-        {
+        { 
             Messenger.Default.Send(new CleanupMessage("Cleanup"));
-            UnregisterViewModels();
-            RegisterViewModels();
+            UnregisterBaseViewModels();
+            UnregisterDriverViewModels();
+            UnregisterAdminViewModels();
+            RegisterBaseViewModels();
+            RegisterAdminViewModels();
+            RegisterDriverViewModels();
         }
 
-        private static void UnregisterViewModels()
+        private static void UnregisterBaseViewModels()
         {
             SimpleIoc.Default.Unregister<AdminMainViewModel>();
             SimpleIoc.Default.Unregister<DriverRentalsViewModel>();
@@ -104,6 +129,23 @@ namespace CarRental.UI.ViewModels
             SimpleIoc.Default.Unregister<ActiveRentalSessionViewModel>();
             SimpleIoc.Default.Unregister<DriverAccountViewModel>();
             SimpleIoc.Default.Unregister<RegisterDriverViewModel>();
+        }
+
+        private static void UnregisterDriverViewModels()
+        {
+            SimpleIoc.Default.Unregister<DriverRentalsViewModel>();
+            SimpleIoc.Default.Unregister<DriverMainViewModel>();
+            SimpleIoc.Default.Unregister<RentCarViewModel>();
+            SimpleIoc.Default.Unregister<ActiveRentalSessionViewModel>();
+            SimpleIoc.Default.Unregister<DriverAccountViewModel>();
+        }
+
+        private static void UnregisterAdminViewModels()
+        {
+            SimpleIoc.Default.Unregister<AdminMainViewModel>();
+            SimpleIoc.Default.Unregister<CarsManagementViewModel>();
+            SimpleIoc.Default.Unregister<DriversManagementViewModel>();
+            SimpleIoc.Default.Unregister<RentalsManagementViewModel>();
         }
     }
 }

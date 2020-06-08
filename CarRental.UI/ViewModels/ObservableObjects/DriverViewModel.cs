@@ -1,11 +1,13 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq;
+using DDD.CarRentalLib.DomainModelLayer.Models;
+using DDD.CarRentalLib.DomainModelLayer.Policies;
 using GalaSoft.MvvmLight;
 
-namespace CarRental.UI.Models
+namespace CarRental.UI.ViewModels.ObservableObjects
 {
-    public class DriverModel : ObservableObject, IDataErrorInfo
+    public class DriverViewModel : ObservableObject, IDataErrorInfo
     {
         private static readonly string[] ValidatedProperties =
         {
@@ -17,6 +19,8 @@ namespace CarRental.UI.Models
         private string _firstName;
         private string _lastName;
         private string _licenseNumber;
+        private PoliciesEnum _freeMinutesPolicy;
+        private DriverStatus _driverStatus;
 
         /// <summary>
         ///     Returns true if this object has no validation errors.
@@ -25,8 +29,20 @@ namespace CarRental.UI.Models
         {
             get { return ValidatedProperties.All(property => GetValidationError(property) == null); }
         }
-
+        
         public Guid Id { get; set; }
+
+        public DriverStatus DriverStatus
+        {
+            get => _driverStatus;
+            set { Set(() => DriverStatus, ref _driverStatus, value); }
+
+        }
+        public PoliciesEnum FreeMinutesPolicy
+        {
+            get => _freeMinutesPolicy;
+            set { Set(() => FreeMinutesPolicy, ref _freeMinutesPolicy, value); }
+        }
 
         public string FirstName
         {

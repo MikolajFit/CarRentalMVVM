@@ -14,8 +14,20 @@ namespace DDD.CarRentalLib.DomainModelLayer.Models
             Name = name;
             OutOfBondsPenaltyPerDistanceUnit = new Money(outOfBondsPenalty);
             Area = new Area(points);
+            CarStartingPosition = new Position((points[0].Latitude+points[1].Latitude)/2,(points[0].Longitude+points[1].Longitude)/2);
+            if (!IsInArea(CarStartingPosition)) throw new Exception("Car starting position cannot be outside of bonds");
+        }
+        public RentalArea(Guid id, IDomainEventPublisher domainEventPublisher, decimal outOfBondsPenalty,
+            List<PositionDTO> points, string name, Position carStartingPosition) : base(id, domainEventPublisher)
+        {
+            Name = name;
+            OutOfBondsPenaltyPerDistanceUnit = new Money(outOfBondsPenalty);
+            Area = new Area(points);
+            if(!IsInArea(carStartingPosition)) throw new Exception("Car starting position cannot be outside of bonds");
+            CarStartingPosition = carStartingPosition;
         }
 
+        public Position CarStartingPosition { get; set; }
         public string Name { get; set; }
         public Area Area { get; set; }
         public Money OutOfBondsPenaltyPerDistanceUnit { get; set; }

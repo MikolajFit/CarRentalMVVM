@@ -31,7 +31,7 @@ namespace DDD.CarRentalLib.DomainModelLayer.Models
         public string RegistrationNumber
         {
             get => _registrationNumber;
-            protected set
+            set
             {
                 if (string.IsNullOrEmpty(value)) throw new Exception("Registration number is null or empty");
                 _registrationNumber = value;
@@ -39,10 +39,10 @@ namespace DDD.CarRentalLib.DomainModelLayer.Models
         }
 
         public Guid RentalAreaId { get; set; }
-        public Money PricePerMinute { get; protected set; }
-        public Position CurrentPosition { get; protected set; }
-        public Distance CurrentDistance { get; protected set; }
-        public Distance TotalDistance { get; protected set; }
+        public Money PricePerMinute { get; set; }
+        public Position CurrentPosition { get; set; }
+        public Distance CurrentDistance { get; set; }
+        public Distance TotalDistance { get; set; }
         public CarStatus Status { get; protected set; }
 
         public void ResetCurrentDistance()
