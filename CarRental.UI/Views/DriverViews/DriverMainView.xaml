@@ -6,20 +6,17 @@
         xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="480" Width="860"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Title="MainWindow" Height="630" Width="1150"  
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
-        TextOptions.TextRenderingMode="Auto"
-        Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}">
+        TextOptions.TextRenderingMode="Auto">
     <DockPanel DataContext="{Binding DriverMainViewModel, Source={StaticResource Locator}}">
-        <TabControl  Height="490" Background="White" TabStripPlacement="Left" BorderThickness="0">
+        <TabControl  Height="600" Background="White" TabStripPlacement="Left" BorderThickness="0">
             <TabControl.ItemContainerStyle>
                 <Style TargetType="{x:Type TabItem}">
                     <Setter Property="Width" Value="150" />
-                    <Setter Property="Height" Value="150" />
+                    <Setter Property="Height" Value="200" />
                     <Setter Property="FontSize" Value="22" />
                     <Setter Property="Background" Value="#FF4CAF50" />
                     <Setter Property="BorderThickness" Value="10"/>

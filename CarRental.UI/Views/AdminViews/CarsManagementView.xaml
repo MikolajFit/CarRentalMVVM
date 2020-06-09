@@ -22,7 +22,7 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" FontSize="20">Cars Management</Label>
+            <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" FontSize="20" Margin="10" >Cars Management</Label>
             <ListView Style="{DynamicResource MaterialDesignListView}" SelectionMode="Single" IsEnabled="{Binding IsCarListEnabled}"
                       ItemsSource="{Binding CarsCollection, Mode=TwoWay}" SelectedItem="{Binding SelectedCar}"
                       Grid.Row="1" Grid.Column="0" Width="480" FontSize="15">

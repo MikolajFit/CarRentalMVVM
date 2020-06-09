@@ -6,25 +6,26 @@
              xmlns:local="clr-namespace:CarRental.UI.Views"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="CarRental.UI.Views.DriverViews.RentCarView"
              mc:Ignorable="d"
-             d:DesignHeight="450" d:DesignWidth="660">
+             d:DesignHeight="630" d:DesignWidth="980" Padding="10">
     <DockPanel  DataContext="{Binding RentCarViewModel, Source={StaticResource Locator}}" Background="White">
         <Grid Background="White">
             <Grid.RowDefinitions>
-                <RowDefinition Height="50" />
-                <RowDefinition Height="400" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Label Grid.ColumnSpan="2" Content="Available cars to rent" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="30" Background="#FF4CAF50" Foreground="White" FontWeight="Medium"/>
-            <ListView Style="{DynamicResource MaterialDesignListView}" Grid.Column="0" HorizontalContentAlignment="Center " Grid.Row="1" SelectionMode="Single" ItemsSource="{Binding AvailableCars}" SelectedItem="{Binding SelectedCar}">
+            <Label Margin="10" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" FontSize="25" Height="50" FontWeight="DemiBold">Rent Car
+            </Label>
+            <ListView Style="{DynamicResource MaterialDesignListView}" Grid.Column="0" HorizontalContentAlignment="Center " Grid.Row="1" SelectionMode="Single" ItemsSource="{Binding AvailableCars}" SelectedItem="{Binding SelectedCar}" FontSize="15">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Registration Number" DisplayMemberBinding="{Binding RegistrationNumber}" />
-                        <GridViewColumn Header="Lat." DisplayMemberBinding="{Binding CurrentLatitude}"/>
-                        <GridViewColumn Header="Long." DisplayMemberBinding="{Binding CurrentLongitude}"/>
-                        <GridViewColumn Header="Price per minute" DisplayMemberBinding="{Binding PricePerMinute}">
+                        <GridViewColumn Header="Registration Number" DisplayMemberBinding="{Binding RegistrationNumber}" Width="180" />
+                        <GridViewColumn Header="Lat." DisplayMemberBinding="{Binding CurrentLatitude}" Width="130"/>
+                        <GridViewColumn Header="Long." DisplayMemberBinding="{Binding CurrentLongitude}" Width="130"/>
+                        <GridViewColumn Header="Price per minute" DisplayMemberBinding="{Binding PricePerMinute}" Width="180">
                         </GridViewColumn>
                     </GridView>
                 </ListView.View>

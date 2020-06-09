@@ -102,9 +102,19 @@ namespace CarRental.UI.Utils
                 CurrentLongitude = 19.945147,
                 PricePerMinute = 1
             };
+            var car3 = new CarDTO
+            {
+                Id = Guid.NewGuid(),
+                RegistrationNumber = "KRA2345",
+                RentalAreaId = rentalArea.Id,
+                CurrentLatitude = 50.057236,
+                CurrentLongitude = 19.945147,
+                PricePerMinute = 2.5m
+            };
             carService.CreateCar(car);
             carService.CreateCar(car1);
             carService.CreateCar(car2);
+            carService.CreateCar(car3);
 
 
             var rentalId = Guid.NewGuid();
@@ -124,6 +134,12 @@ namespace CarRental.UI.Utils
 
             rentalService.TakeCar(rentalId2, car2.Id, driver.Id, startTime2);
             rentalService.ReturnCar(rentalId2, DateTime.Now);
+
+            var rentalId3 = Guid.NewGuid();
+            var startTime3 = new DateTime(2020, 05, 17);
+
+            rentalService.TakeCar(rentalId3, car3.Id, driver1.Id, startTime3);
+          
         }
     }
 }

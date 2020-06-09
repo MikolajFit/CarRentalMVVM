@@ -5,8 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:CarRental.UI.Views"
              mc:Ignorable="d"
-             d:DesignHeight="450" d:DesignWidth="660">
-    <DockPanel DataContext="{Binding DriverRentalsViewModel, Source={StaticResource Locator}}" Background="White" Margin="10">
+             d:DesignHeight="630" d:DesignWidth="980" Padding="10">
+    <DockPanel DataContext="{Binding DriverRentalsViewModel, Source={StaticResource Locator}}" Background="White"
+               Margin="10">
         <Grid Background="White">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -15,31 +16,45 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <Label Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="20" Margin="10">Filters:</Label>
-            <Label Grid.Row="0" Grid.Column="1" FontSize="12" >Start Date From:</Label>
-            <DatePicker Style="{DynamicResource MaterialDesignDatePicker}" FontSize="12"  Width="100" Grid.Row="0" Grid.Column="2" SelectedDate="{Binding SelectedStartDateFrom}"/>
-            <Label Grid.Row="1" Grid.Column="1" FontSize="12" >Start Date To:</Label>
-            <DatePicker Style="{DynamicResource MaterialDesignDatePicker}" FontSize="12"  Width="100" Grid.Row="1" Grid.Column="2" SelectedDate="{Binding SelectedStartDateTo}"/>
-            <Label Grid.Row="0" Grid.Column="3" FontSize="12" >Stop Date From:</Label>
-            <DatePicker Style="{DynamicResource MaterialDesignDatePicker}" FontSize="12"  Width="100" Grid.Row="0" Grid.Column="4" SelectedDate="{Binding SelectedStopDateFrom}"/>
-            <Label Grid.Row="1" Grid.Column="3" FontSize="12" >Stop Date To:</Label>
-            <DatePicker Style="{DynamicResource MaterialDesignDatePicker}" FontSize="12"  Width="100" Grid.Row="1" Grid.Column="4" SelectedDate="{Binding SelectedStopDateTo}"/>
-            <ListView Style="{DynamicResource MaterialDesignListView}"  SelectionMode="Single"
-                      ItemsSource="{Binding DriverRentalsCollection}" SelectedItem="{Binding SelectedRental}" Grid.ColumnSpan="6"
-                      Grid.Row="2" Grid.Column="0">
+            <Label Margin="10" Grid.Column="0" HorizontalAlignment="Center" FontSize="25" Height="50" FontWeight="DemiBold">Rentals
+            </Label>
+            <DockPanel Grid.Row="1" >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" FontSize="12" HorizontalContentAlignment="Right">Start Date From:</Label>
+                    <DatePicker Style="{DynamicResource MaterialDesignDatePicker}" FontSize="12" Width="100" HorizontalAlignment="Left"
+                                Grid.Row="0" Grid.Column="1" SelectedDate="{Binding SelectedStartDateFrom}" />
+                    <Label Grid.Row="1" Grid.Column="0" FontSize="12" HorizontalContentAlignment="Right">Start Date To:</Label>
+                    <DatePicker Style="{DynamicResource MaterialDesignDatePicker}" FontSize="12" Width="100" HorizontalAlignment="Left"
+                                Grid.Row="1" Grid.Column="1" SelectedDate="{Binding SelectedStartDateTo}" />
+                    <Label Grid.Row="0" Grid.Column="2" FontSize="12" HorizontalContentAlignment="Right">Stop Date From:</Label>
+                    <DatePicker Style="{DynamicResource MaterialDesignDatePicker}" FontSize="12"  Width="100" HorizontalAlignment="Left"
+                                Grid.Row="0" Grid.Column="3" SelectedDate="{Binding SelectedStopDateFrom}" />
+                    <Label Grid.Row="1" Grid.Column="2" FontSize="12" HorizontalContentAlignment="Right">Stop Date To:</Label>
+                    <DatePicker Style="{DynamicResource MaterialDesignDatePicker}" FontSize="12" Width="100" HorizontalAlignment="Left"
+                                Grid.Row="1" Grid.Column="3" SelectedDate="{Binding SelectedStopDateTo}" />
+                </Grid>
+            </DockPanel>
+            <ListView Style="{DynamicResource MaterialDesignListView}" SelectionMode="Single"
+                      ItemsSource="{Binding DriverRentalsCollection}" SelectedItem="{Binding SelectedRental}"
+                      Grid.Row="2" FontSize="15">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Registration Number"
-                                        DisplayMemberBinding="{Binding RegistrationNumber}"  Width="160" />
-                        <GridViewColumn Header="Start Time" DisplayMemberBinding="{Binding StartDateTime}" Width="160"/>
-                        <GridViewColumn Header="Stop Time" DisplayMemberBinding="{Binding StopDateTime}" Width="160"/>
-                        <GridViewColumn Header="Total" DisplayMemberBinding="{Binding Total}" Width="160"/>
+                                        DisplayMemberBinding="{Binding RegistrationNumber}" Width="230" />
+                        <GridViewColumn Header="Start Time" DisplayMemberBinding="{Binding StartDateTime}" Width="230" />
+                        <GridViewColumn Header="Stop Time" DisplayMemberBinding="{Binding StopDateTime}" Width="230"/>
+                        <GridViewColumn Header="Total" DisplayMemberBinding="{Binding Total}" Width="230"/>
                     </GridView>
                 </ListView.View>
             </ListView>

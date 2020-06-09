@@ -14,7 +14,7 @@ namespace CarRental.UI.ViewModels.DriverViewModels
     {
         private readonly CollectionViewSource _driverRentalsCollection;
         private readonly IRentalService _rentalService;
-        private ObservableCollection<RentalDTO> _driverRentals;
+        private ObservableCollection<RentalDTO> _driverRentals = new ObservableCollection<RentalDTO>();
         private DateTime? _selectedStartDateFrom;
         private DateTime? _selectedStartDateTo;
         private DateTime? _selectedStopDateFrom;
@@ -24,7 +24,6 @@ namespace CarRental.UI.ViewModels.DriverViewModels
         {
             _rentalService = rentalService;
             Messenger.Default.Register<RefreshRentalsMessage>(this, NewRentalAdded);
-            DriverRentals = new ObservableCollection<RentalDTO>();
             _driverRentalsCollection = new CollectionViewSource {Source = DriverRentals};
             _driverRentalsCollection.Filter += FilterByStartDateTimeFrom;
             _driverRentalsCollection.Filter += FilterByStartDateTimeTo;

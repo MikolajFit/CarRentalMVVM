@@ -6,13 +6,12 @@
              xmlns:local="clr-namespace:CarRental.UI.Views"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="660">
+      d:DesignHeight="630" d:DesignWidth="980" Padding="10">
 
     <DockPanel DataContext="{Binding DriverAccountViewModel, Source={StaticResource Locator}}" Background="White">
         <Grid Margin="20" Background="White">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -22,23 +21,24 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Button  Grid.Row="0" Grid.Column="2" Command="{Binding LogoutCommand}" Foreground="White" Height="50" Width="50" Margin="10" HorizontalAlignment="Right" Content="{materialDesign:PackIcon Logout, Size=25}"
+            <Label Margin="10"  Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" HorizontalAlignment="Center" Height="50" FontSize="25" FontWeight="DemiBold">Account Info</Label>
+            <Button  Grid.Row="0" Grid.Column="1" Command="{Binding LogoutCommand}" Foreground="White" Height="50" Width="50" Margin="10" HorizontalAlignment="Right" VerticalAlignment="Center" Content="{materialDesign:PackIcon Logout, Size=25}"
                      ToolTip="Icon"/>
-            <Label Grid.Row="0" Grid.Column="0"  Margin="10" Content="First Name:" FontSize="30"/>
-            <TextBox Grid.Row="0" Grid.Column="1" Margin="10" MinWidth="100" Text ="{Binding CurrentDriver.FirstName,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditable}" BorderBrush="White" BorderThickness="1" FontSize="30"/>
-            <Label Grid.Row="1" Grid.Column="0"  Margin="10" Content="Last Name:" FontSize="30"/>
-            <TextBox Grid.Row="1" Grid.Column="1" Margin="10" MinWidth="100" Text ="{Binding CurrentDriver.LastName,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditable}" BorderBrush="White" BorderThickness="1" FontSize="30" />
-            <Label Grid.Row="2" Grid.Column="0"  Margin="10" Content="License Number:" FontSize="30"/>
-            <TextBox Grid.Row="2" Grid.Column="1" Margin="10" MinWidth="100" Text ="{Binding CurrentDriver.LicenseNumber,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditable}" BorderBrush="White" BorderThickness="1" FontSize="30"/>
-            <Label Grid.Row="3" Grid.Column="0"  Margin="10" Content="Policy:" FontSize="30"/>
-            <Label Grid.Row="3" Grid.Column="1" Margin="10" MinWidth="100" Content ="{Binding CurrentDriver.FreeMinutesPolicy}" BorderBrush="White" BorderThickness="1" FontSize="30"/>
-            <Label Grid.Row="4" Grid.Column="0"  Margin="10" Content="Status:" FontSize="30"/>
-            <Label Grid.Row="4" Grid.Column="1" Margin="10" MinWidth="100" Content ="{Binding CurrentDriver.DriverStatus}" BorderBrush="White" BorderThickness="1" FontSize="30"/>
-            <Button Grid.Row="5" Grid.Column="0" Command="{Binding ChangeToEditModeCommand}" Content="Edit" FontSize="15" Height="50"
+            <Label Grid.Row="1" Grid.Column="0"  Margin="10" Content="First Name:" FontSize="30" HorizontalContentAlignment="Right"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Margin="10" MinWidth="100" Text ="{Binding CurrentDriver.FirstName,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditable}" BorderBrush="White" BorderThickness="1" FontSize="30"/>
+            <Label Grid.Row="2" Grid.Column="0"  Margin="10" Content="Last Name:" FontSize="30" HorizontalContentAlignment="Right"/>
+            <TextBox Grid.Row="2" Grid.Column="1" Margin="10" MinWidth="100" Text ="{Binding CurrentDriver.LastName,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditable}" BorderBrush="White" BorderThickness="1" FontSize="30" />
+            <Label Grid.Row="3" Grid.Column="0"  Margin="10" Content="License Number:" FontSize="30" HorizontalContentAlignment="Right"/>
+            <TextBox Grid.Row="3" Grid.Column="1" Margin="10" MinWidth="100" Text ="{Binding CurrentDriver.LicenseNumber,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditable}" BorderBrush="White" BorderThickness="1" FontSize="30"/>
+            <Label Grid.Row="4" Grid.Column="0"  Margin="10" Content="Policy:" FontSize="30" HorizontalContentAlignment="Right"/>
+            <Label Grid.Row="4" Grid.Column="1" Margin="10" MinWidth="100" Content ="{Binding CurrentDriver.FreeMinutesPolicy}" BorderBrush="White" BorderThickness="1" FontSize="30"/>
+            <Label Grid.Row="5" Grid.Column="0"  Margin="10" Content="Status:" FontSize="30" HorizontalContentAlignment="Right"/>
+            <Label Grid.Row="5" Grid.Column="1" Margin="10" MinWidth="100" Content ="{Binding CurrentDriver.DriverStatus}" BorderBrush="White" BorderThickness="1" FontSize="30"/>
+            <Button Grid.Row="6" Grid.Column="0" Command="{Binding ChangeToEditModeCommand}" Content="Edit" FontSize="15" Height="50"  VerticalAlignment="Bottom"
                     Margin="10" Padding="10" />
-            <Button Grid.Row="6" Grid.Column="0" Command="{Binding SaveChangesCommand}" Content="Save" FontSize="15" Height="50"
+            <Button Grid.Row="6" Grid.Column="1" Command="{Binding SaveChangesCommand}" Content="Save" FontSize="15" Height="50"  VerticalAlignment="Bottom"
                     Margin="10" Padding="10" />
         </Grid>
     </DockPanel>

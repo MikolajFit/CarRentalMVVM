@@ -22,7 +22,7 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" FontSize="20">Drivers Management</Label>
+            <Label Margin="10"  Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" FontSize="20">Drivers Management</Label>
             <ListView Style="{DynamicResource MaterialDesignListView}" SelectionMode="Single"
                       ItemsSource="{Binding DriversCollection, Mode=TwoWay}" SelectedItem="{Binding SelectedDriver}"
                       Grid.Row="1" Grid.Column="0" Width="480" FontSize="15">
