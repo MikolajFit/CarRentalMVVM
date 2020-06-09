@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using CarRental.UI.Mappers;
+using CarRental.UI.Messages;
 using CarRental.UI.ViewModels.ObservableObjects;
 using DDD.CarRentalLib.ApplicationLayer.Interfaces;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -62,7 +63,8 @@ namespace CarRental.UI.ViewModels.DriverViewModels
                 _rentalService.TakeCar(rentalGuid, SelectedCar.Id, CurrentDriver.Id, DateTime.Now);
                 var rental = _rentalService.GetRental(rentalGuid);
                 var rentalInfo = _rentalViewModelMapper.Map(rental);
-                Messenger.Default.Send(rentalInfo);
+                var message = new RentalViewModelMessage(RentalViewModelMessageType.StartRental,rentalInfo);
+                Messenger.Default.Send(message);
                 Messenger.Default.Send(new NotificationMessage("Start Car Rental"));
             }
             catch (Exception e)

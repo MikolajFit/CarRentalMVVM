@@ -16,11 +16,9 @@ namespace CarRental.UI.ViewModels.DriverViewModels
         private readonly ITimer _estimatedCostTimer;
         private readonly IMessengerService _messengerService;
         private readonly IRentalService _rentalService;
-        private string _carInfo;
-        private string _estimatedCost = "0.00";
-        private bool _isRentalStopped;
-        private decimal _pricePerMinute;
         private RentalViewModel _currentRental;
+        private string _estimatedCost;
+        private bool _isRentalStopped;
         private string _timerText;
         private int _totalSeconds;
 
@@ -38,29 +36,6 @@ namespace CarRental.UI.ViewModels.DriverViewModels
             _estimatedCostTimer.Tick += UpdateEstimatedCostTimerState;
             StopRentalCommand = new RelayCommand(StopRental, () => !IsRentalStopped);
             CloseActiveRentalSessionViewCommand = new RelayCommand(CloseActiveRentalSessionView, () => IsRentalStopped);
-        }
-
-        private void ConfigureActiveRentalView(RentalViewModelMessage message)
-        {
-            _currentRental = message.RentalViewModel;
-            switch (message.MessageType)
-            {
-                case RentalViewModelMessageType.StartRental:
-                {
-                    Messenger.Default.Send(new RefreshRentalsMessage("Rental Started!"));
-                    TimerText = $"{TimeSpan.FromSeconds(_totalSeconds).Duration():hh\\:mm\\:ss}";
-                    break;
-                }
-                case RentalViewModelMessageType.ContinueRental:
-                {
-                    _totalSeconds = (int) (DateTime.Now - _currentRental.StartDateTime).TotalSeconds;
-                    break;
-                }
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-            _elapsedTimer.Start();
-            _estimatedCostTimer.Start();
         }
 
         public bool IsRentalStopped
@@ -91,8 +66,38 @@ namespace CarRental.UI.ViewModels.DriverViewModels
         public RelayCommand StopRentalCommand { get; }
         public RelayCommand CloseActiveRentalSessionViewCommand { get; }
 
+        private void ConfigureActiveRentalView(RentalViewModelMessage message)
+        {
+            _currentRental = message.RentalViewModel;
+            switch (message.MessageType)
+            {
+                case RentalViewModelMessageType.StartRental:
+                {
+                    Messenger.Default.Send(new RefreshRentalsMessage("Rental Started!"));
+                    break;
+                }
+                case RentalViewModelMessageType.ContinueRental:
+                {
+                    _totalSeconds = (int) (DateTime.Now - _currentRental.StartDateTime).TotalSeconds;
+                    break;
+                }
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            UpdateTimerText();
+            UpdateEstimatedCostText();
+            _elapsedTimer.Start();
+            _estimatedCostTimer.Start();
+        }
+
 
         private void UpdateEstimatedCostTimerState(object sender, EventArgs e)
+        {
+            UpdateEstimatedCostText();
+        }
+
+        private void UpdateEstimatedCostText()
         {
             var totalMinutes = Math.Ceiling((double) _totalSeconds / 60);
             var estimated = (int) totalMinutes * double.Parse(CurrentRental.PricePerMinute);
@@ -128,7 +133,7 @@ namespace CarRental.UI.ViewModels.DriverViewModels
                 $"Rental Finished! It took {TimerText} and total cost is {rental.Total.ToString("C", CultureInfo.CurrentCulture)}",
                 "Rental Summary");
         }
-        
+
         private void StopTimer()
         {
             _estimatedCostTimer.Stop();
@@ -138,7 +143,20 @@ namespace CarRental.UI.ViewModels.DriverViewModels
         private void UpdateElapsedTimerState(object sender, EventArgs e)
         {
             _totalSeconds += 1;
-            TimerText = $"{TimeSpan.FromSeconds(_totalSeconds).Duration():hh\\:mm\\:ss}";
+            UpdateTimerText();
+        }
+
+        private void UpdateTimerText()
+        {
+            var time = TimeSpan.FromSeconds(_totalSeconds).Duration();
+            if (time.Days >= 1)
+            {
+                TimerText = $"{time:dd} days {time:hh\\:mm\\:ss}";
+            }
+            else
+            {
+                TimerText = $"{TimeSpan.FromSeconds(_totalSeconds).Duration():hh\\:mm\\:ss}";
+            }
         }
     }
 }

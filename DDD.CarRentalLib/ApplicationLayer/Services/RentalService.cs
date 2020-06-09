@@ -39,7 +39,7 @@ namespace DDD.CarRentalLib.ApplicationLayer.Services
                 throw new Exception("Starting position of car cannot be outside of bonds!");
             var driver = _unitOfWork.DriverRepository.Get(driverId) ??
                          throw new Exception($"Could not find driver '{driverId}'.");
-            if(driver.DriverStatus==DriverStatus.Banned) throw new Exception($"Driver is banned!");
+            if (driver.DriverStatus == DriverStatus.Banned) throw new Exception("Driver is banned!");
             var rental = _rentalFactory.Create(rentalId, startDateTime, car, driver.Id);
 
             car.TakeCar();
@@ -71,42 +71,43 @@ namespace DDD.CarRentalLib.ApplicationLayer.Services
         {
             var rental = _unitOfWork.RentalRepository.Find(r => r.Id == rentalId).FirstOrDefault();
             var result = _rentalMapper.Map(rental);
-            var driver = _unitOfWork.DriverRepository.Get(result.DriverId);
-            var car = _unitOfWork.CarRepository.Get(result.CarId);
-            result.DriverName = driver.FirstName + " " + driver.LastName;
-            result.RegistrationNumber = car.RegistrationNumber;
-            result.PricePerMinute = car.PricePerMinute.Amount;
+            AssignAdditionalValues(result);
             return result;
         }
 
         public List<RentalDTO> GetAllRentals()
         {
             var rentals = _unitOfWork.RentalRepository.GetAll();
-            var result = _rentalMapper.Map(rentals);
-            foreach (var r in result)
-            {
-                var driver = _unitOfWork.DriverRepository.Get(r.DriverId);
-                var car = _unitOfWork.CarRepository.Get(r.CarId);
-                r.DriverName = driver.FirstName + " " + driver.LastName;
-                r.RegistrationNumber = car.RegistrationNumber;
-            }
-
+            var result = MapRentalsToDtos(rentals);
             return result;
         }
 
         public List<RentalDTO> GetRentalsForDriver(Guid driverId)
         {
             var rentals = _unitOfWork.RentalRepository.Find(rental => rental.DriverId == driverId);
+            var result = MapRentalsToDtos(rentals);
+            return result;
+        }
+
+
+        private List<RentalDTO> MapRentalsToDtos(IList<Rental> rentals)
+        {
             var result = _rentalMapper.Map(rentals);
             foreach (var r in result)
             {
-                var driver = _unitOfWork.DriverRepository.Get(r.DriverId);
-                var car = _unitOfWork.CarRepository.Get(r.CarId);
-                r.DriverName = driver.FirstName + " " + driver.LastName;
-                r.RegistrationNumber = car.RegistrationNumber;
+                AssignAdditionalValues(r);
             }
 
             return result;
+        }
+
+        private void AssignAdditionalValues(RentalDTO rentalDto)
+        {
+            var driver = _unitOfWork.DriverRepository.Get(rentalDto.DriverId);
+            var car = _unitOfWork.CarRepository.Get(rentalDto.CarId);
+            rentalDto.DriverName = driver.FirstName + " " + driver.LastName;
+            rentalDto.RegistrationNumber = car.RegistrationNumber;
+            rentalDto.PricePerMinute = car.PricePerMinute.Amount;
         }
 
         private double CalculateTotalMinutes(in DateTime startDateTime, in DateTime stopDateTime)
