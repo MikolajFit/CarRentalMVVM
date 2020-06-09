@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:CarRental.UI.Views"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"
-             d:DesignHeight="450" d:DesignWidth="660">
+             d:DesignHeight="630" d:DesignWidth="980" Padding="10">
     <DockPanel DataContext="{Binding ActiveRentalSessionViewModel, Source={StaticResource Locator}}" Background="White">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -20,25 +20,28 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <Button Grid.Row="0" Command="{Binding CloseActiveRentalSessionViewCommand}" Foreground="White" Height="75"
-                    Width="190" Margin="10" HorizontalAlignment="Center"
+            <Label Margin="10"  Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" HorizontalAlignment="Center" FontSize="20">Active Rental Session</Label>
+            <Button Grid.Row="1" Grid.Column="0" Command="{Binding CloseActiveRentalSessionViewCommand}" Foreground="White" Height="75"
+                    Width="75" Margin="10" HorizontalAlignment="Right"
                     Content="{materialDesign:PackIcon Home, Size=50}"
-                    ToolTip="Icon" />
-            <Label Grid.Row="1" Grid.Column="0" Padding="20,0,0,0" Content="Car Info:" FontSize="25"
+                    ToolTip="Close this window."  />
+           
+            <Button Grid.Row="1" Grid.Column="2" Command="{Binding StopRentalCommand}"  Content="{materialDesign:PackIcon Stop, Size=50}"
+                    ToolTip="Stop Rental." FontSize="30" Height="75" Width="75" Margin="10"
+                    Foreground="White" HorizontalAlignment="Left"/>
+            <Label Grid.Row="1" Grid.Column="1" Content="{Binding TimerText}" FontSize="50"
                    HorizontalAlignment="Center" Margin="10" />
-            <Label Grid.Row="0" Grid.Column="1" Content="{Binding TimerText}" FontSize="50"
-                   HorizontalAlignment="Center" Margin="10" />
-            <Button Grid.Row="0" Grid.Column="2" Command="{Binding StopRentalCommand}" Content="Stop Rental"
-                    FontSize="30" Height="75" Width="190" Margin="10" />
-            <Label Grid.Row="1" Grid.Column="1" Content="{Binding CarInfo}" FontSize="25" Margin="10" />
-            <Label Grid.Row="2" Grid.Column="0" Padding="20,0,0,0" Content="Price per minute:" FontSize="25"
-                   HorizontalAlignment="Center" Margin="10" />
-            <Label Grid.Row="2" Grid.Column="1" Content="{Binding PricePerMinute}" FontSize="25" Margin="10" />
-            <Label Grid.Row="3" Grid.Column="0" Padding="20,0,0,0" Content="Estimated Cost" FontSize="25"
-                   HorizontalAlignment="Center" Margin="10" />
-            <Label Grid.Row="3" Grid.Column="1" Content="{Binding EstimatedCost}" FontSize="25" Margin="10" />
+            
+            <Label Grid.Row="2" Grid.Column="0" Content="Car Info:" FontSize="25"
+                   HorizontalAlignment="Right" Margin="10" />
+            <Label Grid.Row="2" Grid.Column="1" Content="{Binding CurrentRental.RegistrationNumber}" FontSize="25" Margin="10" HorizontalAlignment="Center" />
+            <Label Grid.Row="3" Grid.Column="0" Content="Price per minute:" FontSize="25"
+                   HorizontalAlignment="Right" Margin="10" />
+            <Label Grid.Row="3" Grid.Column="1" Content="{Binding CurrentRental.PricePerMinute}" HorizontalAlignment="Center" FontSize="25" Margin="10" />
+            <Label Grid.Row="4" Grid.Column="0" Content="Estimated Cost:" FontSize="25"
+                   HorizontalAlignment="Right" Margin="10" />
+            <Label Grid.Row="4" Grid.Column="1" Content="{Binding EstimatedCost}" FontSize="25" HorizontalAlignment="Center" Margin="10" />
         </Grid>
     </DockPanel>
 

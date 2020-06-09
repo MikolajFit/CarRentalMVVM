@@ -76,6 +76,11 @@ namespace DDD.CarRentalLib.ApplicationLayer.Services
         {
             var cars = _unitOfWork.CarRepository.GetAll();
             var result = _carMapper.Map(cars);
+            foreach (var carDto in result)
+            {
+                var rentalArea = _unitOfWork.RentalAreaRepository.Get(carDto.RentalAreaId);
+                carDto.RentalAreaName = rentalArea.Name;
+            }
             return result;
         }
 
@@ -83,6 +88,11 @@ namespace DDD.CarRentalLib.ApplicationLayer.Services
         {
             var cars = _unitOfWork.CarRepository.Find(car => car.Status == CarStatus.Free);
             var result = _carMapper.Map(cars);
+            foreach (var carDto in result)
+            {
+                var rentalArea = _unitOfWork.RentalAreaRepository.Get(carDto.RentalAreaId);
+                carDto.RentalAreaName = rentalArea.Name;
+            }
             return result;
         }
 

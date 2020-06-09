@@ -14,18 +14,19 @@ namespace CarRental.UI.ViewModels.DriverViewModels
     {
         private readonly ICarService _carService;
         private readonly ICarViewModelMapper _carViewModelMapper;
+        private readonly IRentalViewModelMapper _rentalViewModelMapper;
         private readonly IRentalService _rentalService;
         private CarViewModel _selectedCar;
 
 
         public RentCarViewModel(ICarService carService, IRentalService rentalService,
-            ICarViewModelMapper carViewModelMapper)
+            ICarViewModelMapper carViewModelMapper, IRentalViewModelMapper rentalViewModelMapper)
         {
             _carService = carService;
             _rentalService = rentalService;
             _carViewModelMapper = carViewModelMapper;
+            _rentalViewModelMapper = rentalViewModelMapper;
             PopulateAvailableCarListView();
-
             RentCarCommand = new RelayCommand(RentSelectedCar, CanExecuteRentCar);
         }
 
@@ -59,12 +60,8 @@ namespace CarRental.UI.ViewModels.DriverViewModels
             {
                 var rentalGuid = Guid.NewGuid();
                 _rentalService.TakeCar(rentalGuid, SelectedCar.Id, CurrentDriver.Id, DateTime.Now);
-                var rentalInfo = new RentalInfoViewModel
-                {
-                    RentalId = rentalGuid,
-                    SelectedCar = SelectedCar.RegistrationNumber,
-                    PricePerMinute = decimal.Parse(SelectedCar.PricePerMinute)
-                };
+                var rental = _rentalService.GetRental(rentalGuid);
+                var rentalInfo = _rentalViewModelMapper.Map(rental);
                 Messenger.Default.Send(rentalInfo);
                 Messenger.Default.Send(new NotificationMessage("Start Car Rental"));
             }

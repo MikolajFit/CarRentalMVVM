@@ -75,6 +75,7 @@ namespace DDD.CarRentalLib.ApplicationLayer.Services
             var car = _unitOfWork.CarRepository.Get(result.CarId);
             result.DriverName = driver.FirstName + " " + driver.LastName;
             result.RegistrationNumber = car.RegistrationNumber;
+            result.PricePerMinute = car.PricePerMinute.Amount;
             return result;
         }
 

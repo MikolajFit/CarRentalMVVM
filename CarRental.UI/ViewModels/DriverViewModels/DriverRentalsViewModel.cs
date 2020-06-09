@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Data;
+using CarRental.UI.Mappers;
 using CarRental.UI.Messages;
 using CarRental.UI.ViewModels.ObservableObjects;
-using DDD.CarRentalLib.ApplicationLayer.DTOs;
 using DDD.CarRentalLib.ApplicationLayer.Interfaces;
 using GalaSoft.MvvmLight.Messaging;
 
@@ -14,24 +15,23 @@ namespace CarRental.UI.ViewModels.DriverViewModels
     {
         private readonly CollectionViewSource _driverRentalsCollection;
         private readonly IRentalService _rentalService;
-        private ObservableCollection<RentalDTO> _driverRentals = new ObservableCollection<RentalDTO>();
+        private readonly IRentalViewModelMapper _rentalViewModelMapper;
+        private ObservableCollection<RentalViewModel> _driverRentals = new ObservableCollection<RentalViewModel>();
         private DateTime? _selectedStartDateFrom;
         private DateTime? _selectedStartDateTo;
         private DateTime? _selectedStopDateFrom;
         private DateTime? _selectedStopDateTo;
 
-        public DriverRentalsViewModel(IRentalService rentalService)
+        public DriverRentalsViewModel(IRentalService rentalService, IRentalViewModelMapper rentalViewModelMapper)
         {
-            _rentalService = rentalService;
             Messenger.Default.Register<RefreshRentalsMessage>(this, NewRentalAdded);
+            _rentalService = rentalService;
+            _rentalViewModelMapper = rentalViewModelMapper;
             _driverRentalsCollection = new CollectionViewSource {Source = DriverRentals};
-            _driverRentalsCollection.Filter += FilterByStartDateTimeFrom;
-            _driverRentalsCollection.Filter += FilterByStartDateTimeTo;
-            _driverRentalsCollection.Filter += FilterByStopDateTimeFrom;
-            _driverRentalsCollection.Filter += FilterByStopDateTimeTo;
+            ApplyFilters();
         }
 
-        public ObservableCollection<RentalDTO> DriverRentals
+        public ObservableCollection<RentalViewModel> DriverRentals
         {
             get => _driverRentals;
             set { Set(() => DriverRentals, ref _driverRentals, value); }
@@ -79,6 +79,14 @@ namespace CarRental.UI.ViewModels.DriverViewModels
             }
         }
 
+        private void ApplyFilters()
+        {
+            _driverRentalsCollection.Filter += FilterByStartDateTimeFrom;
+            _driverRentalsCollection.Filter += FilterByStartDateTimeTo;
+            _driverRentalsCollection.Filter += FilterByStopDateTimeFrom;
+            _driverRentalsCollection.Filter += FilterByStopDateTimeTo;
+        }
+
         public override void AssignLoggedInDriver(DriverViewModel driver)
         {
             base.AssignLoggedInDriver(driver);
@@ -94,40 +102,62 @@ namespace CarRental.UI.ViewModels.DriverViewModels
         {
             var rentals = _rentalService.GetRentalsForDriver(CurrentDriver.Id);
             DriverRentals.Clear();
-            foreach (var rentalDto in rentals) DriverRentals.Add(rentalDto);
+            foreach (var rentalViewModel in rentals.Select(rental => _rentalViewModelMapper.Map(rental)))
+            {
+                DriverRentals.Add(rentalViewModel);
+            }
+
             _driverRentalsCollection.View.Refresh();
         }
 
         private void FilterByStartDateTimeFrom(object sender, FilterEventArgs e)
         {
-            if (!(e.Item is RentalDTO rental))
+            if (!(e.Item is RentalViewModel rental))
+            {
                 e.Accepted = false;
+            }
             else if (SelectedStartDateFrom != null && rental.StartDateTime < SelectedStartDateFrom.Value)
+            {
                 e.Accepted = false;
+            }
         }
 
         private void FilterByStartDateTimeTo(object sender, FilterEventArgs e)
         {
-            if (!(e.Item is RentalDTO rental))
+            if (!(e.Item is RentalViewModel rental))
+            {
                 e.Accepted = false;
+            }
             else if (SelectedStartDateTo != null && rental.StartDateTime > SelectedStartDateTo.Value)
+            {
                 e.Accepted = false;
+            }
         }
 
         private void FilterByStopDateTimeFrom(object sender, FilterEventArgs e)
         {
-            if (!(e.Item is RentalDTO rental))
+            if (!(e.Item is RentalViewModel rental))
+            {
                 e.Accepted = false;
+            }
             else if (rental.StopDateTime != null && SelectedStopDateFrom != null &&
-                     rental.StopDateTime.Value.Date < SelectedStopDateFrom.Value.Date) e.Accepted = false;
+                     rental.StopDateTime.Value.Date < SelectedStopDateFrom.Value.Date)
+            {
+                e.Accepted = false;
+            }
         }
 
         private void FilterByStopDateTimeTo(object sender, FilterEventArgs e)
         {
-            if (!(e.Item is RentalDTO rental))
+            if (!(e.Item is RentalViewModel rental))
+            {
                 e.Accepted = false;
+            }
             else if (rental.StopDateTime != null && SelectedStopDateTo != null &&
-                     rental.StopDateTime.Value.Date > SelectedStopDateTo.Value.Date) e.Accepted = false;
+                     rental.StopDateTime.Value.Date > SelectedStopDateTo.Value.Date)
+            {
+                e.Accepted = false;
+            }
         }
     }
 }

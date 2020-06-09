@@ -12,6 +12,5 @@ namespace CarRental.UI.Mappers
     {
         DriverViewModel Map(DriverDTO driverDto);
         DriverDTO Map(DriverViewModel driver);
-
     }
 }

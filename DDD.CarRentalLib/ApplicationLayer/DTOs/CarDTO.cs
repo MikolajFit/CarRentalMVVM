@@ -14,5 +14,6 @@ namespace DDD.CarRentalLib.ApplicationLayer.DTOs
         public CarStatus Status { get; set; }
         public decimal PricePerMinute { get; set; }
         public Guid RentalAreaId { get; set; }
+        public string RentalAreaName { get; set; }
     }
 }

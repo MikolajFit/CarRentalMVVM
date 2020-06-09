@@ -22,11 +22,11 @@
                     <Setter Property="BorderThickness" Value="10"/>
                 </Style>
             </TabControl.ItemContainerStyle>
-            <TabItem  >
+            <TabItem>
                 <TabItem.Header>
-                    <materialDesign:PackIcon Style="{DynamicResource TabHeaderIcon}" Kind="AccountDetails" Height="70" Width="70"/>
+                    <materialDesign:PackIcon Style="{DynamicResource TabHeaderIcon}" Kind="CarRental" Height="70" Width="70"/>
                 </TabItem.Header>
-                <ContentControl Content="{Binding DriverAccountViewModel, Source={StaticResource Locator}}"></ContentControl>
+                <ContentControl Content="{Binding CurrentRentCarViewModel}" />
             </TabItem>
             <TabItem>
                 <TabItem.Header>
@@ -34,12 +34,13 @@
                 </TabItem.Header>
                 <ContentControl Content="{Binding DriverRentalsViewModel,Source={StaticResource Locator}}" />
             </TabItem>
-            <TabItem>
+            <TabItem  >
                 <TabItem.Header>
-                    <materialDesign:PackIcon Style="{DynamicResource TabHeaderIcon}" Kind="CarRental" Height="70" Width="70"/>
+                    <materialDesign:PackIcon Style="{DynamicResource TabHeaderIcon}" Kind="AccountDetails" Height="70" Width="70"/>
                 </TabItem.Header>
-                <ContentControl Content="{Binding CurrentRentCarViewModel}" />
+                <ContentControl Content="{Binding DriverAccountViewModel, Source={StaticResource Locator}}"></ContentControl>
             </TabItem>
+            
         </TabControl>
     </DockPanel>
 

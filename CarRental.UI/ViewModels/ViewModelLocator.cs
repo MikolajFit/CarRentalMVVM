@@ -79,6 +79,7 @@ namespace CarRental.UI.ViewModels
         {
             SimpleIoc.Default.Register<ICarViewModelMapper, CarViewModelMapper>();
             SimpleIoc.Default.Register<IDriverViewModelMapper,DriverViewModelMapper>();
+            SimpleIoc.Default.Register<IRentalViewModelMapper,RentalViewModelMapper>();
             SimpleIoc.Default.Register<ITimerFactory, TimerFactory>();
             SimpleIoc.Default.Register<IDomainEventPublisher, SimpleEventPublisher>();
             SimpleIoc.Default.Register<ICarRentalUnitOfWork, MemoryCarRentalUnitOfWork>();

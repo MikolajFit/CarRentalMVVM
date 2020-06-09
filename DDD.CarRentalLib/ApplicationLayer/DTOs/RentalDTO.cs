@@ -12,6 +12,7 @@ namespace DDD.CarRentalLib.ApplicationLayer.DTOs
         public decimal Total { get; set; }
         public Guid CarId { get; set; }
         public string RegistrationNumber { get; set; }
+        public decimal PricePerMinute { get; set; }
         public Guid DriverId { get; set; }
         public string DriverName { get; set; }
 

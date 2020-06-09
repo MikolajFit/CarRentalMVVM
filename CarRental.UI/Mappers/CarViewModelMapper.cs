@@ -7,26 +7,20 @@ namespace CarRental.UI.Mappers
 {
     public class CarViewModelMapper : ICarViewModelMapper
     {
-        private readonly IRentalAreaService _rentalAreaService;
-
-        public CarViewModelMapper(IRentalAreaService rentalAreaService)
-        {
-            _rentalAreaService = rentalAreaService;
-        }
-
+ 
         public CarViewModel Map(CarDTO car)
         {
             return new CarViewModel
             {
                 Id = car.Id,
                 CarStatus = car.Status,
-                CurrentDistance = car.CurrentDistance.ToString(CultureInfo.InvariantCulture),
+                CurrentDistance = $"{car.CurrentDistance:0.00}",
                 CurrentLatitude = car.CurrentLatitude.ToString(CultureInfo.InvariantCulture),
                 CurrentLongitude = car.CurrentLongitude.ToString(CultureInfo.InvariantCulture),
-                PricePerMinute = car.PricePerMinute.ToString(CultureInfo.InvariantCulture),
+                PricePerMinute = $"{car.PricePerMinute:0.00}",
                 RegistrationNumber = car.RegistrationNumber,
                 RentalAreaId = car.RentalAreaId,
-                RentalAreaName = _rentalAreaService.GetRentalArea(car.RentalAreaId).Name,
+                RentalAreaName = car.RentalAreaName,
                 TotalDistance = $"{car.TotalDistance:0.00}"
             };
         }
@@ -42,6 +36,7 @@ namespace CarRental.UI.Mappers
                 PricePerMinute = decimal.Parse(carViewModel.PricePerMinute),
                 RegistrationNumber = carViewModel.RegistrationNumber,
                 RentalAreaId = selectedRentalArea.Id,
+                RentalAreaName = selectedRentalArea.Name,
                 TotalDistance = double.Parse(carViewModel.TotalDistance)
             };
             if (provideCustomPosition)
