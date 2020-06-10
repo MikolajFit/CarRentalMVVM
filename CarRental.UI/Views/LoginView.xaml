@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CarRental.UI.Views"
         mc:Ignorable="d"
-        Title="LoginView" Height="600" Width="300">
+        Title="Login Page"
+        Height="600" Width="300">
 
     <DockPanel DataContext="{Binding LoginViewModel, Source={StaticResource Locator}}">
         <Grid>
@@ -21,7 +22,7 @@
             </Grid.ColumnDefinitions>
             <Button  Grid.Row="0" Command="{Binding AdminLoginCommand}" Content="Admin" FontSize="15" Height="50"
                     Margin="10" Padding="10" Background="#FF4CAF50" Foreground="White" FontWeight="Normal" />
-            <Image Height="250" Width="250" Grid.Row="1" Source="/Views/electric_car_.png" />
+            <Image Height="250" Width="250" Grid.Row="1" Source="/Resources/Images/electric_car_.png" />
             <ComboBox Grid.Row="2" FontSize="20" Height="50" Margin="10" Padding="10" ItemsSource="{Binding Drivers}"
                       SelectedItem="{Binding SelectedDriver}" DisplayMemberPath="FirstName" />
             <Button Grid.Row="3" Command="{Binding LoginCommand}" Content="Login" FontSize="15" Height="50"

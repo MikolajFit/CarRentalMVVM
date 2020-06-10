@@ -24,8 +24,6 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Label Margin="10"  Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" HorizontalAlignment="Center" Height="50" FontSize="25" FontWeight="DemiBold">Account Info</Label>
-            <Button  Grid.Row="0" Grid.Column="1" Command="{Binding LogoutCommand}" Foreground="White" Height="50" Width="50" Margin="10" HorizontalAlignment="Right" VerticalAlignment="Center" Content="{materialDesign:PackIcon Logout, Size=25}"
-                     ToolTip="Icon"/>
             <Label Grid.Row="1" Grid.Column="0"  Margin="10" Content="First Name:" FontSize="30" HorizontalContentAlignment="Right"/>
             <TextBox Grid.Row="1" Grid.Column="1" Margin="10" MinWidth="100" Text ="{Binding CurrentDriver.FirstName,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditable}" BorderBrush="White" BorderThickness="1" FontSize="30"/>
             <Label Grid.Row="2" Grid.Column="0"  Margin="10" Content="Last Name:" FontSize="30" HorizontalContentAlignment="Right"/>

@@ -4,19 +4,23 @@ using System.Linq;
 using CarRental.UI.Mappers;
 using CarRental.UI.Messages;
 using CarRental.UI.ViewModels.ObservableObjects;
+using DDD.CarRentalLib.ApplicationLayer.DTOs;
 using DDD.CarRentalLib.ApplicationLayer.Interfaces;
+using DDD.CarRentalLib.DomainModelLayer.Models;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 
 namespace CarRental.UI.ViewModels.DriverViewModels
 {
     public class RentCarViewModel : AssignedDriverViewModelBase
-
     {
+        private const string DriverBanned = "BANNED";
         private readonly ICarService _carService;
         private readonly ICarViewModelMapper _carViewModelMapper;
-        private readonly IRentalViewModelMapper _rentalViewModelMapper;
         private readonly IRentalService _rentalService;
+        private readonly IRentalViewModelMapper _rentalViewModelMapper;
+        private string _driverBannedError;
+        private bool _isCarListEnabled;
         private CarViewModel _selectedCar;
 
 
@@ -28,7 +32,7 @@ namespace CarRental.UI.ViewModels.DriverViewModels
             _carViewModelMapper = carViewModelMapper;
             _rentalViewModelMapper = rentalViewModelMapper;
             PopulateAvailableCarListView();
-            RentCarCommand = new RelayCommand(RentSelectedCar, CanExecuteRentCar);
+            RentCarCommand = new RelayCommand(RentCar, CanExecuteRentCar);
         }
 
         public CarViewModel SelectedCar
@@ -42,6 +46,48 @@ namespace CarRental.UI.ViewModels.DriverViewModels
 
         public RelayCommand RentCarCommand { get; }
 
+        public string DriverBannedError
+        {
+            get => _driverBannedError;
+            set { Set(() => DriverBannedError, ref _driverBannedError, value); }
+        }
+
+        public bool IsCarListEnabled
+        {
+            get => _isCarListEnabled;
+            set { Set(() => IsCarListEnabled, ref _isCarListEnabled, value); }
+        }
+
+        public override void AssignLoggedInDriver(DriverViewModel driverViewModel)
+        {
+            base.AssignLoggedInDriver(driverViewModel);
+            CheckIfDriverIsBanned();
+            CheckIfRentalIsActive();
+        }
+
+        private void CheckIfDriverIsBanned()
+        {
+            var isDriverBanned = CurrentDriver.DriverStatus == DriverStatus.Banned;
+            if (isDriverBanned)
+            {
+                DriverBannedError = DriverBanned;
+                IsCarListEnabled = false;
+            }
+            else
+            {
+                IsCarListEnabled = true;
+                DriverBannedError = null;
+            }
+        }
+
+        private void CheckIfRentalIsActive()
+        {
+            var rentals = _rentalService.GetRentalsForDriver(CurrentDriver.Id);
+            var activeRental = rentals.FirstOrDefault(r => r.StopDateTime.HasValue == false);
+            if (activeRental == null) return;
+            SendRentalViewModelMessage(activeRental, RentalViewModelMessageType.ContinueRental);
+        }
+
         private void PopulateAvailableCarListView()
         {
             var cars = _carService.GetFreeCars();
@@ -52,26 +98,31 @@ namespace CarRental.UI.ViewModels.DriverViewModels
 
         private bool CanExecuteRentCar()
         {
-            return SelectedCar != null;
+            return SelectedCar != null && CurrentDriver.DriverStatus != DriverStatus.Banned;
         }
 
-        private void RentSelectedCar()
+        private void RentCar()
         {
             try
             {
                 var rentalGuid = Guid.NewGuid();
                 _rentalService.TakeCar(rentalGuid, SelectedCar.Id, CurrentDriver.Id, DateTime.Now);
                 var rental = _rentalService.GetRental(rentalGuid);
-                var rentalInfo = _rentalViewModelMapper.Map(rental);
-                var message = new RentalViewModelMessage(RentalViewModelMessageType.StartRental,rentalInfo);
-                Messenger.Default.Send(message);
-                Messenger.Default.Send(new NotificationMessage("Start Car Rental"));
+                SendRentalViewModelMessage(rental, RentalViewModelMessageType.StartRental);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 throw;
             }
+        }
+
+        private void SendRentalViewModelMessage(RentalDTO rental, RentalViewModelMessageType messageType)
+        {
+            var rentalInfo = _rentalViewModelMapper.Map(rental);
+            var message = new RentalViewModelMessage(messageType, rentalInfo);
+            Messenger.Default.Send(message);
+            Messenger.Default.Send(new NotificationMessage("Start Car Rental"));
         }
     }
 }

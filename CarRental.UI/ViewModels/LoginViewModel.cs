@@ -18,13 +18,11 @@ namespace CarRental.UI.ViewModels
             _driverService = driverService;
             _driverViewModelMapper = driverViewModelMapper;
             PopulateDriversListView();
-
             LoginCommand = new RelayCommand(
-                NavigateToDriverMainView);
+                NavigateToDriverMainView, IsDriverSelected);
             RegisterCommand = new RelayCommand(NavigateToRegisterView);
             AdminLoginCommand = new RelayCommand(NavigateToAdminMainView);
         }
-
 
         public ObservableCollection<DriverViewModel> Drivers { get; set; } =
             new ObservableCollection<DriverViewModel>();
@@ -39,11 +37,19 @@ namespace CarRental.UI.ViewModels
             set { Set(() => SelectedDriver, ref _selectedDriver, value); }
         }
 
+        private bool IsDriverSelected()
+        {
+            return SelectedDriver != null;
+        }
+
         private void PopulateDriversListView()
         {
             var drivers = _driverService.GetAllDrivers();
             Drivers.Clear();
-            foreach (var driver in drivers) Drivers.Add(_driverViewModelMapper.Map(driver));
+            foreach (var driver in drivers)
+            {
+                Drivers.Add(_driverViewModelMapper.Map(driver));
+            }
         }
 
         private static void NavigateToAdminMainView()

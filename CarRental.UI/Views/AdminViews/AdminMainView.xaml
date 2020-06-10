@@ -6,18 +6,21 @@
         xmlns:local="clr-namespace:CarRental.UI.Views"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="AdminMainWindow" Height="630" Width="1150"  
+        Height="642" Width="1150"  
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
-        TextOptions.TextRenderingMode="Auto">
+        TextOptions.TextRenderingMode="Auto"
+        Title="Admin Page" >
 
     <DockPanel DataContext="{Binding AdminMainViewModel, Source={StaticResource Locator}}">
         <TabControl  Background="White" TabStripPlacement="Left" BorderThickness="0">
             <TabControl.ItemContainerStyle>
                 <Style TargetType="{x:Type TabItem}">
                     <Setter Property="Width" Value="150" />
-                    <Setter Property="Height" Value="150" />
+                    <Setter Property="Height" Value="120" />
+                    <Setter Property="Padding" Value="0" />
+                    <Setter Property="Margin" Value="0" />
                     <Setter Property="FontSize" Value="15" />
                     <Setter Property="Background" Value="#FF4CAF50" />
                 </Style>
@@ -46,7 +49,13 @@
                 </TabItem.Header>
                 <ContentControl Content="{Binding RentalAreaManagementViewModel,Source={StaticResource Locator}}" />
             </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <Button Height="120" Width="150" Margin="2,0,0,0" Command="{Binding LogoutCommand}" Content="{materialDesign:PackIcon Logout, Size=70}" ToolTip="Logout."></Button>
+                </TabItem.Header>
+            </TabItem>
         </TabControl>
+
     </DockPanel>
 
 </Window>
