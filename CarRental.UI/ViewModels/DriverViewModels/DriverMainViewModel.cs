@@ -1,4 +1,5 @@
-﻿using CarRental.UI.Services;
+﻿using System;
+using CarRental.UI.Services;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 
@@ -10,11 +11,11 @@ namespace CarRental.UI.ViewModels.DriverViewModels
         private readonly RentCarViewModel _rentCarViewModel;
         private CustomViewModelBase _currentRentCarViewModel;
 
-        public DriverMainViewModel(IMessengerService messengerService) : base(messengerService)
+        public DriverMainViewModel(IMessengerService messengerService, RentCarViewModel rentCarViewModel, ActiveRentalSessionViewModel activeRentalSessionViewModel) : base(messengerService)
         {
             Messenger.Default.Register<NotificationMessage>(this, SwitchRentalView);
-            _rentCarViewModel = SimpleIoc.Default.GetInstance<RentCarViewModel>();
-            _activeRentalSessionViewModel = SimpleIoc.Default.GetInstance<ActiveRentalSessionViewModel>();
+            _rentCarViewModel = rentCarViewModel ?? throw new ArgumentNullException();
+            _activeRentalSessionViewModel = activeRentalSessionViewModel ?? throw new ArgumentNullException();
             CurrentRentCarViewModel = _rentCarViewModel;
         }
 
@@ -33,7 +34,7 @@ namespace CarRental.UI.ViewModels.DriverViewModels
                 case "Start Car Rental":
                     CurrentRentCarViewModel = _activeRentalSessionViewModel;
                     break;
-                case "Stop Car Rental":
+                case "Stop Car Rental" when CurrentRentCarViewModel!=_rentCarViewModel:
                     CurrentRentCarViewModel = _rentCarViewModel;
                     break;
             }

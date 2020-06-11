@@ -14,9 +14,17 @@ namespace CarRental.UI.Tests.ViewModelsTests
 {
     public class LoginViewModelTests
     {
-        private readonly IDriverService _driverServiceMock = Substitute.For<IDriverService>();
-        private readonly IDriverViewModelMapper _driverViewModelMapperMock = Substitute.For<IDriverViewModelMapper>();
-        private readonly IMessengerService _messengerServiceMock = Substitute.For<IMessengerService>();
+        private IDriverService _driverServiceMock;
+        private IDriverViewModelMapper _driverViewModelMapperMock;
+        private IMessengerService _messengerServiceMock;
+
+        [SetUp]
+        public void Setup()
+        {
+            _driverServiceMock = Substitute.For<IDriverService>();
+            _driverViewModelMapperMock = Substitute.For<IDriverViewModelMapper>();
+            _messengerServiceMock = Substitute.For<IMessengerService>();
+        }
 
         [Test]
         public void ShouldThrowExceptionIfPassedNullArgumentInConstructor()

@@ -41,6 +41,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Label Content="Selected car" Height="50"
@@ -54,7 +55,10 @@
                         Height="50"
                         Margin="10" Background="#FF4CAF50" Foreground="White" FontWeight="Normal" />
 
-                <Label Grid.Row="3" Content="{Binding DriverBannedError}" HorizontalContentAlignment="Center"
+                <Label Grid.Row="3" Content="{Binding ErrorString}" HorizontalContentAlignment="Center"
+                       VerticalContentAlignment="Center"
+                       FontSize="7" Foreground="Red" FontWeight="Medium" />
+                <Label Grid.Row="4" Content="{Binding DriverBannedError}" HorizontalContentAlignment="Center"
                        VerticalContentAlignment="Center"
                        FontSize="50" Foreground="Red" FontWeight="Medium" />
             </Grid>

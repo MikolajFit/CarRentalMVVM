@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Runtime.InteropServices.WindowsRuntime;
 using CarRental.UI.Messages;
 using CarRental.UI.Services;
 using CarRental.UI.Utils.Interfaces;
@@ -22,15 +23,17 @@ namespace CarRental.UI.ViewModels.DriverViewModels
         private ITimer _estimatedCostTimer;
         private bool _isRentalStopped;
         private string _timerText;
-        private int _totalSeconds;
+        public int TotalSeconds;
+        private string _errorString;
+
 
         public ActiveRentalSessionViewModel(ITimerFactory timerFactory, IRentalService rentalService,
             IDialogService dialogService, IMessengerService messengerService)
         {
-            _timerFactory = timerFactory;
-            _rentalService = rentalService;
-            _dialogService = dialogService;
-            _messengerService = messengerService;
+            _timerFactory = timerFactory ?? throw new ArgumentNullException();
+            _rentalService = rentalService ?? throw new ArgumentNullException();
+            _dialogService = dialogService ?? throw new ArgumentNullException();
+            _messengerService = messengerService ?? throw new ArgumentNullException();
             Messenger.Default.Register<RentalViewModelMessage>(this, ConfigureActiveRentalView);
             StopRentalCommand = new RelayCommand(StopRental, () => !IsRentalStopped);
             CloseActiveRentalSessionViewCommand = new RelayCommand(CloseActiveRentalSessionView, () => IsRentalStopped);
@@ -87,11 +90,9 @@ namespace CarRental.UI.ViewModels.DriverViewModels
                 }
                 case RentalViewModelMessageType.ContinueRental:
                 {
-                    _totalSeconds = (int) (DateTime.Now - _currentRental.StartDateTime).TotalSeconds;
+                    TotalSeconds = (int) (DateTime.Now - _currentRental.StartDateTime).TotalSeconds;
                     break;
                 }
-                default:
-                    throw new ArgumentOutOfRangeException();
             }
 
             UpdateTimerText();
@@ -108,7 +109,7 @@ namespace CarRental.UI.ViewModels.DriverViewModels
 
         private void UpdateEstimatedCostText()
         {
-            var totalMinutes = Math.Ceiling((double) _totalSeconds / 60);
+            var totalMinutes = Math.Ceiling((double) TotalSeconds / 60);
             var estimated = (int) totalMinutes * double.Parse(CurrentRental.PricePerMinute);
             EstimatedCost = $"{estimated:0.00}";
         }
@@ -121,26 +122,40 @@ namespace CarRental.UI.ViewModels.DriverViewModels
 
         private void CleanResources()
         {
-            _totalSeconds = 0;
+            TotalSeconds = 0;
             IsRentalStopped = false;
         }
 
 
         private void StopRental()
         {
-            _rentalService.ReturnCar(_currentRental.RentalId, DateTime.Now);
-            _messengerService.Send(new RefreshRentalsMessage("Rental Stopped!"));
-            IsRentalStopped = true;
-            StopTimer();
-            ShowSummary();
+            try
+            {
+                _rentalService.ReturnCar(_currentRental.RentalId, DateTime.Now);
+                ErrorString = null;
+                _messengerService.Send(new RefreshRentalsMessage("Rental Stopped!"));
+                IsRentalStopped = true;
+                StopTimer();
+                ShowSummary();
+            }
+            catch(Exception)
+            {
+                ErrorString = "Couldn't return car.";
+            }
+        }
+        public string ErrorString
+        {
+            get => _errorString;
+            set { Set(() => ErrorString, ref _errorString, value); }
         }
 
         private void ShowSummary()
         {
             var rental = _rentalService.GetRental(_currentRental.RentalId);
-            _dialogService.ShowMessage(
-                $"Rental Finished! It took {TimerText} and total cost is {rental.Total.ToString("C", CultureInfo.CurrentCulture)}",
-                "Rental Summary");
+            if (rental!= null)
+                _dialogService.ShowMessage(
+                    $"Rental Finished! It took {TimerText} and total cost is {rental.Total.ToString("C", CultureInfo.CurrentCulture)}",
+                    "Rental Summary");
         }
 
         private void StopTimer()
@@ -151,20 +166,20 @@ namespace CarRental.UI.ViewModels.DriverViewModels
 
         private void UpdateElapsedTimerState(object sender, EventArgs e)
         {
-            _totalSeconds += 1;
+            TotalSeconds += 1;
             UpdateTimerText();
         }
 
         private void UpdateTimerText()
         {
-            var time = TimeSpan.FromSeconds(_totalSeconds).Duration();
+            var time = TimeSpan.FromSeconds(TotalSeconds).Duration();
             if (time.Days >= 1)
             {
                 TimerText = $"{time:dd} days {time:hh\\:mm\\:ss}";
             }
             else
             {
-                TimerText = $"{TimeSpan.FromSeconds(_totalSeconds).Duration():hh\\:mm\\:ss}";
+                TimerText = $"{TimeSpan.FromSeconds(TotalSeconds).Duration():hh\\:mm\\:ss}";
             }
         }
     }

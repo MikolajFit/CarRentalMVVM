@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CarRental.UI.Mappers;
 using CarRental.UI.Services;
 using CarRental.UI.ViewModels;
@@ -17,9 +13,17 @@ namespace CarRental.UI.Tests.ViewModelsTests
 {
     public class RegisterDriverViewModelTests
     {
-        private readonly IDriverService _driverServiceMock = Substitute.For<IDriverService>();
-        private readonly IDriverViewModelMapper _driverViewModelMapperMock = Substitute.For<IDriverViewModelMapper>();
-        private readonly IMessengerService _messengerServiceMock = Substitute.For<IMessengerService>();
+        private IDriverService _driverServiceMock;
+        private IDriverViewModelMapper _driverViewModelMapperMock;
+        private IMessengerService _messengerServiceMock;
+
+        [SetUp]
+        public void Setup()
+        {
+            _driverServiceMock = Substitute.For<IDriverService>();
+            _driverViewModelMapperMock = Substitute.For<IDriverViewModelMapper>();
+            _messengerServiceMock = Substitute.For<IMessengerService>();
+        }
 
         [Test]
         public void ShouldThrowExceptionIfPassedNullArgumentInConstructor()
@@ -35,15 +39,17 @@ namespace CarRental.UI.Tests.ViewModelsTests
         [Test]
         public void ShouldProperlyCreateNewDriverWhenInitialized()
         {
-            var sut = new RegisterDriverViewModel(_driverServiceMock,_driverViewModelMapperMock,_messengerServiceMock);
+            var sut = new RegisterDriverViewModel(_driverServiceMock, _driverViewModelMapperMock,
+                _messengerServiceMock);
             Assert.NotNull(sut.CurrentDriver);
-            Assert.AreNotEqual(Guid.Empty,sut.CurrentDriver.Id);
+            Assert.AreNotEqual(Guid.Empty, sut.CurrentDriver.Id);
         }
 
         [Test]
         public void ShouldNotExecuteRegisterCommandWhenDriverIsNotValid()
         {
-            var sut = new RegisterDriverViewModel(_driverServiceMock, _driverViewModelMapperMock, _messengerServiceMock);
+            var sut = new RegisterDriverViewModel(_driverServiceMock, _driverViewModelMapperMock,
+                _messengerServiceMock);
             sut.RegisterDriverCommand.Execute(null);
             _driverViewModelMapperMock.DidNotReceive().Map(Arg.Any<DriverViewModel>());
             _driverServiceMock.DidNotReceive().CreateDriver(Arg.Any<DriverDTO>());
@@ -53,14 +59,16 @@ namespace CarRental.UI.Tests.ViewModelsTests
         [Test]
         public void ShouldExecuteRegisterCommandWhenDriverIsValid()
         {
-            var sut = new RegisterDriverViewModel(_driverServiceMock, _driverViewModelMapperMock, _messengerServiceMock);
+            var sut = new RegisterDriverViewModel(_driverServiceMock, _driverViewModelMapperMock,
+                _messengerServiceMock);
             sut.CurrentDriver.FirstName = "Valid";
             sut.CurrentDriver.LastName = "Valid";
             sut.CurrentDriver.LicenseNumber = "Valid";
             sut.RegisterDriverCommand.Execute(null);
             _driverViewModelMapperMock.Received().Map(sut.CurrentDriver);
             _driverServiceMock.Received().CreateDriver(Arg.Any<DriverDTO>());
-            _messengerServiceMock.Received().Send(Arg.Is<NotificationMessage>(m=>m.Notification== "Close Register Window"));
+            _messengerServiceMock.Received()
+                .Send(Arg.Is<NotificationMessage>(m => m.Notification == "Close Register Window"));
         }
     }
 }

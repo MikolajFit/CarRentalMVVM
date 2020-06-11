@@ -13,5 +13,6 @@ namespace DDD.CarRentalLib.ApplicationLayer.Interfaces
         RentalDTO GetRental(Guid rentalId);
         List<RentalDTO> GetAllRentals();
         List<RentalDTO> GetRentalsForDriver(Guid driverId);
+        RentalDTO GetActiveRentalForDriver(Guid driverId);
     }
 }

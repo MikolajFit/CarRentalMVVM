@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net461</TargetFramework>
@@ -21,8 +21,6 @@
     <Folder Include="MappersTests\" />
     <Folder Include="UtilsTests\" />
     <Folder Include="ViewModelsTests\AdminViewModelsTests\" />
-    <Folder Include="ViewModelsTests\DriverViewModelsTests\" />
-    <Folder Include="ViewModelsTests\ObservableObjectsTests\" />
   </ItemGroup>
 
 </Project>

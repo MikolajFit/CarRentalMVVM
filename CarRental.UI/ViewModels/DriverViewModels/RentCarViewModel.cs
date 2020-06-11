@@ -24,16 +24,18 @@ namespace CarRental.UI.ViewModels.DriverViewModels
         private string _driverBannedError;
         private bool _isCarListEnabled;
         private CarViewModel _selectedCar;
+        private string _errorString;
 
 
         public RentCarViewModel(ICarService carService, IRentalService rentalService,
             ICarViewModelMapper carViewModelMapper, IRentalViewModelMapper rentalViewModelMapper, IMessengerService messengerService)
         {
-            _carService = carService;
-            _rentalService = rentalService;
-            _carViewModelMapper = carViewModelMapper;
-            _rentalViewModelMapper = rentalViewModelMapper;
-            _messengerService = messengerService;
+            AvailableCars = new ObservableCollection<CarViewModel>();
+            _carService = carService ?? throw new ArgumentNullException();
+            _rentalService = rentalService ?? throw new ArgumentNullException();
+            _carViewModelMapper = carViewModelMapper ?? throw new ArgumentNullException();
+            _rentalViewModelMapper = rentalViewModelMapper ?? throw new ArgumentNullException();
+            _messengerService = messengerService ?? throw new ArgumentNullException();
             PopulateAvailableCarListView();
             RentCarCommand = new RelayCommand(RentCar, CanExecuteRentCar);
         }
@@ -44,8 +46,7 @@ namespace CarRental.UI.ViewModels.DriverViewModels
             set { Set(() => SelectedCar, ref _selectedCar, value); }
         }
 
-        public ObservableCollection<CarViewModel> AvailableCars { get; set; } =
-            new ObservableCollection<CarViewModel>();
+        public ObservableCollection<CarViewModel> AvailableCars { get; set; } 
 
         public RelayCommand RentCarCommand { get; }
 
@@ -85,16 +86,16 @@ namespace CarRental.UI.ViewModels.DriverViewModels
 
         private void CheckIfRentalIsActive()
         {
-            var rentals = _rentalService.GetRentalsForDriver(CurrentDriver.Id);
-            var activeRental = rentals.FirstOrDefault(r => r.StopDateTime.HasValue == false);
-            if (activeRental == null) return;
-            SendRentalViewModelMessage(activeRental, RentalViewModelMessageType.ContinueRental);
+            var rental = _rentalService.GetActiveRentalForDriver(CurrentDriver.Id);
+            if (rental == null) return;
+            SendRentalViewModelMessage(rental, RentalViewModelMessageType.ContinueRental);
         }
 
         private void PopulateAvailableCarListView()
         {
-            var cars = _carService.GetFreeCars();
             AvailableCars.Clear();
+            var cars = _carService.GetFreeCars();
+            if (cars == null) return;
             foreach (var carViewModel in cars.Select(car => _carViewModelMapper.Map(car)))
                 AvailableCars.Add(carViewModel);
         }
@@ -112,12 +113,18 @@ namespace CarRental.UI.ViewModels.DriverViewModels
                 _rentalService.TakeCar(rentalGuid, SelectedCar.Id, CurrentDriver.Id, DateTime.Now);
                 var rental = _rentalService.GetRental(rentalGuid);
                 SendRentalViewModelMessage(rental, RentalViewModelMessageType.StartRental);
+                ErrorString = null;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                Console.WriteLine(e);
-                throw;
+                ErrorString = "Could not rent car.";
             }
+        }
+
+        public string ErrorString
+        {
+            get => _errorString;
+            set { Set(() => ErrorString, ref _errorString, value); }
         }
 
         private void SendRentalViewModelMessage(RentalDTO rental, RentalViewModelMessageType messageType)
