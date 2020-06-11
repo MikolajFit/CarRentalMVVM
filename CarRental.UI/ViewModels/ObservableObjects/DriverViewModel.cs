@@ -16,11 +16,12 @@ namespace CarRental.UI.ViewModels.ObservableObjects
             nameof(LicenseNumber)
         };
 
+        private DriverStatus _driverStatus;
+
         private string _firstName;
+        private PoliciesEnum _freeMinutesPolicy;
         private string _lastName;
         private string _licenseNumber;
-        private PoliciesEnum _freeMinutesPolicy;
-        private DriverStatus _driverStatus;
 
         /// <summary>
         ///     Returns true if this object has no validation errors.
@@ -29,15 +30,15 @@ namespace CarRental.UI.ViewModels.ObservableObjects
         {
             get { return ValidatedProperties.All(property => GetValidationError(property) == null); }
         }
-        
+
         public Guid Id { get; set; }
 
         public DriverStatus DriverStatus
         {
             get => _driverStatus;
             set { Set(() => DriverStatus, ref _driverStatus, value); }
-
         }
+
         public PoliciesEnum FreeMinutesPolicy
         {
             get => _freeMinutesPolicy;

@@ -96,7 +96,8 @@ namespace CarRental.UI.ViewModels
             SimpleIoc.Default.Register<ICarService, CarService>();
             SimpleIoc.Default.Register<IRentalService, RentalService>();
             SimpleIoc.Default.Register<IRentalAreaService, RentalAreaService>();
-            SimpleIoc.Default.Register<IMessengerService, MessengerService>();
+            SimpleIoc.Default.Register<IDialogService, DialogService>();
+            SimpleIoc.Default.Register<IMessengerService,MessengerService>();
         }
 
         private static void SeedInitialData()

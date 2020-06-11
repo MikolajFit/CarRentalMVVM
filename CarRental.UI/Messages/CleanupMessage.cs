@@ -2,7 +2,7 @@
 
 namespace CarRental.UI.Messages
 {
-    class CleanupMessage :NotificationMessage
+    public class CleanupMessage :NotificationMessage
     {
         public CleanupMessage(string notification) : base(notification)
         {

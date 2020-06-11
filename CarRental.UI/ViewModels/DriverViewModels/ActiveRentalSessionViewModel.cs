@@ -12,30 +12,29 @@ namespace CarRental.UI.ViewModels.DriverViewModels
 {
     public class ActiveRentalSessionViewModel : CustomViewModelBase
     {
-        private readonly ITimer _elapsedTimer;
-        private readonly ITimer _estimatedCostTimer;
+        private readonly IDialogService _dialogService;
         private readonly IMessengerService _messengerService;
         private readonly IRentalService _rentalService;
+        private readonly ITimerFactory _timerFactory;
         private RentalViewModel _currentRental;
+        private ITimer _elapsedTimer;
         private string _estimatedCost;
+        private ITimer _estimatedCostTimer;
         private bool _isRentalStopped;
         private string _timerText;
         private int _totalSeconds;
 
         public ActiveRentalSessionViewModel(ITimerFactory timerFactory, IRentalService rentalService,
-            IMessengerService messengerService)
+            IDialogService dialogService, IMessengerService messengerService)
         {
-            Messenger.Default.Register<RentalViewModelMessage>(this, ConfigureActiveRentalView);
+            _timerFactory = timerFactory;
             _rentalService = rentalService;
+            _dialogService = dialogService;
             _messengerService = messengerService;
-            _elapsedTimer = timerFactory.CreateTimer();
-            _elapsedTimer.Interval = TimeSpan.FromSeconds(1);
-            _elapsedTimer.Tick += UpdateElapsedTimerState;
-            _estimatedCostTimer = timerFactory.CreateTimer();
-            _estimatedCostTimer.Interval = TimeSpan.FromSeconds(60);
-            _estimatedCostTimer.Tick += UpdateEstimatedCostTimerState;
+            Messenger.Default.Register<RentalViewModelMessage>(this, ConfigureActiveRentalView);
             StopRentalCommand = new RelayCommand(StopRental, () => !IsRentalStopped);
             CloseActiveRentalSessionViewCommand = new RelayCommand(CloseActiveRentalSessionView, () => IsRentalStopped);
+            ConfigureTimers();
         }
 
         public bool IsRentalStopped
@@ -66,6 +65,16 @@ namespace CarRental.UI.ViewModels.DriverViewModels
         public RelayCommand StopRentalCommand { get; }
         public RelayCommand CloseActiveRentalSessionViewCommand { get; }
 
+        private void ConfigureTimers()
+        {
+            _elapsedTimer = _timerFactory.CreateTimer();
+            _elapsedTimer.Interval = TimeSpan.FromSeconds(1);
+            _elapsedTimer.Tick += UpdateElapsedTimerState;
+            _estimatedCostTimer = _timerFactory.CreateTimer();
+            _estimatedCostTimer.Interval = TimeSpan.FromSeconds(60);
+            _estimatedCostTimer.Tick += UpdateEstimatedCostTimerState;
+        }
+
         private void ConfigureActiveRentalView(RentalViewModelMessage message)
         {
             _currentRental = message.RentalViewModel;
@@ -73,7 +82,7 @@ namespace CarRental.UI.ViewModels.DriverViewModels
             {
                 case RentalViewModelMessageType.StartRental:
                 {
-                    Messenger.Default.Send(new RefreshRentalsMessage("Rental Started!"));
+                    _messengerService.Send(new RefreshRentalsMessage("Rental Started!"));
                     break;
                 }
                 case RentalViewModelMessageType.ContinueRental:
@@ -106,7 +115,7 @@ namespace CarRental.UI.ViewModels.DriverViewModels
 
         private void CloseActiveRentalSessionView()
         {
-            Messenger.Default.Send(new NotificationMessage("Stop Car Rental"));
+            _messengerService.Send(new NotificationMessage("Stop Car Rental"));
             CleanResources();
         }
 
@@ -120,7 +129,7 @@ namespace CarRental.UI.ViewModels.DriverViewModels
         private void StopRental()
         {
             _rentalService.ReturnCar(_currentRental.RentalId, DateTime.Now);
-            Messenger.Default.Send(new RefreshRentalsMessage("Rental Stopped!"));
+            _messengerService.Send(new RefreshRentalsMessage("Rental Stopped!"));
             IsRentalStopped = true;
             StopTimer();
             ShowSummary();
@@ -129,7 +138,7 @@ namespace CarRental.UI.ViewModels.DriverViewModels
         private void ShowSummary()
         {
             var rental = _rentalService.GetRental(_currentRental.RentalId);
-            _messengerService.ShowMessage(
+            _dialogService.ShowMessage(
                 $"Rental Finished! It took {TimerText} and total cost is {rental.Total.ToString("C", CultureInfo.CurrentCulture)}",
                 "Rental Summary");
         }

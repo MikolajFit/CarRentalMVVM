@@ -1,5 +1,7 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using CarRental.UI.Mappers;
+using CarRental.UI.Services;
 using CarRental.UI.ViewModels.ObservableObjects;
 using DDD.CarRentalLib.ApplicationLayer.Interfaces;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -11,12 +13,14 @@ namespace CarRental.UI.ViewModels
     {
         private readonly IDriverService _driverService;
         private readonly IDriverViewModelMapper _driverViewModelMapper;
+        private readonly IMessengerService _messengerService;
         private DriverViewModel _selectedDriver;
 
-        public LoginViewModel(IDriverService driverService, IDriverViewModelMapper driverViewModelMapper)
+        public LoginViewModel(IDriverService driverService, IDriverViewModelMapper driverViewModelMapper,IMessengerService messengerService)
         {
-            _driverService = driverService;
-            _driverViewModelMapper = driverViewModelMapper;
+            _driverService = driverService ?? throw new ArgumentNullException();
+            _driverViewModelMapper = driverViewModelMapper ?? throw new ArgumentNullException(); ;
+            _messengerService = messengerService ?? throw new ArgumentNullException();
             PopulateDriversListView();
             LoginCommand = new RelayCommand(
                 NavigateToDriverMainView, IsDriverSelected);
@@ -44,28 +48,29 @@ namespace CarRental.UI.ViewModels
 
         private void PopulateDriversListView()
         {
-            var drivers = _driverService.GetAllDrivers();
             Drivers.Clear();
+            var drivers = _driverService.GetAllDrivers();
+            if (drivers == null) return;
             foreach (var driver in drivers)
             {
                 Drivers.Add(_driverViewModelMapper.Map(driver));
             }
         }
 
-        private static void NavigateToAdminMainView()
+        private void NavigateToAdminMainView()
         {
-            Messenger.Default.Send(new NotificationMessage("GoToAdminMainView"));
+            _messengerService.Send(new NotificationMessage("GoToAdminMainView"));
         }
 
-        private static void NavigateToRegisterView()
+        private void NavigateToRegisterView()
         {
-            Messenger.Default.Send(new NotificationMessage("GoToRegisterWindow"));
+            _messengerService.Send(new NotificationMessage("GoToRegisterWindow"));
         }
 
         private void NavigateToDriverMainView()
         {
-            Messenger.Default.Send(new NotificationMessage("GoToDriverMainWindow"));
-            Messenger.Default.Send(SelectedDriver);
+            _messengerService.Send(new NotificationMessage("GoToDriverMainWindow"));
+            _messengerService.Send(SelectedDriver);
         }
     }
 }

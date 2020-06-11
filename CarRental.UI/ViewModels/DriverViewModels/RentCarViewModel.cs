@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using CarRental.UI.Mappers;
 using CarRental.UI.Messages;
+using CarRental.UI.Services;
 using CarRental.UI.ViewModels.ObservableObjects;
 using DDD.CarRentalLib.ApplicationLayer.DTOs;
 using DDD.CarRentalLib.ApplicationLayer.Interfaces;
@@ -19,18 +20,20 @@ namespace CarRental.UI.ViewModels.DriverViewModels
         private readonly ICarViewModelMapper _carViewModelMapper;
         private readonly IRentalService _rentalService;
         private readonly IRentalViewModelMapper _rentalViewModelMapper;
+        private readonly IMessengerService _messengerService;
         private string _driverBannedError;
         private bool _isCarListEnabled;
         private CarViewModel _selectedCar;
 
 
         public RentCarViewModel(ICarService carService, IRentalService rentalService,
-            ICarViewModelMapper carViewModelMapper, IRentalViewModelMapper rentalViewModelMapper)
+            ICarViewModelMapper carViewModelMapper, IRentalViewModelMapper rentalViewModelMapper, IMessengerService messengerService)
         {
             _carService = carService;
             _rentalService = rentalService;
             _carViewModelMapper = carViewModelMapper;
             _rentalViewModelMapper = rentalViewModelMapper;
+            _messengerService = messengerService;
             PopulateAvailableCarListView();
             RentCarCommand = new RelayCommand(RentCar, CanExecuteRentCar);
         }
@@ -121,8 +124,8 @@ namespace CarRental.UI.ViewModels.DriverViewModels
         {
             var rentalInfo = _rentalViewModelMapper.Map(rental);
             var message = new RentalViewModelMessage(messageType, rentalInfo);
-            Messenger.Default.Send(message);
-            Messenger.Default.Send(new NotificationMessage("Start Car Rental"));
+            _messengerService.Send(message);
+            _messengerService.Send(new NotificationMessage("Start Car Rental"));
         }
     }
 }

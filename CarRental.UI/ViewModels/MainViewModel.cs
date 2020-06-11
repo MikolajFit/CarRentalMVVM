@@ -1,12 +1,17 @@
-﻿using GalaSoft.MvvmLight.CommandWpf;
+﻿using System;
+using CarRental.UI.Services;
+using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 
 namespace CarRental.UI.ViewModels
 {
     public class MainViewModel : CustomViewModelBase
     {
-        public MainViewModel()
+        private readonly IMessengerService _messengerService;
+
+        public MainViewModel(IMessengerService messengerService)
         {
+            _messengerService = messengerService ?? throw new ArgumentNullException();
             LogoutCommand = new RelayCommand(Logout);
         }
 
@@ -14,7 +19,7 @@ namespace CarRental.UI.ViewModels
 
         private void Logout()
         {
-            Messenger.Default.Send(new NotificationMessage("Logout"));
+            _messengerService.Send(new NotificationMessage("Logout"));
         }
     }
 }

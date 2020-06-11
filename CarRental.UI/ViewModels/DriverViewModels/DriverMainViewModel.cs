@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight.Ioc;
+﻿using CarRental.UI.Services;
+using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 
 namespace CarRental.UI.ViewModels.DriverViewModels
@@ -9,7 +10,7 @@ namespace CarRental.UI.ViewModels.DriverViewModels
         private readonly RentCarViewModel _rentCarViewModel;
         private CustomViewModelBase _currentRentCarViewModel;
 
-        public DriverMainViewModel()
+        public DriverMainViewModel(IMessengerService messengerService) : base(messengerService)
         {
             Messenger.Default.Register<NotificationMessage>(this, SwitchRentalView);
             _rentCarViewModel = SimpleIoc.Default.GetInstance<RentCarViewModel>();

@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
-using System.Windows;
-
+using System.Threading.Tasks;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace CarRental.UI.Services
 {
-
-    public class MessengerService : IMessengerService
+    public class MessengerService:IMessengerService
     {
-        public void ShowMessage(string text, string caption)
+        public void Send<TMessage>(TMessage parameter)
         {
-            MessageBox.Show(text, caption, MessageBoxButton.OK, MessageBoxImage.Information);
+            Messenger.Default.Send<TMessage>(parameter);
         }
     }
 }

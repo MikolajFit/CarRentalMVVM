@@ -1,5 +1,6 @@
 ﻿using System;
 using CarRental.UI.Mappers;
+using CarRental.UI.Services;
 using CarRental.UI.ViewModels.ObservableObjects;
 using DDD.CarRentalLib.ApplicationLayer.Interfaces;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -11,13 +12,15 @@ namespace CarRental.UI.ViewModels
     {
         private readonly IDriverService _driverService;
         private readonly IDriverViewModelMapper _driverViewModelMapper;
+        private readonly IMessengerService _messengerService;
 
         private DriverViewModel _currentDriver;
 
-        public RegisterDriverViewModel(IDriverService driverService, IDriverViewModelMapper driverViewModelMapper)
+        public RegisterDriverViewModel(IDriverService driverService, IDriverViewModelMapper driverViewModelMapper, IMessengerService messengerService)
         {
-            _driverService = driverService;
-            _driverViewModelMapper = driverViewModelMapper;
+            _driverService = driverService ?? throw new ArgumentNullException(); ;
+            _driverViewModelMapper = driverViewModelMapper ?? throw new ArgumentNullException(); ;
+            _messengerService = messengerService ?? throw new ArgumentNullException(); ;
             CurrentDriver = new DriverViewModel
             {
                 Id = Guid.NewGuid()
@@ -37,7 +40,7 @@ namespace CarRental.UI.ViewModels
         {
             var driverDto = _driverViewModelMapper.Map(CurrentDriver);
             _driverService.CreateDriver(driverDto);
-            Messenger.Default.Send(new NotificationMessage("Close Register Window"));
+            _messengerService.Send(new NotificationMessage("Close Register Window"));
         }
 
 

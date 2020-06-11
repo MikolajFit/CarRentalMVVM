@@ -4,11 +4,14 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net461</TargetFramework>
     <UseWPF>true</UseWPF>
-    <ApplicationIcon>electric_car__r0V_icon.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\Images\electric_car__r0V_icon.ico</ApplicationIcon>
+    <Win32Resource></Win32Resource>
+    <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Resources\Images\electric_car_.png" />
+    <None Remove="Resources\Images\electric_car__r0V_icon.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,6 +25,9 @@
 
   <ItemGroup>
     <Resource Include="Resources\Images\electric_car_.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\electric_car__r0V_icon.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
