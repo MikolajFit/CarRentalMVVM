@@ -13,25 +13,29 @@ namespace CarRental.UI.ViewModels.AdminViewModels
     {
         private readonly ICarService _carService;
         private readonly ICarViewModelMapper _carViewModelMapper;
+        private readonly IRentalAreaViewModelMapper _rentalAreaViewModelMapper;
         private readonly IRentalAreaService _rentalAreaService;
         private ObservableCollection<CarViewModel> _carsCollection = new ObservableCollection<CarViewModel>();
         private bool _isCarListEnabled;
         private string _saveErrorContent;
         private CarViewModel _selectedCar;
-        private RentalAreaDTO _selectedRentalArea;
+        private RentalAreaViewModel _selectedRentalArea;
 
         public CarsManagementViewModel(ICarService carService, IRentalAreaService rentalAreaService,
-            ICarViewModelMapper carViewModelMapper)
+            ICarViewModelMapper carViewModelMapper, IRentalAreaViewModelMapper rentalAreaViewModelMapper)
         {
-            IsCarListEnabled = true;
-            _carService = carService;
-            _rentalAreaService = rentalAreaService;
-            _carViewModelMapper = carViewModelMapper;
+            _carService = carService ?? throw new ArgumentNullException();
+            _rentalAreaService = rentalAreaService ?? throw new ArgumentNullException();
+            _carViewModelMapper = carViewModelMapper ?? throw new ArgumentNullException();
+            _rentalAreaViewModelMapper = rentalAreaViewModelMapper ?? throw new ArgumentNullException();
             UpdateRentalAreaCombobox = new RelayCommand(UpdateRentalArea);
             AddNewCarCommand = new RelayCommand(AddNewCar);
             SaveCarCommand = new RelayCommand(SaveCar, IsCarValid);
-            PopulateCarsListView();
-            PopulateRentalAreasCombobox();
+            IsCarListEnabled = true;
+            RentalAreas = new ObservableCollection<RentalAreaViewModel>();
+            CarsCollection = new ObservableCollection<CarViewModel>();
+            RefreshCarsListView();
+            RefreshRentalAreasCombobox();
         }
 
         public ObservableCollection<CarViewModel> CarsCollection
@@ -40,7 +44,7 @@ namespace CarRental.UI.ViewModels.AdminViewModels
             set { Set(() => CarsCollection, ref _carsCollection, value); }
         }
 
-        public ObservableCollection<RentalAreaDTO> RentalAreas { get; set; }
+        public ObservableCollection<RentalAreaViewModel> RentalAreas { get; set; }
 
         public CarViewModel SelectedCar
         {
@@ -48,7 +52,7 @@ namespace CarRental.UI.ViewModels.AdminViewModels
             set { Set(() => SelectedCar, ref _selectedCar, value); }
         }
 
-        public RentalAreaDTO SelectedRentalArea
+        public RentalAreaViewModel SelectedRentalArea
         {
             get => _selectedRentalArea;
             set { Set(() => SelectedRentalArea, ref _selectedRentalArea, value); }
@@ -70,18 +74,26 @@ namespace CarRental.UI.ViewModels.AdminViewModels
             set { Set(() => IsCarListEnabled, ref _isCarListEnabled, value); }
         }
 
-        private void PopulateRentalAreasCombobox()
+        private void RefreshRentalAreasCombobox()
         {
-            var rentalAreas = _rentalAreaService.GetAllRentalAreas();
-            RentalAreas = new ObservableCollection<RentalAreaDTO>(rentalAreas);
+            var rentalAreasDtos = _rentalAreaService.GetAllRentalAreas();
+            if(rentalAreasDtos == null) return;
+            RentalAreas.Clear();
+            foreach (var rentalAreaViewModel in rentalAreasDtos.Select(rentalAreaDto => _rentalAreaViewModelMapper.Map(rentalAreaDto)))
+            {
+                RentalAreas.Add(rentalAreaViewModel);
+            }
         }
 
-        private void PopulateCarsListView()
+        private void RefreshCarsListView()
         {
             var cars = _carService.GetAllCars();
+            if (cars == null) return;
             CarsCollection.Clear();
             foreach (var carViewModel in cars.Select(car => _carViewModelMapper.Map(car)))
+            {
                 CarsCollection.Add(carViewModel);
+            }
         }
 
         private bool IsCarValid()
@@ -105,7 +117,7 @@ namespace CarRental.UI.ViewModels.AdminViewModels
                     _carService.UpdateCar(dto);
                 }
 
-                PopulateCarsListView();
+                RefreshCarsListView();
                 IsCarListEnabled = true;
                 SaveErrorContent = null;
             }

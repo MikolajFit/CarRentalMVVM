@@ -7,7 +7,12 @@ namespace CarRental.UI.Mappers
 {
     public class CarViewModelMapper : ICarViewModelMapper
     {
- 
+        private readonly IPositionVewModelMapper _positionVewModelMapper;
+
+        public CarViewModelMapper(IPositionVewModelMapper positionVewModelMapper)
+        {
+            _positionVewModelMapper = positionVewModelMapper;
+        }
         public CarViewModel Map(CarDTO car)
         {
             return new CarViewModel
@@ -25,7 +30,7 @@ namespace CarRental.UI.Mappers
             };
         }
 
-        public CarDTO Map(RentalAreaDTO selectedRentalArea, CarViewModel carViewModel,
+        public CarDTO Map(RentalAreaViewModel selectedRentalArea, CarViewModel carViewModel,
             bool provideCustomPosition = false)
         {
             var dto = new CarDTO
@@ -46,8 +51,9 @@ namespace CarRental.UI.Mappers
             }
             else
             {
-                dto.CurrentLatitude = selectedRentalArea.CarStartingPositionDTO.Latitude;
-                dto.CurrentLongitude = selectedRentalArea.CarStartingPositionDTO.Longitude;
+                var positionDto = _positionVewModelMapper.Map(selectedRentalArea.CarStartingPosition);
+                dto.CurrentLatitude = positionDto.Latitude;
+                dto.CurrentLongitude = positionDto.Longitude;
             }
 
             return dto;

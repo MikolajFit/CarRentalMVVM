@@ -16,7 +16,7 @@ namespace CarRental.UI.ViewModels.DriverViewModels
         private readonly CollectionViewSource _driverRentalsCollection;
         private readonly IRentalService _rentalService;
         private readonly IRentalViewModelMapper _rentalViewModelMapper;
-        private ObservableCollection<RentalViewModel> _driverRentals = new ObservableCollection<RentalViewModel>();
+        private ObservableCollection<RentalViewModel> _driverRentals;
         private DateTime? _selectedStartDateFrom;
         private DateTime? _selectedStartDateTo;
         private DateTime? _selectedStopDateFrom;
@@ -24,10 +24,11 @@ namespace CarRental.UI.ViewModels.DriverViewModels
 
         public DriverRentalsViewModel(IRentalService rentalService, IRentalViewModelMapper rentalViewModelMapper)
         {
-            Messenger.Default.Register<RefreshRentalsMessage>(this, NewRentalAdded);
-            _rentalService = rentalService;
-            _rentalViewModelMapper = rentalViewModelMapper;
+            _rentalService = rentalService ?? throw new ArgumentNullException();
+            _rentalViewModelMapper = rentalViewModelMapper ?? throw new ArgumentNullException();
+            DriverRentals = new ObservableCollection<RentalViewModel>();
             _driverRentalsCollection = new CollectionViewSource {Source = DriverRentals};
+            Messenger.Default.Register<RefreshRentalsMessage>(this, NewRentalAdded);
             ApplyFilters();
         }
 
@@ -101,12 +102,12 @@ namespace CarRental.UI.ViewModels.DriverViewModels
         private void RefreshRentalList()
         {
             var rentals = _rentalService.GetRentalsForDriver(CurrentDriver.Id);
+            if (rentals == null) return;
             DriverRentals.Clear();
             foreach (var rentalViewModel in rentals.Select(rental => _rentalViewModelMapper.Map(rental)))
             {
                 DriverRentals.Add(rentalViewModel);
             }
-
             _driverRentalsCollection.View.Refresh();
         }
 
@@ -128,7 +129,7 @@ namespace CarRental.UI.ViewModels.DriverViewModels
             {
                 e.Accepted = false;
             }
-            else if (SelectedStartDateTo != null && rental.StartDateTime > SelectedStartDateTo.Value)
+            else if (SelectedStartDateTo != null && rental.StartDateTime >SelectedStartDateTo.Value)
             {
                 e.Accepted = false;
             }

@@ -8,10 +8,9 @@ using DDD.CarRentalLib.ApplicationLayer.DTOs;
 
 namespace CarRental.UI.Mappers
 {
-    public interface ICarViewModelMapper
+    public interface IPositionVewModelMapper
     {
-        CarViewModel Map(CarDTO carDto);
-        CarDTO Map(RentalAreaViewModel selectedRentalArea, CarViewModel carViewModel,
-            bool provideCustomPosition = false);
+        PositionViewModel Map(PositionDTO positionDto);
+        PositionDTO Map(PositionViewModel positionViewModel);
     }
 }

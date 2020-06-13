@@ -9,7 +9,7 @@ namespace CarRental.UI.ViewModels.ObservableObjects
     public class RentalAreaViewModel:ObservableObject, IDataErrorInfo
     {
         private string _name;
-        private PositionDTO _carStartingPositionDTO;
+        private PositionViewModel _carStartingPosition;
         private decimal _outOfBondsPenaltyPerDistanceUnit;
         public Guid Id { get; set; }
         public string Name
@@ -17,16 +17,16 @@ namespace CarRental.UI.ViewModels.ObservableObjects
             get => _name;
             set { Set(() => Name, ref _name, value); }
         }
-        public List<PositionDTO> Area { get; set; }
+        public List<PositionViewModel> Area { get; set; }
         public decimal OutOfBondsPenaltyPerDistanceUnit
         {
             get => _outOfBondsPenaltyPerDistanceUnit;
             set { Set(() => OutOfBondsPenaltyPerDistanceUnit, ref _outOfBondsPenaltyPerDistanceUnit, value); }
         }
-        public PositionDTO CarStartingPositionDTO
+        public PositionViewModel CarStartingPosition
         {
-            get => _carStartingPositionDTO;
-            set { Set(() => CarStartingPositionDTO, ref _carStartingPositionDTO, value); }
+            get => _carStartingPosition;
+            set { Set(() => CarStartingPosition, ref _carStartingPosition, value); }
         }
         public override string ToString()
         {

@@ -73,13 +73,17 @@ namespace CarRental.UI.ViewModels
             SimpleIoc.Default.Register<CarsManagementViewModel>();
             SimpleIoc.Default.Register<DriversManagementViewModel>();
             SimpleIoc.Default.Register<RentalsManagementViewModel>();
+            SimpleIoc.Default.Register<RentalAreaManagementViewModel>();
+
         }
 
         public static void RegisterServices()
         {
             SimpleIoc.Default.Register<ICarViewModelMapper, CarViewModelMapper>();
             SimpleIoc.Default.Register<IDriverViewModelMapper,DriverViewModelMapper>();
-            SimpleIoc.Default.Register<IRentalViewModelMapper,RentalViewModelMapper>();
+            SimpleIoc.Default.Register<IRentalViewModelMapper, RentalViewModelMapper>();
+            SimpleIoc.Default.Register<IRentalAreaViewModelMapper, RentalAreaViewModelMapper>();
+            SimpleIoc.Default.Register<IPositionVewModelMapper, PositionViewModelMapper>();
             SimpleIoc.Default.Register<ITimerFactory, TimerFactory>();
             SimpleIoc.Default.Register<IDomainEventPublisher, SimpleEventPublisher>();
             SimpleIoc.Default.Register<ICarRentalUnitOfWork, MemoryCarRentalUnitOfWork>();
@@ -148,6 +152,7 @@ namespace CarRental.UI.ViewModels
             SimpleIoc.Default.Unregister<CarsManagementViewModel>();
             SimpleIoc.Default.Unregister<DriversManagementViewModel>();
             SimpleIoc.Default.Unregister<RentalsManagementViewModel>();
+            SimpleIoc.Default.Unregister<RentalAreaManagementViewModel>();
         }
     }
 }

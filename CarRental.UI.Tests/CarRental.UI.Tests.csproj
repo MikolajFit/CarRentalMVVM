@@ -20,7 +20,10 @@
   <ItemGroup>
     <Folder Include="MappersTests\" />
     <Folder Include="UtilsTests\" />
-    <Folder Include="ViewModelsTests\AdminViewModelsTests\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="WindowsBase" />
   </ItemGroup>
 
 </Project>

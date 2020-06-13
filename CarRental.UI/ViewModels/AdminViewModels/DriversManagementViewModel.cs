@@ -11,15 +11,16 @@ namespace CarRental.UI.ViewModels.AdminViewModels
     {
         private readonly IDriverService _driverService;
         private readonly IDriverViewModelMapper _driverViewModelMapper;
-        private ObservableCollection<DriverViewModel> _driversCollection = new ObservableCollection<DriverViewModel>();
+        private ObservableCollection<DriverViewModel> _driversCollection;
         private string _saveErrorContent;
         private DriverViewModel _selectedDriver;
 
         public DriversManagementViewModel(IDriverService driverService, IDriverViewModelMapper driverViewModelMapper)
         {
-            _driverService = driverService;
-            _driverViewModelMapper = driverViewModelMapper;
-            PopulateDriverListView();
+            _driverService = driverService ?? throw new ArgumentNullException();
+            _driverViewModelMapper = driverViewModelMapper ?? throw new ArgumentNullException();
+            DriversCollection = new ObservableCollection<DriverViewModel>();
+            RefreshDriverListView();
             SaveDriverCommand = new RelayCommand(SaveDriver, IsDriverValid);
         }
 
@@ -43,9 +44,10 @@ namespace CarRental.UI.ViewModels.AdminViewModels
 
         public RelayCommand SaveDriverCommand { get; }
 
-        private void PopulateDriverListView()
+        private void RefreshDriverListView()
         {
             var drivers = _driverService.GetAllDrivers();
+            if (drivers == null) return;
             DriversCollection.Clear();
             foreach (var driver in drivers) DriversCollection.Add(_driverViewModelMapper.Map(driver));
         }
@@ -61,7 +63,7 @@ namespace CarRental.UI.ViewModels.AdminViewModels
             {
                 var driver = _driverViewModelMapper.Map(SelectedDriver);
                 _driverService.UpdateDriver(driver);
-                PopulateDriverListView();
+                RefreshDriverListView();
                 SaveErrorContent = null;
             }
             catch (Exception e)
