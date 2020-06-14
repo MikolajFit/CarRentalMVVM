@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using CarRental.Model.ApplicationLayer.DTOs;
+using CarRental.Model.ApplicationLayer.Interfaces;
 using CarRental.UI.Mappers;
 using CarRental.UI.Messages;
 using CarRental.UI.ViewModels.DriverViewModels;
 using CarRental.UI.ViewModels.ObservableObjects;
-using DDD.CarRentalLib.ApplicationLayer.DTOs;
-using DDD.CarRentalLib.ApplicationLayer.Interfaces;
 using GalaSoft.MvvmLight.Messaging;
 using NSubstitute;
 using NUnit.Framework;

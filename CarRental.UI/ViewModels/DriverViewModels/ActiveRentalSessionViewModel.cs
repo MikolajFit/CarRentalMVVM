@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Globalization;
 using System.Runtime.InteropServices.WindowsRuntime;
+using CarRental.Model.ApplicationLayer.Interfaces;
 using CarRental.UI.Messages;
 using CarRental.UI.Services;
 using CarRental.UI.Utils.Interfaces;
 using CarRental.UI.ViewModels.ObservableObjects;
-using DDD.CarRentalLib.ApplicationLayer.Interfaces;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 

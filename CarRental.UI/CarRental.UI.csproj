@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DDD.CarRentalLib\DDD.CarRentalLib.csproj" />
+    <ProjectReference Include="..\CarRental.Model\CarRental.Model.csproj" />
   </ItemGroup>
 
   <ItemGroup>

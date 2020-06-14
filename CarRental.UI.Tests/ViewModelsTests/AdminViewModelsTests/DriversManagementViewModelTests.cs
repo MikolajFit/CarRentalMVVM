@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CarRental.Model.ApplicationLayer.DTOs;
+using CarRental.Model.ApplicationLayer.Interfaces;
 using CarRental.UI.Mappers;
 using CarRental.UI.ViewModels.AdminViewModels;
 using CarRental.UI.ViewModels.ObservableObjects;
 using CarRental.UI.Views.AdminViews;
-using DDD.CarRentalLib.ApplicationLayer.DTOs;
-using DDD.CarRentalLib.ApplicationLayer.Interfaces;
 using NSubstitute;
 using NUnit.Framework;
 

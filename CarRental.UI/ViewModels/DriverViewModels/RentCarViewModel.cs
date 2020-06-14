@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using CarRental.Model.ApplicationLayer.DTOs;
+using CarRental.Model.ApplicationLayer.Interfaces;
+using CarRental.Model.DomainModelLayer.Models;
 using CarRental.UI.Mappers;
 using CarRental.UI.Messages;
 using CarRental.UI.Services;
 using CarRental.UI.ViewModels.ObservableObjects;
-using DDD.CarRentalLib.ApplicationLayer.DTOs;
-using DDD.CarRentalLib.ApplicationLayer.Interfaces;
-using DDD.CarRentalLib.DomainModelLayer.Models;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 

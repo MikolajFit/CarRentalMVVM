@@ -1,18 +1,17 @@
-﻿using CarRental.UI.Mappers;
+﻿using CarRental.Model.ApplicationLayer.Interfaces;
+using CarRental.Model.ApplicationLayer.Mappers;
+using CarRental.Model.ApplicationLayer.Services;
+using CarRental.Model.DomainModelLayer.Factories;
+using CarRental.Model.DomainModelLayer.Interfaces;
+using CarRental.Model.DomainModelLayer.Services;
+using CarRental.Model.InfrastructureLayer;
+using CarRental.UI.Mappers;
 using CarRental.UI.Messages;
 using CarRental.UI.Services;
 using CarRental.UI.Utils;
 using CarRental.UI.Utils.Interfaces;
 using CarRental.UI.ViewModels.AdminViewModels;
 using CarRental.UI.ViewModels.DriverViewModels;
-using DDD.Base.DomainModelLayer.Events;
-using DDD.CarRentalLib.ApplicationLayer.Interfaces;
-using DDD.CarRentalLib.ApplicationLayer.Mappers;
-using DDD.CarRentalLib.ApplicationLayer.Services;
-using DDD.CarRentalLib.DomainModelLayer.Factories;
-using DDD.CarRentalLib.DomainModelLayer.Interfaces;
-using DDD.CarRentalLib.DomainModelLayer.Services;
-using DDD.CarRentalLib.InfrastructureLayer;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 
@@ -85,7 +84,6 @@ namespace CarRental.UI.ViewModels
             SimpleIoc.Default.Register<IRentalAreaViewModelMapper, RentalAreaViewModelMapper>();
             SimpleIoc.Default.Register<IPositionVewModelMapper, PositionViewModelMapper>();
             SimpleIoc.Default.Register<ITimerFactory, TimerFactory>();
-            SimpleIoc.Default.Register<IDomainEventPublisher, SimpleEventPublisher>();
             SimpleIoc.Default.Register<ICarRentalUnitOfWork, MemoryCarRentalUnitOfWork>();
             SimpleIoc.Default.Register<PositionService>();
             SimpleIoc.Default.Register<DriverFactory>();

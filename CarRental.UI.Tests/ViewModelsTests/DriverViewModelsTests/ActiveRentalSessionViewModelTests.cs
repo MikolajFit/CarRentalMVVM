@@ -1,11 +1,11 @@
 ﻿using System;
+using CarRental.Model.ApplicationLayer.DTOs;
+using CarRental.Model.ApplicationLayer.Interfaces;
 using CarRental.UI.Messages;
 using CarRental.UI.Services;
 using CarRental.UI.Utils.Interfaces;
 using CarRental.UI.ViewModels.DriverViewModels;
 using CarRental.UI.ViewModels.ObservableObjects;
-using DDD.CarRentalLib.ApplicationLayer.DTOs;
-using DDD.CarRentalLib.ApplicationLayer.Interfaces;
 using GalaSoft.MvvmLight.Messaging;
 using NSubstitute;
 using NUnit.Framework;

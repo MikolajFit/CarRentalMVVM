@@ -3,10 +3,10 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Data;
+using CarRental.Model.ApplicationLayer.Interfaces;
 using CarRental.UI.Mappers;
 using CarRental.UI.Messages;
 using CarRental.UI.ViewModels.ObservableObjects;
-using DDD.CarRentalLib.ApplicationLayer.Interfaces;
 using GalaSoft.MvvmLight.Messaging;
 
 namespace CarRental.UI.ViewModels.DriverViewModels

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq;
-using DDD.CarRentalLib.DomainModelLayer.Models;
+using CarRental.Model.DomainModelLayer.Models;
 using GalaSoft.MvvmLight;
 
 namespace CarRental.UI.ViewModels.ObservableObjects

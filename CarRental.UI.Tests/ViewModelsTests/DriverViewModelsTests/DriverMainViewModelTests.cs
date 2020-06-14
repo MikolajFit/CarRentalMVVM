@@ -1,9 +1,9 @@
 ﻿using System;
+using CarRental.Model.ApplicationLayer.Interfaces;
 using CarRental.UI.Mappers;
 using CarRental.UI.Services;
 using CarRental.UI.Utils.Interfaces;
 using CarRental.UI.ViewModels.DriverViewModels;
-using DDD.CarRentalLib.ApplicationLayer.Interfaces;
 using GalaSoft.MvvmLight.Messaging;
 using NSubstitute;
 using NUnit.Framework;

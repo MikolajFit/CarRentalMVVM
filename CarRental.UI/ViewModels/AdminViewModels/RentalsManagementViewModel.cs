@@ -3,9 +3,9 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Data;
+using CarRental.Model.ApplicationLayer.Interfaces;
 using CarRental.UI.Mappers;
 using CarRental.UI.ViewModels.ObservableObjects;
-using DDD.CarRentalLib.ApplicationLayer.Interfaces;
 
 namespace CarRental.UI.ViewModels.AdminViewModels
 {

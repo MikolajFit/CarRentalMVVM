@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CarRental.Model.DomainModelLayer.Models;
 using CarRental.UI.ViewModels.ObservableObjects;
-using DDD.CarRentalLib.DomainModelLayer.Models;
 using NUnit.Framework;
 
 namespace CarRental.UI.Tests.ViewModelsTests.ObservableObjectsTests

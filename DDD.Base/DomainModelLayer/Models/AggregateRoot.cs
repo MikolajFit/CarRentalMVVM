@@ -1,19 +1,12 @@
-﻿using DDD.Base.DomainModelLayer.Events;
-using System;
+﻿using System;
 
 namespace DDD.Base.DomainModelLayer.Models
 {
-    public abstract class AggregateRoot : Entity
+    public abstract class AggregateRoot : Entity,IAggregateRoot
     {
-        protected IDomainEventPublisher DomainEventPublisher { get; set; }
-        
-        public AggregateRoot(Guid id, IDomainEventPublisher domainEventPublisher)
-            :base(id)
+        protected AggregateRoot(Guid id)
+            : base(id)
         {
-            if (domainEventPublisher == null)
-                throw new ArgumentNullException("EventPublisher is not initialized");
-
-            this.DomainEventPublisher = domainEventPublisher;
         }
     }
 }

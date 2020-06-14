@@ -6,7 +6,7 @@ namespace DDD.Base.DomainModelLayer.Models
     {
         public Guid Id { get; protected set; }
 
-        public Entity(Guid id)
+        protected Entity(Guid id)
         {
             this.Id = id;
         }

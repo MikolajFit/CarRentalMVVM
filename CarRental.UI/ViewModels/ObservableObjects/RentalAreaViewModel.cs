@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using DDD.CarRentalLib.ApplicationLayer.DTOs;
 using GalaSoft.MvvmLight;
 
 namespace CarRental.UI.ViewModels.ObservableObjects

@@ -1,9 +1,9 @@
 ﻿using System;
+using CarRental.Model.ApplicationLayer.DTOs;
+using CarRental.Model.ApplicationLayer.Interfaces;
 using CarRental.UI.Mappers;
 using CarRental.UI.ViewModels.DriverViewModels;
 using CarRental.UI.ViewModels.ObservableObjects;
-using DDD.CarRentalLib.ApplicationLayer.DTOs;
-using DDD.CarRentalLib.ApplicationLayer.Interfaces;
 using NSubstitute;
 using NSubstitute.ExceptionExtensions;
 using NUnit.Framework;

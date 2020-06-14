@@ -1,5 +1,5 @@
-﻿using CarRental.UI.ViewModels.ObservableObjects;
-using DDD.CarRentalLib.ApplicationLayer.DTOs;
+﻿using CarRental.Model.ApplicationLayer.DTOs;
+using CarRental.UI.ViewModels.ObservableObjects;
 
 namespace CarRental.UI.Mappers
 {

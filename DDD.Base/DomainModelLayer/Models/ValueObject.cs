@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace DDD.Base.DomainModelLayer.Models
 {
-
     // Source: https://enterprisecraftsmanship.com/posts/value-object-better-implementation/
     public abstract class ValueObject
     {
@@ -19,7 +16,7 @@ namespace DDD.Base.DomainModelLayer.Models
             if (GetType() != obj.GetType())
                 return false;
 
-            var valueObject = (ValueObject)obj;
+            var valueObject = (ValueObject) obj;
 
             return GetEqualityComponents().SequenceEqual(valueObject.GetEqualityComponents());
         }

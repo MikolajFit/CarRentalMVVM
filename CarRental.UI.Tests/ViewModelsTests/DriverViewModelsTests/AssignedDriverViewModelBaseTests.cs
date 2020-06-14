@@ -1,6 +1,6 @@
-﻿using CarRental.UI.ViewModels.DriverViewModels;
+﻿using CarRental.Model.DomainModelLayer.Policies;
+using CarRental.UI.ViewModels.DriverViewModels;
 using CarRental.UI.ViewModels.ObservableObjects;
-using DDD.CarRentalLib.DomainModelLayer.Policies;
 using GalaSoft.MvvmLight.Messaging;
 using NUnit.Framework;
 

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using CarRental.Model.ApplicationLayer.DTOs;
 using CarRental.UI.ViewModels.ObservableObjects;
-using DDD.CarRentalLib.ApplicationLayer.DTOs;
 
 namespace CarRental.UI.Mappers
 {

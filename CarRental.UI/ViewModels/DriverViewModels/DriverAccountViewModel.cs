@@ -1,6 +1,6 @@
 ﻿using System;
+using CarRental.Model.ApplicationLayer.Interfaces;
 using CarRental.UI.Mappers;
-using DDD.CarRentalLib.ApplicationLayer.Interfaces;
 using GalaSoft.MvvmLight.CommandWpf;
 
 namespace CarRental.UI.ViewModels.DriverViewModels

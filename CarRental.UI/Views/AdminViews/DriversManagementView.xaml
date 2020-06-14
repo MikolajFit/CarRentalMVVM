@@ -6,8 +6,8 @@
              xmlns:local="clr-namespace:CarRental.UI.Views.AdminViews"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:utils="clr-namespace:CarRental.UI.Utils"
-             xmlns:models="clr-namespace:DDD.CarRentalLib.DomainModelLayer.Models;assembly=DDD.CarRentalLib"
-             xmlns:policies="clr-namespace:DDD.CarRentalLib.DomainModelLayer.Policies;assembly=DDD.CarRentalLib"
+             xmlns:policies1="clr-namespace:CarRental.Model.DomainModelLayer.Policies;assembly=CarRental.Model"
+             xmlns:models1="clr-namespace:CarRental.Model.DomainModelLayer.Models;assembly=CarRental.Model"
              mc:Ignorable="d" 
              Padding="10"
              d:DesignHeight="630" d:DesignWidth="1000">
@@ -64,9 +64,9 @@
                              Text="{Binding SelectedDriver.LastName,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
                              BorderBrush="LightGreen" BorderThickness="1" FontSize="15" />
                     <Label Grid.Row="3" Grid.Column="0" Margin="15" Content="Free Minutes Policy" FontSize="15" />
-                    <ComboBox Grid.Row="3"  Grid.Column="1" Margin="15" MinWidth="100" ItemsSource="{Binding Source={utils:EnumBindingSource {x:Type policies:PoliciesEnum}}}" Padding="5"  SelectedItem="{Binding SelectedDriver.FreeMinutesPolicy}" BorderBrush="LightGreen" BorderThickness="1" FontSize="20" />
+                    <ComboBox Grid.Row="3"  Grid.Column="1" Margin="15" MinWidth="100" ItemsSource="{Binding Source={utils:EnumBindingSource {x:Type policies1:PoliciesEnum}}}" Padding="5"  SelectedItem="{Binding SelectedDriver.FreeMinutesPolicy}" BorderBrush="LightGreen" BorderThickness="1" FontSize="20" />
                     <Label Grid.Row="4" Grid.Column="0" Margin="15" Content="Status" FontSize="15" />
-                    <ComboBox Grid.Row="4"  Grid.Column="1" Margin="15" MinWidth="100" ItemsSource="{Binding Source={utils:EnumBindingSource {x:Type models:DriverStatus}}}" Padding="5"  SelectedItem="{Binding SelectedDriver.DriverStatus}" BorderBrush="LightGreen" BorderThickness="1" FontSize="20" />
+                    <ComboBox Grid.Row="4"  Grid.Column="1" Margin="15" MinWidth="100" ItemsSource="{Binding Source={utils:EnumBindingSource {x:Type models1:DriverStatus}}}" Padding="5"  SelectedItem="{Binding SelectedDriver.DriverStatus}" BorderBrush="LightGreen" BorderThickness="1" FontSize="20" />
                     <Button Grid.Row="5" Grid.Column="1" Command="{Binding SaveDriverCommand}" Content="Save" FontSize="15"
                             Height="50"
                             Margin="10" Padding="10" VerticalAlignment="Bottom" >
