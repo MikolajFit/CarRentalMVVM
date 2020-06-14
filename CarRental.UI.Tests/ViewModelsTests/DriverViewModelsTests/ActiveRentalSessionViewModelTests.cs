@@ -114,7 +114,7 @@ namespace CarRental.UI.Tests.ViewModelsTests.DriverViewModelsTests
             elapsedCostTimer.Received().Stop();
             elapsedTimer.Received().Stop();
             _rentalServiceMock.Received().GetRental(rentalId);
-            _dialogServiceMock.Received().ShowMessage(Arg.Any<string>(), Arg.Any<string>());
+            _dialogServiceMock.Received().ShowMessage(Arg.Any<string>());
         }
 
         [Test]
@@ -142,7 +142,7 @@ namespace CarRental.UI.Tests.ViewModelsTests.DriverViewModelsTests
             elapsedCostTimer.Received().Stop();
             elapsedTimer.Received().Stop();
             _rentalServiceMock.Received().GetRental(rentalId);
-            _dialogServiceMock.DidNotReceive().ShowMessage(Arg.Any<string>(), Arg.Any<string>());
+            _dialogServiceMock.DidNotReceive().ShowMessage(Arg.Any<string>());
         }
 
         [Test]

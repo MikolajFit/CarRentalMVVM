@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
+using CarRental.UI.Views;
 
 
 namespace CarRental.UI.Services
@@ -9,9 +10,9 @@ namespace CarRental.UI.Services
 
     public class DialogService : IDialogService
     {
-        public void ShowMessage(string text, string caption)
+        public void ShowMessage(string text)
         {
-            MessageBox.Show(text, caption, MessageBoxButton.OK, MessageBoxImage.Information);
+            new CustomMessageBox(text, MessageType.Confirmation).ShowDialog();
         }
     }
 }

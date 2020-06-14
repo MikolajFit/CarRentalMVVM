@@ -14,7 +14,7 @@
         Title="Admin Page" >
 
     <DockPanel DataContext="{Binding AdminMainViewModel, Source={StaticResource Locator}}">
-        <TabControl  Background="White" TabStripPlacement="Left" BorderThickness="0">
+        <TabControl  Background="White" Height="600" TabStripPlacement="Left" BorderThickness="0">
             <TabControl.ItemContainerStyle>
                 <Style TargetType="{x:Type TabItem}">
                     <Setter Property="Width" Value="150" />

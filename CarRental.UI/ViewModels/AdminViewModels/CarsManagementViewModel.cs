@@ -119,6 +119,7 @@ namespace CarRental.UI.ViewModels.AdminViewModels
                 RefreshCarsListView();
                 IsCarListEnabled = true;
                 SaveErrorContent = null;
+                SelectedCar = null;
             }
             catch (Exception e)
             {

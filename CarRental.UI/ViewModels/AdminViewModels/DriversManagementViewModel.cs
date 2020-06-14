@@ -65,6 +65,7 @@ namespace CarRental.UI.ViewModels.AdminViewModels
                 _driverService.UpdateDriver(driver);
                 RefreshDriverListView();
                 SaveErrorContent = null;
+                SelectedDriver = null;
             }
             catch (Exception e)
             {

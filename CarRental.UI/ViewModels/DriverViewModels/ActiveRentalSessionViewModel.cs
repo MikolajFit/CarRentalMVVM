@@ -154,8 +154,7 @@ namespace CarRental.UI.ViewModels.DriverViewModels
             var rental = _rentalService.GetRental(_currentRental.RentalId);
             if (rental!= null)
                 _dialogService.ShowMessage(
-                    $"Rental Finished! It took {TimerText} and total cost is {rental.Total.ToString("C", CultureInfo.CurrentCulture)}",
-                    "Rental Summary");
+                    $"Rental Finished! It took {TimerText} and total cost is {rental.Total.ToString("C", CultureInfo.CurrentCulture)}");
         }
 
         private void StopTimer()

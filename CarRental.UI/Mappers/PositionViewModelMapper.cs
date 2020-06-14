@@ -15,7 +15,7 @@ namespace CarRental.UI.Mappers
             return new PositionViewModel()
             {
                 Latitude = $"{positionDto.Latitude:0.000000}",
-                Longitude = $"{positionDto.Latitude:0.000000}"
+                Longitude = $"{positionDto.Longitude:0.000000}"
             };
         }
 
