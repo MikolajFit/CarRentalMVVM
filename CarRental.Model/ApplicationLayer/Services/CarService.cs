@@ -81,6 +81,7 @@ namespace CarRental.Model.ApplicationLayer.Services
                 var rentalArea = _unitOfWork.RentalAreaRepository.Get(carDto.RentalAreaId);
                 carDto.RentalAreaName = rentalArea.Name;
             }
+
             return result;
         }
 
@@ -93,6 +94,7 @@ namespace CarRental.Model.ApplicationLayer.Services
                 var rentalArea = _unitOfWork.RentalAreaRepository.Get(carDto.RentalAreaId);
                 carDto.RentalAreaName = rentalArea.Name;
             }
+
             return result;
         }
 
@@ -103,7 +105,7 @@ namespace CarRental.Model.ApplicationLayer.Services
             car.PricePerMinute = new Money(carDTO.PricePerMinute);
             car.TotalDistance = new Distance(carDTO.TotalDistance);
             car.CurrentDistance = new Distance(carDTO.CurrentDistance);
-            car.CurrentPosition = new Position(carDTO.CurrentLatitude,carDTO.CurrentLongitude);
+            car.CurrentPosition = new Position(carDTO.CurrentLatitude, carDTO.CurrentLongitude);
         }
     }
 }

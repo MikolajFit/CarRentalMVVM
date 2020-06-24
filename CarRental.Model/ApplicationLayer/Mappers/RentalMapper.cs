@@ -14,7 +14,7 @@ namespace CarRental.Model.ApplicationLayer.Mappers
 
         public RentalDTO Map(Rental rental)
         {
-            return new RentalDTO()
+            return new RentalDTO
             {
                 Id = rental.Id,
                 CarId = rental.CarId,

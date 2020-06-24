@@ -40,7 +40,7 @@ namespace CarRental.UI.Utils
 
             var rentalArea = new RentalAreaDTO()
             {
-                Id = new Guid(),
+                Id = Guid.NewGuid(),
                 Name = "Kraków",
                 OutOfBondsPenaltyPerDistanceUnit = 2.5m,
                 Area = new List<PositionDTO>()

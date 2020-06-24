@@ -8,7 +8,7 @@ namespace CarRental.Model.InfrastructureLayer
     public class MemoryCarRentalUnitOfWork : ICarRentalUnitOfWork
     {
         public MemoryCarRentalUnitOfWork(IRepository<Car> carRepository, IRepository<Driver> driverRepository,
-            IRepository<Rental> rentalRepository,IRepository<RentalArea> rentalAreaRepository)
+            IRepository<Rental> rentalRepository, IRepository<RentalArea> rentalAreaRepository)
         {
             CarRepository = carRepository;
             DriverRepository = driverRepository;

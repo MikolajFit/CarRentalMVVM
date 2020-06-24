@@ -243,15 +243,19 @@ namespace CarRental.UI.Tests.ViewModelsTests.DriverViewModelsTests
             _rentalViewModelMapperMock.Map(rentalDtos[1]).Returns(rentalViewModelList[1]);
 
             var sut = new DriverRentalsViewModel(_rentalServiceMock, _rentalViewModelMapperMock);
-            sut.AssignLoggedInDriver(new DriverViewModel()
-            {
-                Id = Guid.NewGuid()
-            });
+            sut.CurrentDriver = new DriverViewModel(){Id = Guid.NewGuid()};
 
             Messenger.Default.Send(new RefreshRentalsMessage("message"));
-            _rentalServiceMock.Received(2).GetRentalsForDriver(Arg.Any<Guid>());
-            _rentalViewModelMapperMock.Received(4).Map(Arg.Any<RentalDTO>());
+            _rentalServiceMock.Received(1).GetRentalsForDriver(Arg.Any<Guid>());
+            _rentalViewModelMapperMock.Received(2).Map(Arg.Any<RentalDTO>());
 
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            _rentalServiceMock = null;
+            _rentalViewModelMapperMock = null;
         }
     }
 }

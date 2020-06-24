@@ -4,7 +4,7 @@ using DDD.Base.ApplicationLayer.Services;
 
 namespace CarRental.Model.ApplicationLayer.Interfaces
 {
-    public interface IDriverService:IApplicationService
+    public interface IDriverService : IApplicationService
     {
         void CreateDriver(DriverDTO driverDto);
         void UpdateDriver(DriverDTO driverDto);

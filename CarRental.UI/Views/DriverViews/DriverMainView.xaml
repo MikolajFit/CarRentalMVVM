@@ -35,13 +35,13 @@
                 <TabItem.Header>
                     <materialDesign:PackIcon Style="{DynamicResource TabHeaderIcon}" Kind="History" Height="80" Width="80"/>
                 </TabItem.Header>
-                <ContentControl Content="{Binding DriverRentalsViewModel,Source={StaticResource Locator}}" />
+                <ContentControl Content="{Binding DriverRentalsViewModel}" />
             </TabItem>
             <TabItem  >
                 <TabItem.Header>
                     <materialDesign:PackIcon Style="{DynamicResource TabHeaderIcon}" Kind="AccountDetails" Height="80" Width="80"/>
                 </TabItem.Header>
-                <ContentControl Content="{Binding DriverAccountViewModel, Source={StaticResource Locator}}"></ContentControl>
+                <ContentControl Content="{Binding DriverAccountViewModel}"></ContentControl>
             </TabItem>
             <TabItem>
                 <TabItem.Header>

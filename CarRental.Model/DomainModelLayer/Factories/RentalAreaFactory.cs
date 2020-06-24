@@ -7,8 +7,6 @@ namespace CarRental.Model.DomainModelLayer.Factories
 {
     public class RentalAreaFactory
     {
-
-
         public RentalArea Create(Guid id, decimal outOfBondsPenalty, List<PositionDTO> points, string name)
         {
             return new RentalArea(id, outOfBondsPenalty, points, name);

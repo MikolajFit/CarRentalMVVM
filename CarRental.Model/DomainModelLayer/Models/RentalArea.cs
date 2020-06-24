@@ -13,16 +13,18 @@ namespace CarRental.Model.DomainModelLayer.Models
             Name = name;
             OutOfBondsPenaltyPerDistanceUnit = new Money(outOfBondsPenalty);
             Area = new Area(points);
-            CarStartingPosition = new Position((points[0].Latitude+points[1].Latitude)/2,(points[0].Longitude+points[1].Longitude)/2);
+            CarStartingPosition = new Position((points[0].Latitude + points[1].Latitude) / 2,
+                (points[0].Longitude + points[1].Longitude) / 2);
             if (!IsInArea(CarStartingPosition)) throw new Exception("Car starting position cannot be outside of bonds");
         }
+
         public RentalArea(Guid id, decimal outOfBondsPenalty,
             List<PositionDTO> points, string name, Position carStartingPosition) : base(id)
         {
             Name = name;
             OutOfBondsPenaltyPerDistanceUnit = new Money(outOfBondsPenalty);
             Area = new Area(points);
-            if(!IsInArea(carStartingPosition)) throw new Exception("Car starting position cannot be outside of bonds");
+            if (!IsInArea(carStartingPosition)) throw new Exception("Car starting position cannot be outside of bonds");
             CarStartingPosition = carStartingPosition;
         }
 
@@ -35,7 +37,7 @@ namespace CarRental.Model.DomainModelLayer.Models
         {
             if (IsInArea(car.CurrentPosition)) return Money.Zero;
             var distanceFromArea = Area.GetDistanceFromNearestPoint(car.CurrentPosition, car.TotalDistance.Unit);
-            return OutOfBondsPenaltyPerDistanceUnit.MultiplyBy(Math.Round(distanceFromArea.Value,2));
+            return OutOfBondsPenaltyPerDistanceUnit.MultiplyBy(Math.Round(distanceFromArea.Value, 2));
         }
 
         public bool IsInArea(Position position)

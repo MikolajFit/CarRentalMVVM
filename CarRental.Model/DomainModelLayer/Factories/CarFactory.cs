@@ -5,9 +5,6 @@ namespace CarRental.Model.DomainModelLayer.Factories
 {
     public class CarFactory
     {
-
-    
-
         public Car Create(Guid carId, string registrationNumber, double currentDistance, double totalDistance,
             decimal pricePerMinute, Guid rentalAreaId)
         {

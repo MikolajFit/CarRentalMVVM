@@ -10,5 +10,6 @@ namespace CarRental.Model.ApplicationLayer.Interfaces
         void CreateRentalArea(RentalAreaDTO rentalAreaDto);
         List<RentalAreaDTO> GetAllRentalAreas();
         RentalAreaDTO GetRentalArea(Guid id);
+        void UpdateRentalArea(RentalAreaDTO rentalAreaDto);
     }
 }

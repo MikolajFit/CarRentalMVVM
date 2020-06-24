@@ -88,7 +88,7 @@
                 <adminViews:RentalsManagementView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type adminViewModels:RentalAreaManagementViewModel}">
-                <adminViews:RentalsManagementView />
+                <adminViews:RentalAreaManagementView />
             </DataTemplate>
             <Style x:Key="TabHeaderIcon" TargetType="{x:Type materialDesign:PackIcon}">
                 <Style.Triggers>

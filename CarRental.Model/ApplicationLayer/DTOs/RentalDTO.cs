@@ -13,6 +13,5 @@ namespace CarRental.Model.ApplicationLayer.DTOs
         public decimal PricePerMinute { get; set; }
         public Guid DriverId { get; set; }
         public string DriverName { get; set; }
-
     }
 }

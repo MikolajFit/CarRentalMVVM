@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using CarRental.Model.ApplicationLayer.DTOs;
 using CarRental.UI.ViewModels.ObservableObjects;
 
@@ -19,9 +20,9 @@ namespace CarRental.UI.Mappers
             var result = new RentalAreaViewModel
             {
                 CarStartingPosition = _positionVewModelMapper.Map(rentalAreaDto.CarStartingPositionDTO),
-                Area = new List<PositionViewModel>(),
+                Area = new ObservableCollection<PositionViewModel>(),
                 Id = rentalAreaDto.Id,
-                OutOfBondsPenaltyPerDistanceUnit = rentalAreaDto.OutOfBondsPenaltyPerDistanceUnit,
+                OutOfBondsPenaltyPerDistanceUnit = $"{rentalAreaDto.OutOfBondsPenaltyPerDistanceUnit:0.00}",
                 Name = rentalAreaDto.Name
             };
             foreach (var positionDto in rentalAreaDto.Area)
@@ -39,7 +40,7 @@ namespace CarRental.UI.Mappers
                 CarStartingPositionDTO = _positionVewModelMapper.Map(rentalArea.CarStartingPosition),
                 Area = new List<PositionDTO>(),
                 Id = rentalArea.Id,
-                OutOfBondsPenaltyPerDistanceUnit = rentalArea.OutOfBondsPenaltyPerDistanceUnit,
+                OutOfBondsPenaltyPerDistanceUnit = decimal.Parse(rentalArea.OutOfBondsPenaltyPerDistanceUnit),
                 Name = rentalArea.Name
             };
             foreach (var position in rentalArea.Area)

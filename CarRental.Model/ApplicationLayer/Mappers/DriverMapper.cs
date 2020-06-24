@@ -14,7 +14,7 @@ namespace CarRental.Model.ApplicationLayer.Mappers
 
         public DriverDTO Map(Driver d)
         {
-            return new DriverDTO()
+            return new DriverDTO
             {
                 Id = d.Id,
                 FirstName = d.FirstName,
@@ -24,7 +24,5 @@ namespace CarRental.Model.ApplicationLayer.Mappers
                 FreeMinutesPolicy = d.FreeMinutesPolicy.PolicyType
             };
         }
-
-       
     }
 }

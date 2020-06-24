@@ -11,7 +11,7 @@ namespace CarRental.Model.DomainModelLayer.Models
             StartDateTime = startDateTime;
             CarId = carId;
             DriverId = driverId;
-            Total=new Money(0);
+            Total = new Money(0);
         }
 
         public DateTime StartDateTime { get; set; }
@@ -20,7 +20,8 @@ namespace CarRental.Model.DomainModelLayer.Models
         public Guid CarId { get; set; }
         public Guid DriverId { get; set; }
 
-        public void StopRental(DateTime stopDateTime, Money pricePerMinute, double totalMinutes, double freeMinutes, Money outOfBondsPenalty)
+        public void StopRental(DateTime stopDateTime, Money pricePerMinute, double totalMinutes, double freeMinutes,
+            Money outOfBondsPenalty)
         {
             if (stopDateTime < StartDateTime)
                 throw new Exception("Stop date and time is earlier than stop");

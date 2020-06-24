@@ -84,7 +84,8 @@ namespace CarRental.Model.ApplicationLayer.Services
 
         public RentalDTO GetActiveRentalForDriver(Guid driverId)
         {
-            var rental = _unitOfWork.RentalRepository.Find(r => r.Id == driverId && r.StopDateTime.HasValue == false).FirstOrDefault();
+            var rental = _unitOfWork.RentalRepository
+                .Find(r => r.DriverId == driverId && r.StopDateTime.HasValue == false).FirstOrDefault();
             if (rental == null) return null;
             var result = _rentalMapper.Map(rental);
             AssignAdditionalValues(result);

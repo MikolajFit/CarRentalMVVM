@@ -20,7 +20,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Button  Grid.Row="0" Command="{Binding AdminLoginCommand}" Content="Admin" FontSize="15" Height="50"
+            <Button Grid.Row="0" Command="{Binding AdminLoginCommand}" Content="Admin" FontSize="15" Height="50"
                     Margin="10" Padding="10" Background="#FF4CAF50" Foreground="White" FontWeight="Normal" />
             <Image Height="250" Width="250" Grid.Row="1" Source="/Resources/Images/electric_car_.png" />
             <ComboBox Grid.Row="2" FontSize="20" Height="50" Margin="10" Padding="10" ItemsSource="{Binding Drivers}"
@@ -29,7 +29,6 @@
                     Margin="10" Padding="10" />
             <Button Grid.Row="4" Command="{Binding RegisterCommand}" Content="Register" FontSize="15" Height="50"
                     Margin="10" Padding="10" />
-
         </Grid>
     </DockPanel>
 

@@ -7,21 +7,24 @@ using CarRental.Model.ApplicationLayer.Mappers;
 using CarRental.Model.DomainModelLayer.Factories;
 using CarRental.Model.DomainModelLayer.Interfaces;
 using CarRental.Model.DomainModelLayer.Models;
+using DDD.Base.DomainModelLayer.Models;
 
 namespace CarRental.Model.ApplicationLayer.Services
 {
-    public class RentalAreaService:IRentalAreaService
+    public class RentalAreaService : IRentalAreaService
     {
         private readonly RentalAreaFactory _rentalAreaFactory;
         private readonly RentalAreaMapper _rentalAreaMapper;
         private readonly ICarRentalUnitOfWork _unitOfWork;
 
-        public RentalAreaService(RentalAreaFactory rentalAreaFactory, ICarRentalUnitOfWork unitOfWork, RentalAreaMapper rentalAreaMapper)
+        public RentalAreaService(RentalAreaFactory rentalAreaFactory, ICarRentalUnitOfWork unitOfWork,
+            RentalAreaMapper rentalAreaMapper)
         {
             _rentalAreaFactory = rentalAreaFactory;
             _unitOfWork = unitOfWork;
             _rentalAreaMapper = rentalAreaMapper;
         }
+
         public void CreateRentalArea(RentalAreaDTO rentalAreaDto)
         {
             var rentalArea = _unitOfWork.RentalAreaRepository.Find(d => d.Id == rentalAreaDto.Id)
@@ -31,7 +34,8 @@ namespace CarRental.Model.ApplicationLayer.Services
             rentalArea = _rentalAreaFactory.Create(rentalAreaDto.Id, rentalAreaDto.OutOfBondsPenaltyPerDistanceUnit,
                 rentalAreaDto.Area.ToList(), rentalAreaDto.Name);
             if (rentalAreaDto.CarStartingPositionDTO != null)
-                rentalArea.CarStartingPosition = new Position(rentalAreaDto.CarStartingPositionDTO.Latitude,rentalAreaDto.CarStartingPositionDTO.Longitude);
+                rentalArea.CarStartingPosition = new Position(rentalAreaDto.CarStartingPositionDTO.Latitude,
+                    rentalAreaDto.CarStartingPositionDTO.Longitude);
 
             _unitOfWork.RentalAreaRepository.Insert(rentalArea);
             _unitOfWork.Commit();
@@ -49,6 +53,18 @@ namespace CarRental.Model.ApplicationLayer.Services
             var rentalArea = _unitOfWork.RentalAreaRepository.Get(id);
             var result = _rentalAreaMapper.Map(rentalArea);
             return result;
+        }
+
+        public void UpdateRentalArea(RentalAreaDTO rentalAreaDto)
+        {
+            var rentalArea = _unitOfWork.RentalAreaRepository.Find(d => d.Id == rentalAreaDto.Id)
+                .FirstOrDefault();
+            if (rentalArea == null)
+                throw new Exception($"Rental Area with {rentalAreaDto.Name} doesn't exists.");
+            rentalArea.Name = rentalAreaDto.Name;
+            rentalArea.OutOfBondsPenaltyPerDistanceUnit = new Money(rentalAreaDto.OutOfBondsPenaltyPerDistanceUnit);
+            rentalArea.Area = new Area(rentalAreaDto.Area.ToList());
+            _unitOfWork.Commit();
         }
     }
 }

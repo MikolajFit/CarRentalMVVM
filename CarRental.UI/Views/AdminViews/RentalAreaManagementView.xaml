@@ -4,9 +4,91 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CarRental.UI.Views.AdminViews"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:utils="clr-namespace:CarRental.UI.Utils"
+             xmlns:policies1="clr-namespace:CarRental.Model.DomainModelLayer.Policies;assembly=CarRental.Model"
+             xmlns:models1="clr-namespace:CarRental.Model.DomainModelLayer.Models;assembly=CarRental.Model"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+             Padding="10"
+             d:DesignHeight="630" d:DesignWidth="1000">
+    <DockPanel DataContext="{Binding RentalAreaManagementViewModel, Source={StaticResource Locator}}" Background="White"
+               >
+        <Grid Background="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label Margin="10"  Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" FontSize="20">Rental Area Management</Label>
+            <DockPanel Width="600" Grid.Row="1" Grid.Column="0" Grid.RowSpan="1">
+                <Grid Margin="10" Background="White">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Margin="12" Content="Selected Rental Area" FontSize="15" FontWeight="Bold" />
+                    <ComboBox Grid.Row="0"  Grid.Column="1" VerticalContentAlignment="Center" Margin="12" MinWidth="100" ItemsSource="{Binding RentalAreas}" MinHeight="55" Padding="10"  SelectedItem="{Binding SelectedRentalArea, UpdateSourceTrigger=PropertyChanged}" BorderBrush="LightGreen" BorderThickness="1" FontSize="15" />
+                    <Label Grid.Row="1" Grid.Column="0" Margin="12" Content="Area Name:" FontSize="15" />
+                    <TextBox Grid.Row="1" Grid.Column="1" Margin="12" MinWidth="100" Padding="5" 
+                             Text="{Binding SelectedRentalArea.Name,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
+                             BorderBrush="LightGreen" BorderThickness="1" FontSize="15" />
+                    <Label Grid.Row="2" Grid.Column="0" Margin="12" Content="Out of bonds penalty per distance unit:" FontSize="15"  />
+                    <Label Grid.Row="3" Grid.Column="0" Margin="12" Content="Position" FontSize="15"   FontWeight="Bold"/>
+                    <Button Grid.Row="3" Grid.Column="1" Command="{Binding AddPositionCommand}" Content="{materialDesign:PackIcon Add, Size=15}" Foreground="White"
+                            Margin="10,10,80,10" Padding="10" HorizontalAlignment="Right" >
+                    </Button>
+                    <Button Grid.Row="3" Grid.Column="1" Command="{Binding SavePositionCommand}" Content="{materialDesign:PackIcon Check, Size=15}" FontSize="15" Foreground="White"
+                            Margin="10" Padding="10" HorizontalAlignment="Right" >
+                    </Button>
+                    <TextBox Grid.Row="2" Grid.Column="1" Margin="12" MinWidth="100" Padding="5" 
+                             Text="{Binding SelectedRentalArea.OutOfBondsPenaltyPerDistanceUnit,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
+                             BorderBrush="LightGreen" BorderThickness="1" FontSize="15" />
+                    <Label Grid.Row="4" Grid.Column="0" Margin="12" Content="Latitude" FontSize="15" />
+                    <TextBox Grid.Row="4" Grid.Column="1" Margin="12" MinWidth="100" Padding="5" 
+                             Text="{Binding SelectedPosition.Latitude,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
+                             BorderBrush="LightGreen" BorderThickness="1" FontSize="15"  IsEnabled="{Binding IsPositionTextEnabled}"/>
+                    <Label Grid.Row="5" Grid.Column="0" Margin="12" Content="Longitude" FontSize="15" />
+                    <TextBox Grid.Row="5" Grid.Column="1" Margin="12" MinWidth="100" Padding="5"  IsEnabled="{Binding IsPositionTextEnabled}"
+                             Text="{Binding SelectedPosition.Longitude,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
+                             BorderBrush="LightGreen" BorderThickness="1" FontSize="15" />
+                    <Button Grid.Row="6" Grid.Column="0" Command="{Binding AddRentalAreaCommand}" Content="Add" FontSize="15"
+                            Margin="10" VerticalAlignment="Bottom"  Height="40">
+                    </Button>
+                    <Button Grid.Row="6" Grid.Column="1" Command="{Binding SaveRentalAreaCommand}" Content="Save" FontSize="15"
+                            Margin="10" VerticalAlignment="Bottom" Height="40">
+                    </Button>
+                    <Label Grid.Row="7" Grid.Column="1" Foreground="Red" Content="{Binding SaveErrorContent}" FontSize="10"></Label>
+                </Grid>
+            </DockPanel>
+
+            <ListView Style="{DynamicResource MaterialDesignListView}" SelectionMode="Single"
+                      ItemsSource="{Binding SelectedRentalArea.Area, Mode=TwoWay}" SelectedItem="{Binding SelectedPosition}" IsEnabled="{Binding IsPositionListEnabled}"
+                      Grid.Row="1" Grid.Column="1" Width="360" FontSize="15">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Latitude"
+                                        DisplayMemberBinding="{Binding Latitude}" Width="160" />
+                        <GridViewColumn Header="Longitude" DisplayMemberBinding="{Binding Longitude}"  Width="160"  />
+
+                    </GridView>
+                </ListView.View>
+            </ListView>
+           
+        </Grid>
+
+    </DockPanel>
 </UserControl>

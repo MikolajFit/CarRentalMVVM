@@ -18,7 +18,7 @@ namespace CarRental.Model.DomainModelLayer.Models
         public void AddPointsToPolygon(List<PositionDTO> points)
         {
             if (Polygon.Count + points.Count < 3) throw new Exception("Shape has to have at least 3 points!");
-            foreach (var point in points) Polygon.Add(new Position(point.Latitude,point.Longitude));
+            foreach (var point in points) Polygon.Add(new Position(point.Latitude, point.Longitude));
         }
 
         public Distance GetDistanceFromNearestPoint(Position toPoint, DistanceUnit distanceUnit)

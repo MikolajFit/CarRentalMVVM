@@ -29,25 +29,25 @@
                 <TabItem.Header>
                     <materialDesign:PackIcon Style="{DynamicResource TabHeaderIcon}" Kind="UserSupervisor" Height="70" Width="70"/>
                 </TabItem.Header>
-                <ContentControl Content="{Binding DriversManagementViewModel, Source={StaticResource Locator}}"></ContentControl>
+                <ContentControl Content="{Binding DriversManagementViewModel}"></ContentControl>
             </TabItem>
             <TabItem >
                 <TabItem.Header>
                     <materialDesign:PackIcon Style="{DynamicResource TabHeaderIcon}" Kind="CarMultiple" Height="70" Width="70"/>
                 </TabItem.Header>
-                <ContentControl Content="{Binding CarsManagementViewModel,Source={StaticResource Locator}}" />
+                <ContentControl Content="{Binding CarsManagementViewModel}"/>
             </TabItem>
             <TabItem>
                 <TabItem.Header>
                     <materialDesign:PackIcon Style="{DynamicResource TabHeaderIcon}" Kind="MapClock" Height="70" Width="70"/>
                 </TabItem.Header>
-                <ContentControl Content="{Binding RentalsManagementViewModel, Source={StaticResource Locator}}" />
+                <ContentControl Content="{Binding RentalsManagementViewModel}" />
             </TabItem>
              <TabItem >
                 <TabItem.Header>
                     <materialDesign:PackIcon Style="{DynamicResource TabHeaderIcon}" Kind="Map" Height="70" Width="70"/>
                 </TabItem.Header>
-                <ContentControl Content="{Binding RentalAreaManagementViewModel,Source={StaticResource Locator}}" />
+                <ContentControl Content="{Binding RentalAreaManagementViewModel}"/>
             </TabItem>
             <TabItem>
                 <TabItem.Header>

@@ -21,8 +21,10 @@ namespace CarRental.Model.DomainModelLayer.Models
             if (FirstName.EndsWith("a")) RegisterPolicy(new StandardFreeMinutesPolicy());
             else RegisterPolicy(new VipFreeMinutesPolicy());
         }
+
         public IFreeMinutesPolicy FreeMinutesPolicy { get; protected set; }
         public DriverStatus DriverStatus { get; set; }
+
         public string LicenseNumber
         {
             get => _licenseNumber;
@@ -35,7 +37,7 @@ namespace CarRental.Model.DomainModelLayer.Models
 
         public string FirstName
         {
-            get => _firstName; 
+            get => _firstName;
             set
             {
                 if (string.IsNullOrEmpty(value)) throw new Exception("First name is null or empty");
@@ -53,7 +55,10 @@ namespace CarRental.Model.DomainModelLayer.Models
             }
         }
 
-        public double CalculateFreeMinutes(double total) => FreeMinutesPolicy?.CalculateFreeMinutes(total) ?? 0;
+        public double CalculateFreeMinutes(double total)
+        {
+            return FreeMinutesPolicy?.CalculateFreeMinutes(total) ?? 0;
+        }
 
         public void RegisterPolicy(IFreeMinutesPolicy policy)
         {

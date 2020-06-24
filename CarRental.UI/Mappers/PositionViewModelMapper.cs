@@ -21,6 +21,7 @@ namespace CarRental.UI.Mappers
 
         public PositionDTO Map(PositionViewModel positionViewModel)
         {
+            if (positionViewModel == null) return null;
             return  new PositionDTO()
             {
                 Latitude = double.Parse(positionViewModel.Latitude),

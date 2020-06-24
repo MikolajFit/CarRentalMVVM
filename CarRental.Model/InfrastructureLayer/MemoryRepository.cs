@@ -28,6 +28,7 @@ namespace CarRental.Model.InfrastructureLayer
         {
             return _entities;
         }
+
         public IList<TEntity> Find(Expression<Func<TEntity, bool>> expression)
         {
             return _entities
@@ -35,6 +36,7 @@ namespace CarRental.Model.InfrastructureLayer
                 .Where(expression)
                 .ToList();
         }
+
         public void Insert(TEntity entity)
         {
             _entities.Add(entity);
@@ -45,6 +47,4 @@ namespace CarRental.Model.InfrastructureLayer
             _entities.Remove(entity);
         }
     }
-
-
 }

@@ -78,6 +78,7 @@ namespace CarRental.UI.ViewModels
 
         public static void RegisterServices()
         {
+             SimpleIoc.Default.Register<IDriverService, DriverService>();
             SimpleIoc.Default.Register<ICarViewModelMapper, CarViewModelMapper>();
             SimpleIoc.Default.Register<IDriverViewModelMapper,DriverViewModelMapper>();
             SimpleIoc.Default.Register<IRentalViewModelMapper, RentalViewModelMapper>();
@@ -94,7 +95,7 @@ namespace CarRental.UI.ViewModels
             SimpleIoc.Default.Register<DriverMapper>();
             SimpleIoc.Default.Register<RentalAreaMapper>();
             SimpleIoc.Default.Register<RentalMapper>();
-            SimpleIoc.Default.Register<IDriverService, DriverService>();
+           
             SimpleIoc.Default.Register<ICarService, CarService>();
             SimpleIoc.Default.Register<IRentalService, RentalService>();
             SimpleIoc.Default.Register<IRentalAreaService, RentalAreaService>();

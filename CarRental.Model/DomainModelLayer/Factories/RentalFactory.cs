@@ -5,7 +5,6 @@ namespace CarRental.Model.DomainModelLayer.Factories
 {
     public class RentalFactory
     {
-
         public Rental Create(Guid rentalId, DateTime startDateTime, Car car, Guid driverId)
         {
             CheckIfCarIsFree(car);

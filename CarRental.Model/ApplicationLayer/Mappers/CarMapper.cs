@@ -15,18 +15,17 @@ namespace CarRental.Model.ApplicationLayer.Mappers
 
         public CarDTO Map(Car c)
         {
-            return new CarDTO()
+            return new CarDTO
             {
                 Id = c.Id,
                 CurrentDistance = c.CurrentDistance.Value,
                 TotalDistance = c.TotalDistance.Value,
-                CurrentLatitude = Math.Round(c.CurrentPosition.Latitude,6),
-                CurrentLongitude = Math.Round(c.CurrentPosition.Longitude,6),
+                CurrentLatitude = Math.Round(c.CurrentPosition.Latitude, 6),
+                CurrentLongitude = Math.Round(c.CurrentPosition.Longitude, 6),
                 Status = c.Status,
                 RegistrationNumber = c.RegistrationNumber,
                 PricePerMinute = c.PricePerMinute.Amount,
                 RentalAreaId = c.RentalAreaId,
-
             };
         }
     }
