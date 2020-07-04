@@ -41,12 +41,15 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Label Grid.Row="0" Grid.Column="0" Margin="12" Content="Selected Rental Area" FontSize="15" FontWeight="Bold" />
-                    <ComboBox Grid.Row="0"  Grid.Column="1" VerticalContentAlignment="Center" Margin="12" MinWidth="100" ItemsSource="{Binding RentalAreas}" MinHeight="55" Padding="10"  SelectedItem="{Binding SelectedRentalArea, UpdateSourceTrigger=PropertyChanged}" BorderBrush="LightGreen" BorderThickness="1" FontSize="15" />
+                    <ComboBox Grid.Row="0"  Grid.Column="1" VerticalContentAlignment="Center" Margin="12" MinWidth="100" MinHeight="55" Padding="10"  SelectedItem="{Binding SelectedRentalArea, UpdateSourceTrigger=PropertyChanged}" BorderBrush="LightGreen" BorderThickness="1" FontSize="15" ItemsSource="{Binding RentalAreas}"/>
                     <Label Grid.Row="1" Grid.Column="0" Margin="12" Content="Area Name:" FontSize="15" />
                     <TextBox Grid.Row="1" Grid.Column="1" Margin="12" MinWidth="100" Padding="5" 
                              Text="{Binding SelectedRentalArea.Name,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
                              BorderBrush="LightGreen" BorderThickness="1" FontSize="15" />
                     <Label Grid.Row="2" Grid.Column="0" Margin="12" Content="Out of bonds penalty per distance unit:" FontSize="15"  />
+                    <TextBox Grid.Row="2" Grid.Column="1" Margin="12" MinWidth="100" Padding="5" 
+                             Text="{Binding SelectedRentalArea.OutOfBondsPenaltyPerDistanceUnit,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
+                             BorderBrush="LightGreen" BorderThickness="1" FontSize="15" />
                     <Label Grid.Row="3" Grid.Column="0" Margin="12" Content="Position" FontSize="15"   FontWeight="Bold"/>
                     <Button Grid.Row="3" Grid.Column="1" Command="{Binding AddPositionCommand}" Content="{materialDesign:PackIcon Add, Size=15}" Foreground="White"
                             Margin="10,10,80,10" Padding="10" HorizontalAlignment="Right" >
@@ -54,9 +57,7 @@
                     <Button Grid.Row="3" Grid.Column="1" Command="{Binding SavePositionCommand}" Content="{materialDesign:PackIcon Check, Size=15}" FontSize="15" Foreground="White"
                             Margin="10" Padding="10" HorizontalAlignment="Right" >
                     </Button>
-                    <TextBox Grid.Row="2" Grid.Column="1" Margin="12" MinWidth="100" Padding="5" 
-                             Text="{Binding SelectedRentalArea.OutOfBondsPenaltyPerDistanceUnit,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
-                             BorderBrush="LightGreen" BorderThickness="1" FontSize="15" />
+                    
                     <Label Grid.Row="4" Grid.Column="0" Margin="12" Content="Latitude" FontSize="15" />
                     <TextBox Grid.Row="4" Grid.Column="1" Margin="12" MinWidth="100" Padding="5" 
                              Text="{Binding SelectedPosition.Latitude,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 

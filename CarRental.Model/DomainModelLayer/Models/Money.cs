@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
+using DDD.Base.DomainModelLayer.Models;
 
-namespace DDD.Base.DomainModelLayer.Models
+namespace CarRental.Model.DomainModelLayer.Models
 {
     // Na podstawie:
     // https://enterprisecraftsmanship.com/posts/value-object-better-implementation/

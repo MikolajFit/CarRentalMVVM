@@ -1,6 +1,5 @@
 ﻿using CarRental.Model.DomainModelLayer.Interfaces;
 using CarRental.Model.DomainModelLayer.Models;
-using DDD.Base.DomainModelLayer.Interfaces;
 using GalaSoft.MvvmLight.Ioc;
 
 namespace CarRental.Model.InfrastructureLayer

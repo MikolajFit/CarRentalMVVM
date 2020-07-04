@@ -1,4 +1,4 @@
-﻿namespace DDD.Base.DomainModelLayer.Models
+﻿namespace CarRental.Model.DomainModelLayer.Models
 {
     // Żródło: https://bottega.com.pl/ddd-cqrs-sample-project
     public static class MoneyExtensions

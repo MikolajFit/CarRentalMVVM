@@ -1,6 +1,5 @@
 ﻿using System;
 using CarRental.Model.DomainModelLayer.Models;
-using DDD.Base.DomainModelLayer.Interfaces;
 
 namespace CarRental.Model.DomainModelLayer.Interfaces
 {

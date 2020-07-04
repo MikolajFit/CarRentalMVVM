@@ -1,9 +1,10 @@
-﻿using DDD.Base.DomainModelLayer.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using CarRental.Model.DomainModelLayer.Models;
+using DDD.Base.DomainModelLayer.Models;
 
-namespace DDD.Base.DomainModelLayer.Interfaces
+namespace CarRental.Model.DomainModelLayer.Interfaces
 {
     public interface IRepository<TEntity>
         where TEntity : AggregateRoot

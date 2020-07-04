@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DDD.Base.DomainModelLayer.Models
+namespace CarRental.Model.DomainModelLayer.Models
 {
     public abstract class Entity
     {

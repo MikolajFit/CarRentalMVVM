@@ -23,7 +23,10 @@ namespace CarRental.UI.ViewModels.AdminViewModels
             _rentalService = rentalService ?? throw new ArgumentNullException();
             _rentalViewModelMapper = rentalViewModelMapper ?? throw new ArgumentNullException();
             RentalsObservableCollection = new ObservableCollection<RentalViewModel>();
-            _rentalsCollection = new CollectionViewSource {Source = RentalsObservableCollection};
+            _rentalsCollection = new CollectionViewSource
+            {
+                Source = RentalsObservableCollection
+            };
             _rentalsCollection.Filter += FilterActiveRentals;
             RefreshRentalsCollection();
         }

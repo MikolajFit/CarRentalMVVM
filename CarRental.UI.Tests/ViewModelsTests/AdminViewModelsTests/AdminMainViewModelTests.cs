@@ -20,13 +20,13 @@ namespace CarRental.UI.Tests.ViewModelsTests.AdminViewModelsTests
         [Test]
         public void ShouldThrowExceptionIfPassedNullArgumentInConstructor()
         {
-            Assert.Throws<ArgumentNullException>(() => new AdminMainViewModel(null));
+            Assert.Throws<ArgumentNullException>(() => new AdminMainViewModel(null,null,null,null,null));
         }
 
         [Test]
         public void ShouldSendLogoutMessage()
         {
-            var sut = new AdminMainViewModel(_messengerServiceMock);
+            var sut = new AdminMainViewModel(_messengerServiceMock, null, null, null, null);
             sut.LogoutCommand.Execute(null);
             _messengerServiceMock.Received().Send(Arg.Is<NotificationMessage>(m => m.Notification == "Logout"));
         }

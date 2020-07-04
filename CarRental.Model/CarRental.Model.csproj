@@ -9,10 +9,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DDD.Base\DDD.Base.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="System.Device" />
   </ItemGroup>
 

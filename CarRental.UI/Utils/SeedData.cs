@@ -23,7 +23,7 @@ namespace CarRental.UI.Utils
             {
                 Id = Guid.NewGuid(),
                 FirstName = "Paweł",
-                LastName = "Fitowski",
+                LastName = "Nowak",
                 LicenseNumber = "ABBCDEFD"
             };
 
@@ -31,7 +31,7 @@ namespace CarRental.UI.Utils
             {
                 Id = new Guid(),
                 FirstName = "Michał",
-                LastName = "Fitowski",
+                LastName = "Kowalski",
                 LicenseNumber = "CD1813"
             };
             driverService.CreateDriver(driver);
@@ -109,7 +109,7 @@ namespace CarRental.UI.Utils
                 RentalAreaId = rentalArea.Id,
                 CurrentLatitude = 50.057236,
                 CurrentLongitude = 19.945147,
-                PricePerMinute = 2.5m
+                PricePerMinute = 0.5m
             };
             carService.CreateCar(car);
             carService.CreateCar(car1);
@@ -136,7 +136,7 @@ namespace CarRental.UI.Utils
             rentalService.ReturnCar(rentalId2, DateTime.Now);
 
             var rentalId3 = Guid.NewGuid();
-            var startTime3 = new DateTime(2020, 05, 17);
+            var startTime3 = new DateTime(2020, 06, 25,20,0,20);
 
             rentalService.TakeCar(rentalId3, car3.Id, driver1.Id, startTime3);
           

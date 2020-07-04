@@ -7,8 +7,36 @@ using GalaSoft.MvvmLight;
 
 namespace CarRental.UI.ViewModels.ObservableObjects
 {
-    public class RentalAreaViewModel:ObservableObject, IDataErrorInfo
+    public class RentalAreaViewModel: ObservableObject, IDataErrorInfo
     {
+        public string this[string columnName]
+        {
+            get
+            {
+                var result = GetValidationError(columnName);
+                return result;
+            }
+        }
+
+        private string GetValidationError(string propertyName)
+        {
+            string error = null;
+
+            switch (propertyName)
+            {
+                case nameof(Name):
+                    if (string.IsNullOrEmpty(Name)) error = "Name cannot be empty!";
+                    break;
+                case nameof(OutOfBondsPenaltyPerDistanceUnit):
+                    if (!double.TryParse(OutOfBondsPenaltyPerDistanceUnit, out _)) error = "Enter valid number";
+                    break;
+            }
+
+            return error;
+        }
+
+        public string Error { get; }
+
         public RentalAreaViewModel()
         {
             Area = new ObservableCollection<PositionViewModel>();
@@ -48,34 +76,12 @@ namespace CarRental.UI.ViewModels.ObservableObjects
         {
             return Name;
         }
-        public bool IsValid => ValidatedProperties.All(property => GetValidationError(property) == null) && Area.ToList().TrueForAll((position => position.IsValid)) && Area.Count>=3;
+        public bool IsValid =>
+            ValidatedProperties.All(property => GetValidationError(property) == null) &&
+            Area.ToList()
+                .TrueForAll((position => position.IsValid)) &&
+            Area.Count >= 3;
 
-        public string this[string columnName]
-        {
-            get
-            {
-                var result = GetValidationError(columnName);
-                return result;
-            }
-        }
-
-        private string GetValidationError(string propertyName)
-        {
-            string error = null;
-
-            switch (propertyName)
-            {
-                case nameof(Name):
-                    if (string.IsNullOrEmpty(Name)) error = "Name cannot be empty!";
-                    break;
-                case nameof(OutOfBondsPenaltyPerDistanceUnit):
-                    if (!double.TryParse(OutOfBondsPenaltyPerDistanceUnit, out _)) error = "Enter valid number";
-                    break;
-            }
-
-            return error;
-        }
-
-        public string Error { get; }
+       
     }
 }

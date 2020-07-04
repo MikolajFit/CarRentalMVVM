@@ -14,7 +14,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CarRental.Model\CarRental.Model.csproj" />
-    <ProjectReference Include="..\DDD.Base\DDD.Base.csproj" />
   </ItemGroup>
 
   <ItemGroup>
