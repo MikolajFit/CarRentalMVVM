@@ -4,6 +4,7 @@ using CarRental.Model.ApplicationLayer.DTOs;
 using CarRental.Model.DomainModelLayer.Interfaces;
 using CarRental.Model.DomainModelLayer.Models;
 using CarRental.Model.DomainModelLayer.Services;
+using CarRental.Model.InfrastructureLayer;
 using CarRental.Model.Tests.TestHelpers;
 using NUnit.Framework;
 
@@ -254,11 +255,10 @@ namespace CarRental.Model.Tests
         [TestCase(2522.5, "Mezczyzn", 50.098694, 19.857368)]
         [TestCase(3240, "Kobieta", 50.044958, 19.937624)]
         [TestCase(3242.5, "Kobieta", 50.098694, 19.857368)]
-        public void ShouldProperlyCalculateTotalWhenReturningCar(decimal expectedTotal, string driverName,
-            double afterRentalLatitude, double afterRentalLongitude)
+        public void ShouldProperlyCalculateTotalWhenReturningCar(decimal expectedTotal, string driverName, double afterRentalLatitude, double afterRentalLongitude)
         {
-            TestContainer.ChangePositionService(new StubPositionService(TestContainer.UnitOfWork,
-                new Position(afterRentalLatitude, afterRentalLongitude)));
+            //assign
+            TestContainer.ChangePositionService(new StubPositionService(TestContainer.UnitOfWork, new Position(afterRentalLatitude, afterRentalLongitude)));
             var driver = new DriverDTO
             {
                 Id = new Guid(),
@@ -282,14 +282,16 @@ namespace CarRental.Model.Tests
             };
             TestContainer.CarService.CreateCar(car);
 
-
             var rentalId = new Guid();
             var startTime = new DateTime(2020, 04, 19);
 
+            //act
             TestContainer.RentalService.TakeCar(rentalId, car.Id, driver.Id, startTime);
             var stopTime = new DateTime(2020, 04, 20);
             TestContainer.RentalService.ReturnCar(rentalId, stopTime);
             var actual = TestContainer.RentalService.GetAllRentals().First();
+
+            //assert
             Assert.AreEqual(expectedTotal, actual.Total);
         }
 

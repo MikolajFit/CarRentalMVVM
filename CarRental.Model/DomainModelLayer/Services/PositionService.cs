@@ -1,6 +1,7 @@
 ﻿using System;
 using CarRental.Model.DomainModelLayer.Interfaces;
 using CarRental.Model.DomainModelLayer.Models;
+using CarRental.Model.InfrastructureLayer;
 
 namespace CarRental.Model.DomainModelLayer.Services
 {

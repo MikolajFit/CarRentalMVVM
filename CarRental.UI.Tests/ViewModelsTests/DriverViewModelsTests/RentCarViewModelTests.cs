@@ -90,6 +90,7 @@ namespace CarRental.UI.Tests.ViewModelsTests.DriverViewModelsTests
         [Test]
         public void ShouldSendRentalViewModelMessageWithContinueRentalPropertyIfDriverHasActiveRental()
         {
+            //assign
             var driverId = Guid.NewGuid();
             var driverViewModel = new DriverViewModel()
             {
@@ -97,11 +98,15 @@ namespace CarRental.UI.Tests.ViewModelsTests.DriverViewModelsTests
             };
             var activeRentalDto = new RentalDTO();
             _rentalServiceMock.GetActiveRentalForDriver(driverId).Returns(activeRentalDto);
+
             var activeRentalViewModel = new RentalViewModel();
             _rentalViewModelMapperMock.Map(activeRentalDto).Returns(activeRentalViewModel);
-            var sut = new RentCarViewModel(_carServiceMock, _rentalServiceMock, _carViewModelMapperMock,
-                _rentalViewModelMapperMock, _messengerServiceMock);
+
+            //act
+            var sut = new RentCarViewModel(_carServiceMock, _rentalServiceMock, _carViewModelMapperMock, _rentalViewModelMapperMock, _messengerServiceMock);
             sut.AssignLoggedInDriver(driverViewModel);
+
+            //assert
             _messengerServiceMock.Received().Send(Arg.Is<RentalViewModelMessage>(message =>message.RentalViewModel == activeRentalViewModel && message.MessageType == RentalViewModelMessageType.ContinueRental ));
             _messengerServiceMock.Received().Send(Arg.Is<NotificationMessage>(message =>message.Notification == "Start Car Rental"));
         }

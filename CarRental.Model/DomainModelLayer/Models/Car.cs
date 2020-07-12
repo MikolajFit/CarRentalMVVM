@@ -1,5 +1,4 @@
 ﻿using System;
-using DDD.Base.DomainModelLayer.Models;
 
 namespace CarRental.Model.DomainModelLayer.Models
 {

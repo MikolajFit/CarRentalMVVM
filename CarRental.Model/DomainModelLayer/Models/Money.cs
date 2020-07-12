@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using DDD.Base.DomainModelLayer.Models;
 
 namespace CarRental.Model.DomainModelLayer.Models
 {

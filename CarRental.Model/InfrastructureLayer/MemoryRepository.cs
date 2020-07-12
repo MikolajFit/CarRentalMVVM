@@ -4,7 +4,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using CarRental.Model.DomainModelLayer.Interfaces;
 using CarRental.Model.DomainModelLayer.Models;
-using DDD.Base.DomainModelLayer.Models;
 
 namespace CarRental.Model.InfrastructureLayer
 {

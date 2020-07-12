@@ -1,7 +1,7 @@
 ﻿using System;
 using CarRental.Model.DomainModelLayer.Models;
 
-namespace CarRental.Model.DomainModelLayer.Interfaces
+namespace CarRental.Model.InfrastructureLayer
 {
     public interface ICarRentalUnitOfWork : IUnitOfWork, IDisposable
     {

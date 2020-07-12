@@ -8,6 +8,7 @@ using CarRental.Model.DomainModelLayer.Factories;
 using CarRental.Model.DomainModelLayer.Interfaces;
 using CarRental.Model.DomainModelLayer.Models;
 using CarRental.Model.DomainModelLayer.Policies;
+using CarRental.Model.InfrastructureLayer;
 
 namespace CarRental.Model.ApplicationLayer.Services
 {

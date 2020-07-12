@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace DDD.Base.DomainModelLayer.Models
+namespace CarRental.Model.DomainModelLayer.Models
 {
     // Source: https://enterprisecraftsmanship.com/posts/value-object-better-implementation/
     public abstract class ValueObject

@@ -45,6 +45,7 @@ namespace CarRental.UI.Tests.ViewModelsTests.AdminViewModelsTests
         [Test]
         public void ShouldAddDriversToList()
         {
+            //assign
             var driverDtoList = new List<DriverDTO>()
             {
                 new DriverDTO()
@@ -52,7 +53,11 @@ namespace CarRental.UI.Tests.ViewModelsTests.AdminViewModelsTests
             var driverViewModel = new DriverViewModel();
             _driverServiceMock.GetAllDrivers().Returns(driverDtoList);
             _driverViewModelMapperMock.Map(driverDtoList[0]).Returns(driverViewModel);
+
+            //act
             var sut = new DriversManagementViewModel(_driverServiceMock, _driverViewModelMapperMock);
+
+            //assert
             Assert.AreEqual(1,sut.DriversCollection.Count);
             Assert.AreEqual(driverViewModel, sut.DriversCollection.First());
         }

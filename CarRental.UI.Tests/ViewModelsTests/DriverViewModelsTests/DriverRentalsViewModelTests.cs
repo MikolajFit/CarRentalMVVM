@@ -251,11 +251,5 @@ namespace CarRental.UI.Tests.ViewModelsTests.DriverViewModelsTests
 
         }
 
-        [TearDown]
-        public void TearDown()
-        {
-            _rentalServiceMock = null;
-            _rentalViewModelMapperMock = null;
-        }
     }
 }

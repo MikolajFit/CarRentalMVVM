@@ -4,6 +4,7 @@ using CarRental.UI.Mappers;
 using CarRental.UI.Services;
 using CarRental.UI.Utils.Interfaces;
 using CarRental.UI.ViewModels.DriverViewModels;
+using CarRental.UI.ViewModels.ObservableObjects;
 using GalaSoft.MvvmLight.Messaging;
 using NSubstitute;
 using NUnit.Framework;
@@ -32,6 +33,7 @@ namespace CarRental.UI.Tests.ViewModelsTests.DriverViewModelsTests
                 Substitute.For<IDriverViewModelMapper>());
             _driverRentalsViewModelMock = Substitute.For<DriverRentalsViewModel>(Substitute.For<IRentalService>(),
                 Substitute.For<IRentalViewModelMapper>());
+            _driverRentalsViewModelMock.CurrentDriver = new DriverViewModel() {Id = Guid.NewGuid()};
         }
 
         [Test]
@@ -67,14 +69,5 @@ namespace CarRental.UI.Tests.ViewModelsTests.DriverViewModelsTests
             Messenger.Default.Send(new NotificationMessage("Start Car Rental"));
             Assert.AreEqual(_activeRentalSessionViewModelMock, sut.CurrentRentCarViewModel);
         }
-        [TearDown]
-        public void TearDown()
-        {
-            _activeRentalSessionViewModelMock=null;
-            _messengerServiceMock = null; 
-            _rentCarViewModelMock = null;
-            _driverAccountViewModelMock = null; 
-        _driverRentalsViewModelMock = null; 
-    }
     }
 }

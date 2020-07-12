@@ -7,7 +7,7 @@ using CarRental.Model.ApplicationLayer.Mappers;
 using CarRental.Model.DomainModelLayer.Factories;
 using CarRental.Model.DomainModelLayer.Interfaces;
 using CarRental.Model.DomainModelLayer.Models;
-using DDD.Base.DomainModelLayer.Models;
+using CarRental.Model.InfrastructureLayer;
 
 namespace CarRental.Model.ApplicationLayer.Services
 {
